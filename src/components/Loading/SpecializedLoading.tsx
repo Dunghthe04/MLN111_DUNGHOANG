@@ -33,7 +33,7 @@ export const Part3Loading = () => (
         </div>
       </div>
       <h2 className="text-2xl font-bold text-white mt-6 mb-2">Đang tải nội dung</h2>
-      <p className="text-red-200">Chuẩn bị tài liệu về điều kiện xây dựng đại đoàn kết...</p>
+      <p className="text-red-200">Chuẩn bị tư liệu về triết học Mác-Lênin...</p>
       <div className="flex items-center justify-center mt-4 space-x-1">
         <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
         <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>

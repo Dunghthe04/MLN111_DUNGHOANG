@@ -1,7 +1,7 @@
 import { ShootingStars } from "../components/aceternityui/shooting-stars";
 import { StarsBackground } from "../components/aceternityui/stars-background";
 import { AuroraText } from "../components/magicui/aurora-text";
-import { Target, Users, ShieldCheck, Scale, Workflow } from "lucide-react";
+import { Target, BookOpen, FlaskConical, Lightbulb, Scale } from "lucide-react";
 import ChatGPTLogo from "../assets/ChatGPT_logo.svg?react"
 import ChatGPT from "../assets/ChatGPT.svg?react"
 import GeminiLogo from "../assets/Google-gemini-icon.svg?react"
@@ -12,12 +12,12 @@ const rules = [
   {
     title: "Nguyên tắc 1",
     content:
-      "AI được sử dụng với vai trò công cụ hỗ trợ, không thay thế tư duy, phân tích và sáng tạo của nhóm.",
+      "AI được sử dụng với vai trò công cụ hỗ trợ, không thay thế tư duy phân tích và sáng tạo của nhóm.",
   },
   {
     title: "Nguyên tắc 2",
     content:
-      "Mọi thông tin do AI cung cấp đều được kiểm chứng, đối chiếu với nguồn chính thống.",
+      "Mọi thông tin do AI cung cấp đều được kiểm chứng với Giáo trình Triết học Mác-Lênin chính thống.",
   },
   {
     title: "Nguyên tắc 3",
@@ -33,41 +33,39 @@ const rules = [
 
 const LOs = [
   {
+    code: "LO1",
+    content:
+      "Hiểu được điều kiện, tiền đề lịch sử-xã hội, khoa học-tự nhiên và lý luận hình thành triết học Mác-Lênin.",
+  },
+  {
+    code: "LO2",
+    content:
+      "Nắm vững quá trình hình thành và phát triển triết học Mác qua các giai đoạn: Marx-Engels (1840-1895) và Lenin (1895-1924).",
+  },
+  {
     code: "LO3",
     content:
-      "Hiểu hệ thống tư tưởng Hồ Chí Minh (độc lập dân tộc, CNXH, đại đoàn kết, đoàn kết quốc tế, xây dựng Đảng – Nhà nước, đạo đức – văn hóa – con người).",
+      "Hiểu được những đặc trưng cơ bản: tính khoa học, tính cách mạng, tính đảng và tính mở của triết học Mác-Lênin.",
   },
   {
     code: "LO4",
     content:
-      "Hiểu được vai trò nền tảng lý luận của Chủ nghĩa Mác-Lênin, tư tưởng Hồ Chí Minh đối với đường lối của Đảng, Nhà nước.",
+      "Vận dụng nền tảng triết học Mác-Lênin vào nhận thức các vấn đề thực tiễn xã hội Việt Nam hiện nay.",
   },
   {
-    code: "LO6",
+    code: "LO5",
     content:
-      "Phát triển kỹ năng làm việc nhóm, tư duy phân tích – đánh giá, tìm kiếm và trình bày tài liệu, ứng dụng AI có đạo đức.",
-  },
-  {
-    code: "LO7",
-    content:
-      "Củng cố tinh thần yêu nước, ý thức công dân, kỷ luật, thái độ nghề nghiệp đúng đắn, tinh thần học tập suốt đời.",
-  },
-  {
-    code: "LO8",
-    content:
-      "Hình thành tác phong chuyên nghiệp, khoa học, có khả năng cập nhật kiến thức mới chủ động.",
+      "Phát triển kỹ năng làm việc nhóm, tư duy phân tích – phê phán, tìm kiếm và trình bày tài liệu học thuật, ứng dụng AI có đạo đức.",
   },
 ];
 
 export default function Overview() {
   return (
     <div className="relative text-stone-600 w-full min-h-screen bg-[#FDF6E3] px-6 md:px-12 pt-28 pb-20 overflow-x-hidden z-0 scrollbar-thin scrollbar-thumb-red-800/20 scrollbar-track-transparent">
-      {/* Subtle map projection in background */}
-      <img 
-        className="fixed opacity-[0.06] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none -z-10 scale-110 select-none" 
-        src="/imgs/Vietnam_(orthographic_projection).svg" 
-        alt="Vietnam Outline"
-      />
+      {/* Background decoration */}
+      <div className="fixed opacity-[0.04] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none -z-10 select-none text-[20vw] font-title text-red-700">
+        MLN
+      </div>
 
       <div className="max-w-6xl mx-auto z-10 relative space-y-16">
         {/* Title Header */}
@@ -78,9 +76,10 @@ export default function Overview() {
             </span>
           </h2>
           <div className="space-y-1 text-sm md:text-base font-medium tracking-wide text-stone-500 uppercase">
-            <p>“Đại Đoàn Kết – Sức mạnh dân tộc Việt Nam”</p>
-            <p className="text-red-700/80 text-xs md:text-sm">"Kết nối truyền thống – Ứng dụng công nghệ – Lan tỏa giá trị đoàn kết"</p>
+            <p>"Hành Trình Hình Thành Triết Học Mác-Lênin"</p>
+            <p className="text-red-700/80 text-xs md:text-sm">"Từ lý luận đến thực tiễn — Từ quá khứ đến hiện tại"</p>
           </div>
+          <div className="text-xs text-stone-400 font-medium">MLN111 · Nhóm 2 · FPT University</div>
           <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-red-600/40 to-transparent mx-auto mt-4" />
         </div>
 
@@ -89,52 +88,66 @@ export default function Overview() {
           <h3 className="text-xl font-bold uppercase tracking-wider text-red-600 border-l-2 border-red-600 pl-3 flex items-center gap-2">
             I. Tóm tắt dự án
           </h3>
-          
+
           <div className="space-y-6">
             <p className="text-stone-600 leading-relaxed max-w-4xl text-base">
-              Dự án làm rõ <span className="font-semibold text-amber-700">tư tưởng Hồ Chí Minh về đại đoàn kết toàn dân tộc</span>,
-              coi đây là <span className="font-semibold text-amber-700">chiến lược cơ bản, lâu dài và xuyên suốt</span> của cách mạng Việt Nam.
+              Dự án làm rõ{" "}
+              <span className="font-semibold text-amber-700">quá trình hình thành và phát triển Triết học Mác-Lênin</span>{" "}
+              — từ những tiền đề lịch sử-xã hội, khoa học-tự nhiên và lý luận, đến các giai đoạn phát triển qua Marx, Engels và Lenin.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
               <div className="relative overflow-hidden rounded-xl border border-red-800/15 bg-[#FAF0DC]/60 backdrop-blur-sm p-6 shadow-sm hover:border-red-600/30 transition duration-300 lg:col-span-4 group hover:shadow-[0_0_20px_rgba(185,28,28,0.06)]">
                 <h4 className="text-base font-bold text-amber-700 flex items-center gap-2">
-                  <Target className="size-5 text-red-700" /> Vai trò
+                  <Target className="size-5 text-red-700" /> Mục tiêu
                 </h4>
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(320px_200px_at_15%_0%,rgba(185,28,28,0.04),transparent_60%)]" />
-                <p className="text-stone-500 text-sm mt-3 leading-relaxed">Đại đoàn kết là nhân tố quyết định thành bại của cách mạng.</p>
+                <p className="text-stone-500 text-sm mt-3 leading-relaxed">
+                  Giúp sinh viên hiểu sâu về nguồn gốc, bản chất và vai trò của Triết học Mác-Lênin qua không gian triển lãm số tương tác.
+                </p>
               </div>
 
               <div className="relative overflow-hidden rounded-xl border border-red-800/15 bg-[#FAF0DC]/60 backdrop-blur-sm p-6 shadow-sm hover:border-red-600/30 transition duration-300 lg:col-span-4 group hover:shadow-[0_0_20px_rgba(185,28,28,0.06)]">
                 <h4 className="text-base font-bold text-amber-700 flex items-center gap-2">
-                  <Users className="size-5 text-red-700" /> Lực lượng
+                  <BookOpen className="size-5 text-red-700" /> Phạm vi nghiên cứu
                 </h4>
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(320px_200px_at_85%_0%,rgba(185,28,28,0.04),transparent_60%)]" />
-                <p className="text-stone-500 text-sm mt-3 leading-relaxed">Toàn dân Việt Nam; <span className="font-semibold text-stone-700">liên minh công – nông – trí thức</span> là nòng cốt.</p>
+                <p className="text-stone-500 text-sm mt-3 leading-relaxed">
+                  Chương 1 — MLN111: Triết học và vai trò của nó trong đời sống xã hội. Sự ra đời và phát triển của triết học Mác-Lênin.
+                </p>
               </div>
 
               <div className="relative overflow-hidden rounded-xl border border-red-800/15 bg-[#FAF0DC]/60 backdrop-blur-sm p-6 shadow-sm hover:border-red-600/30 transition duration-300 lg:col-span-4 group hover:shadow-[0_0_20px_rgba(185,28,28,0.06)]">
                 <h4 className="text-base font-bold text-amber-700 flex items-center gap-2">
-                  <ShieldCheck className="size-5 text-red-700" /> Điều kiện
+                  <FlaskConical className="size-5 text-red-700" /> Phương pháp
                 </h4>
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(300px_180px_at_0%_100%,rgba(185,28,28,0.04),transparent_60%)]" />
-                <p className="text-stone-500 text-sm mt-3 leading-relaxed">Đặt lợi ích chung lên cao nhất, kế thừa truyền thống, khoan dung và tin dân.</p>
+                <p className="text-stone-500 text-sm mt-3 leading-relaxed">
+                  Nghiên cứu tài liệu chính thống, tổng hợp và trình bày qua giao diện web tương tác với timeline, flashcard và quiz.
+                </p>
               </div>
 
               <div className="relative overflow-hidden rounded-xl border border-red-800/15 bg-[#FAF0DC]/60 backdrop-blur-sm p-6 shadow-sm hover:border-red-600/30 transition duration-300 lg:col-span-6 group hover:shadow-[0_0_20px_rgba(185,28,28,0.06)]">
                 <h4 className="text-base font-bold text-amber-700 flex items-center gap-2">
-                  <Scale className="size-5 text-red-700" /> Hình thức & nguyên tắc
+                  <Lightbulb className="size-5 text-red-700" /> Nội dung chính
                 </h4>
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(380px_220px_at_100%_0%,rgba(185,28,28,0.04),transparent_60%)]" />
-                <p className="text-stone-500 text-sm mt-3 leading-relaxed">Mặt trận dân tộc thống nhất dưới sự lãnh đạo của Đảng; hiệp thương dân chủ; đoàn kết lâu dài.</p>
+                <ul className="text-stone-500 text-sm mt-3 leading-relaxed space-y-1">
+                  <li>• Bối cảnh lịch sử-xã hội (Cách mạng CN, giai cấp công nhân)</li>
+                  <li>• Ba nguồn gốc lý luận (Đức, Anh, Pháp)</li>
+                  <li>• Giai đoạn Marx-Engels (1818-1895)</li>
+                  <li>• Lenin phát triển triết học Mác (1870-1924)</li>
+                </ul>
               </div>
 
               <div className="relative overflow-hidden rounded-xl border border-red-800/15 bg-[#FAF0DC]/60 backdrop-blur-sm p-6 shadow-sm hover:border-red-600/30 transition duration-300 lg:col-span-6 group hover:shadow-[0_0_20px_rgba(185,28,28,0.06)]">
                 <h4 className="text-base font-bold text-amber-700 flex items-center gap-2">
-                  <Workflow className="size-5 text-red-700" /> Phương thức
+                  <Scale className="size-5 text-red-700" /> Đặc trưng & Vai trò
                 </h4>
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(360px_200px_at_50%_100%,rgba(185,28,28,0.04),transparent_60%)]" />
-                <p className="text-stone-500 text-sm mt-3 leading-relaxed">Dân vận khéo, tổ chức quần chúng, quy tụ vào mặt trận.</p>
+                <p className="text-stone-500 text-sm mt-3 leading-relaxed">
+                  Tính khoa học – cách mạng, chủ nghĩa duy vật biện chứng và lịch sử, vai trò là thế giới quan và phương pháp luận khoa học.
+                </p>
               </div>
             </div>
 
@@ -142,7 +155,7 @@ export default function Overview() {
               <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(280px_140px_at_20%_0%,rgba(16,185,129,0.05),transparent_60%)]" />
               <p className="relative text-emerald-900 font-medium leading-relaxed text-sm">
                 <span className="block text-xs uppercase tracking-wider text-emerald-700 font-extrabold mb-1">Kết luận</span>
-                Đại đoàn kết vừa là mục tiêu, vừa là động lực, là cội nguồn sức mạnh vô địch của dân tộc Việt Nam trong kháng chiến và xây dựng, hội nhập hiện nay.
+                Triết học Mác-Lênin không chỉ là di sản học thuật mà là nền tảng tư tưởng, kim chỉ nam cho hành động của Đảng và nhân dân ta trong công cuộc xây dựng và bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa.
               </p>
             </div>
           </div>
@@ -151,7 +164,7 @@ export default function Overview() {
         {/* II. Learning Outcomes */}
         <div className="space-y-6">
           <h3 className="text-xl font-bold uppercase tracking-wider text-red-600 border-l-2 border-red-600 pl-3 flex items-center gap-2">
-            II. Chuẩn đầu ra (Learning Outcomes)
+            II. Chuẩn đầu ra (Learning Outcomes) — MLN111
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-10 gap-6">
@@ -176,12 +189,12 @@ export default function Overview() {
           <h3 className="text-xl font-bold uppercase tracking-wider text-red-600 border-l-2 border-red-600 pl-3 flex items-center gap-2">
             III. Ứng dụng Trí tuệ nhân tạo (AI)
           </h3>
-          
+
           <div className="space-y-8 pl-3 md:pl-5">
             {/* 1. Công cụ sử dụng */}
             <div className="space-y-4">
               <h4 className="text-base font-bold text-stone-700">1. Công cụ đã sử dụng</h4>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
                 <div className="flex flex-col items-center justify-center gap-4 py-8 px-6 bg-[#FAF0DC]/50 border border-red-800/10 hover:border-red-600/30 rounded-xl relative overflow-hidden transition-all duration-300">
                   <div className="flex items-center gap-3">
@@ -194,7 +207,7 @@ export default function Overview() {
                     </div>
                   </Pointer>
                 </div>
-                
+
                 <div className="flex flex-col items-center justify-center gap-4 py-8 px-6 bg-[#FAF0DC]/50 border border-red-800/10 hover:border-red-600/30 rounded-xl relative overflow-hidden transition-all duration-300">
                   <div className="flex items-center gap-3">
                     <GeminiLogo className="size-8 text-stone-700" />
@@ -215,15 +228,15 @@ export default function Overview() {
               <ul className="space-y-2 list-none text-stone-500 text-sm leading-relaxed max-w-4xl">
                 <li className="flex items-start gap-2">
                   <span className="text-red-700 font-bold shrink-0 mt-0.5">•</span>
-                  <span>Tổng hợp và lập dàn ý sơ bộ từ các chương giáo trình Tư tưởng Hồ Chí Minh chính quy.</span>
+                  <span>Tổng hợp và lập dàn ý sơ bộ từ Giáo trình Triết học Mác-Lênin (Bộ GD&ĐT, NXB Chính trị quốc gia Sự thật, 2021).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-700 font-bold shrink-0 mt-0.5">•</span>
-                  <span>Hệ thống hóa ngân hàng câu hỏi ôn tập, tinh lọc các nội dung cốt lõi và bài học thực tiễn.</span>
+                  <span>Hệ thống hóa ngân hàng câu hỏi ôn tập về sự hình thành triết học Mác-Lênin, tinh lọc các nội dung cốt lõi.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-700 font-bold shrink-0 mt-0.5">•</span>
-                  <span>Hỗ trợ thiết kế cấu trúc giao diện trang web trưng bày số và tối ưu hóa trải nghiệm người dùng.</span>
+                  <span>Hỗ trợ thiết kế cấu trúc giao diện trang web triển lãm số và tối ưu hóa trải nghiệm người dùng.</span>
                 </li>
               </ul>
             </div>
@@ -234,20 +247,20 @@ export default function Overview() {
               <ul className="space-y-2 list-none text-stone-500 text-sm leading-relaxed max-w-4xl">
                 <li className="flex items-start gap-2">
                   <span className="text-red-700 font-bold shrink-0 mt-0.5">•</span>
-                  <span>Đối chiếu nghiêm ngặt mọi thông tin số liệu do AI cung cấp với văn bản gốc (giáo trình, văn kiện Đảng, Hồ Chí Minh Toàn tập).</span>
+                  <span>Đối chiếu nghiêm ngặt mọi thông tin với Giáo trình MLN111 chính thức và các tác phẩm gốc của Marx, Engels, Lenin.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-700 font-bold shrink-0 mt-0.5">•</span>
-                  <span>Tích hợp dẫn chứng thực tiễn về sức mạnh khối đại đoàn kết toàn dân tộc qua các thời kỳ lịch sử.</span>
+                  <span>Tích hợp dẫn chứng lịch sử cụ thể về quá trình hình thành và phát triển triết học Mác-Lênin.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-700 font-bold shrink-0 mt-0.5">•</span>
-                  <span>Biên tập, trau chuốt ngôn ngữ học thuật nhằm đáp ứng chuẩn mực nghiên cứu môn học.</span>
+                  <span>Biên tập, trau chuốt ngôn ngữ học thuật nhằm đáp ứng chuẩn mực nghiên cứu môn học MLN111.</span>
                 </li>
               </ul>
             </div>
 
-            {/* 4. Nguyên tắc đạo đức sử dụng AI */}
+            {/* 4. Nguyên tắc đạo đức */}
             <div className="space-y-4 pt-2">
               <h4 className="text-base font-bold text-stone-700">4. Nguyên tắc ứng dụng AI có đạo đức</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
