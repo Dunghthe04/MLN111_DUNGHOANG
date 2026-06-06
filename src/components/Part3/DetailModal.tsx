@@ -21,7 +21,7 @@ export function DetailModal({
   onAudioPause: () => void;
 }) {
   const modalRef = useFocusTrap(isOpen);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -230,7 +230,7 @@ export function DetailModal({
                             src={item.media.src}
                             alt={item.media.alt}
                             className="w-full h-64 object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
-                            onClick={() => setIsLightboxOpen(true)}
+                            onClick={() => setLightboxIndex(0)}
                           />
                           {item.media.caption && (
                             <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-3">
@@ -240,12 +240,26 @@ export function DetailModal({
                         </div>
                         <div className="p-4">
                           <button
-                            onClick={() => setIsLightboxOpen(true)}
+                            onClick={() => setLightboxIndex(0)}
                             className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200"
                           >
                             Xem ảnh
                           </button>
                         </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Gallery Thumbnails */}
+                  {item.gallery && item.gallery.length > 0 && (
+                    <div className="mt-6">
+                      <h4 className="text-sm font-semibold mb-3">Bộ ảnh</h4>
+                      <div className="grid grid-cols-3 gap-3">
+                        {item.gallery.map((g, idx) => (
+                          <button key={idx} onClick={() => setLightboxIndex(idx)} className="overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg transition-shadow">
+                            <img src={g.src} alt={g.alt || `ảnh-${idx}`} className="w-full h-24 object-cover" />
+                          </button>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -270,39 +284,77 @@ export function DetailModal({
         </div>
       </div>
 
-      {/* Lightbox */}
-      {isLightboxOpen && item.media && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-90 z-60 flex items-center justify-center p-4"
-          onClick={() => setIsLightboxOpen(false)}
-        >
-          <div className="relative max-w-4xl max-h-[90vh]">
-            <img
-              src={item.media.src}
-              alt={item.media.alt}
-              className="max-w-full max-h-full object-contain rounded-lg"
-            />
-            <button
-              onClick={() => setIsLightboxOpen(false)}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors duration-200"
-              aria-label="Đóng ảnh"
+      {/* Lightbox / Gallery viewer */}
+      {lightboxIndex !== null && (
+        (() => {
+          const gallery = item.gallery && item.gallery.length > 0 ? item.gallery : item.media ? [ { src: item.media.src, alt: item.media.alt, caption: item.media.caption } ] : [];
+          const idx = Math.max(0, Math.min(lightboxIndex, gallery.length - 1));
+          const selected = gallery[idx];
+
+          return (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-90 z-60 flex items-center justify-center p-4"
+              onClick={() => setLightboxIndex(null)}
+              role="dialog"
+              aria-modal="true"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
+              <div className="relative max-w-4xl max-h-[90vh]">
+                <img
+                  src={selected.src}
+                  alt={selected.alt || item.title}
+                  className="max-w-full max-h-full object-contain rounded-lg"
                 />
-              </svg>
-            </button>
-          </div>
-        </div>
+
+                {/* Prev / Next controls when gallery has multiple images */}
+                {gallery.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setLightboxIndex((idx - 1 + gallery.length) % gallery.length); }}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition-colors duration-200"
+                      aria-label="Ảnh trước"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setLightboxIndex((idx + 1) % gallery.length); }}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition-colors duration-200"
+                      aria-label="Ảnh tiếp"
+                    >
+                      ›
+                    </button>
+                  </>
+                )}
+
+                <button
+                  onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }}
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors duration-200"
+                  aria-label="Đóng ảnh"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+
+                {/* Caption */}
+                {selected.caption && (
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-md">
+                    {selected.caption}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })()
       )}
 
       {/* Screen reader announcement */}

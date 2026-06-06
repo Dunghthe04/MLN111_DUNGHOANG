@@ -1,65 +1,71 @@
-// Part1.tsx — fixed: no snap-back, fade-to-next in-place
+// Part1.tsx — Bối cảnh lịch sử-xã hội hình thành triết học Mác-Lênin
 import React, { useRef, useState } from "react";
 import { motion, useAnimation } from "motion/react";
 import ReactMarkdown from "react-markdown";
 import { Hand } from "lucide-react";
 import { TypingAnimation } from "../magicui/Text Animations/TypingAnimation";
 import { Lens } from "../aceternityui/lens";
+import HallGallery from "./HallGallery";
+
+const cardImages = [
+  "/imgs/industrial-revolution.jpg",
+  "/imgs/real/hall-1-1.jpg",
+  "/imgs/halls/hall-1-2.svg",
+  "/imgs/halls/hall-1-3.svg",
+];
+
+const galleryItems = [
+  { src: "/imgs/real/hall-1-1.jpg", alt: "Triển lãm Hall 1", caption: "Bối cảnh lịch sử-xã hội thế kỷ XIX" },
+  { src: "/imgs/industrial-revolution.jpg", alt: "Cách mạng Công nghiệp", caption: "Máy hơi nước — biểu tượng Cách mạng Công nghiệp" },
+  { src: "/imgs/halls/hall-1-1.svg", alt: "Minh họa Hall 1", caption: "Giai cấp công nhân hình thành" },
+  { src: "/imgs/halls/hall-1-2.svg", alt: "Phong trào công nhân", caption: "Phong trào Hiến chương & khởi nghĩa Lyon" },
+  { src: "/imgs/halls/hall-1-3.svg", alt: "Tiền đề khoa học", caption: "Ba phát minh khoa học tự nhiên thế kỷ XIX" },
+];
 
 const texts = [
   `
-# Tư tưởng Hồ Chí Minh về đại đoàn kết toàn dân tộc
+# Bối Cảnh Lịch Sử-Xã Hội (Giữa thế kỷ XIX)
 
-## 1. Đại đoàn kết là chiến lược, không phải thủ đoạn
-Trong tư tưởng Hồ Chí Minh, **đại đoàn kết toàn dân tộc** không phải là sách lược hay thủ đoạn chính trị,  
-mà là **chiến lược lâu dài, nhất quán** của cách mạng Việt Nam.  
+## 1. Cuộc Cách mạng Công nghiệp
+Vào giữa thế kỷ XIX, cuộc **Cách mạng Công nghiệp** bùng nổ ở Tây Âu đã làm biến đổi toàn diện cơ cấu kinh tế-xã hội:
 
-Người nói rõ:  
+- Máy móc thay thế lao động thủ công → **Lực lượng sản xuất phát triển vượt bậc**
+- Giai cấp **tư sản** và **vô sản** hình thành rõ nét
+- Mâu thuẫn giữa tư bản và lao động trở thành mâu thuẫn **trung tâm của thời đại**
 
-> “Sử dạy cho ta bài học này: Lúc nào dân ta đoàn kết muôn người như một thì nước ta độc lập, tự do.  
-> Trái lại lúc nào dân ta không đoàn kết thì bị nước ngoài xâm lấn”.
+## 2. Sự Xuất Hiện Giai Cấp Công Nhân
+Giai cấp công nhân ra đời như một lực lượng xã hội mới:
 
-## 2. Ý nghĩa sống còn của đại đoàn kết
-- Đây là vấn đề **mang tính sống còn** của dân tộc Việt Nam.  
-- Vì vậy, chiến lược này được duy trì cả trong:
-  - Cách mạng dân tộc dân chủ nhân dân.  
-  - Cách mạng xã hội chủ nghĩa.  
-
-## 3. Sự điều chỉnh linh hoạt trong từng giai đoạn
-Trong mỗi giai đoạn cách mạng:  
-- Trước những yêu cầu và nhiệm vụ khác nhau:  
-  - **Chính sách và phương pháp tập hợp đại đoàn kết** có thể và cần thiết phải **điều chỉnh** cho phù hợp với từng đối tượng.  
-- Tuy nhiên:  
-  - **Chủ trương đại đoàn kết toàn dân tộc** không bao giờ được thay đổi.  
-  - Vì đó là **nhân tố quyết định sự thành bại của cách mạng**.
-
+> "Không có giai cấp vô sản thì không có triết học, không có triết học thì không có giai cấp vô sản trở thành đội quân cách mạng."
+> *(Karl Marx)*
 `,
 
   `
-### Hồ Chí Minh nhiều lần nhấn mạnh:
+## 3. Phong Trào Công Nhân Đầu Thế Kỷ XIX
 
-> *“Đoàn kết là sức mạnh của chúng ta.”*  
-> *“Đoàn kết là sức mạnh, đoàn kết là thắng lợi.”*  
-> *“Đoàn kết là sức mạnh, là then chốt của thành công.”*  
-> *“Đoàn kết, đoàn kết, đại đoàn kết – Thành công, thành công, đại thành công.”*
+Công nhân đứng lên đấu tranh chống áp bức, hình thành nền tảng xã hội cho triết học Mác:
 
-Điều này cho thấy, đại đoàn kết là vấn đề **chiến lược, then chốt của thành công cách mạng**, đồng thời vừa là **mục tiêu**, vừa là **nhiệm vụ hàng đầu**. Vì cách mạng là sự nghiệp của quần chúng, do quần chúng và vì quần chúng. Chính vì vậy Đảng phải thức tỉnh, tập hợp, tổ chức, lãnh đạo nhân dân thành khối đại đoàn kết, tạo nên sức mạnh tổng hợp.
+- **1838–1850**: Phong trào Hiến chương ở **Anh** — phong trào công nhân đầu tiên mang tính toàn quốc
+- **1831–1834**: Cuộc khởi nghĩa thợ dệt **Lyon (Pháp)** — biểu hiện rõ mâu thuẫn giai cấp
+- **1844**: Khởi nghĩa thợ dệt **Silesia (Đức)** — tác động trực tiếp đến Marx
+
+Những phong trào này **thất bại** vì thiếu lý luận khoa học dẫn đường.
+
+> Thực tiễn đặt ra yêu cầu cấp bách: Giai cấp vô sản cần **một học thuyết cách mạng khoa học**.
 `,
 
   `
-### **Thực tiễn chứng minh**
+## 4. Tiền Đề Khoa Học Tự Nhiên
 
-Nhìn lại lịch sử, cuối thế kỷ XIX, các phong trào **Cần Vương, Đông Du, Đông Kinh Nghĩa Thục…** thất bại vì chưa tập hợp được sức mạnh toàn dân.  
+Ba phát minh lớn của thế kỷ XIX đặt nền tảng cho thế giới quan duy vật:
 
-Nhưng đến **Cách mạng Tháng Tám 1945**, nhờ có khối đại đoàn kết dân tộc dưới sự lãnh đạo của Đảng, nhân dân ta đã giành được độc lập.  
+| Phát minh | Tác giả | Ý nghĩa triết học |
+|-----------|---------|------------------|
+| **Định luật bảo toàn năng lượng** | Mayer, Joule, Helmholtz (1840s) | Vật chất không thể tự sinh ra, tiêu diệt |
+| **Thuyết tiến hóa** | Charles Darwin (1859) | Giới hữu cơ phát triển theo quy luật tự nhiên |
+| **Thuyết tế bào** | Schleiden & Schwann (1838-1839) | Thống nhất vật chất của sinh vật |
 
-Trong lời kết thúc buổi ra mắt **Đảng Lao động Việt Nam** ngày *3-3-1951*, Hồ Chí Minh tuyên bố:
-
-> *“Mục đích của Đảng Lao động Việt Nam có thể gồm trong tám chữ là:  
-> **ĐOÀN KẾT TOÀN DÂN, PHỤNG SỰ TỔ QUỐC**”*
-
-Trong **kháng chiến chống Pháp, chống Mỹ**, và cả trong **công cuộc Đổi mới sau 1986**, chính sức mạnh đoàn kết đã đưa dân tộc đi đến thắng lợi. Đây là minh chứng hùng hồn cho **tư tưởng Hồ Chí Minh về vai trò của đoàn kết**.
-
+→ Ba phát minh này **đánh đổ** quan điểm siêu hình, mở đường cho **chủ nghĩa duy vật biện chứng**.
 `,
 ];
 
@@ -82,7 +88,7 @@ export default function Part1() {
     rotate: number;
   } | null>(null);
 
-  const throwThreshold = 110; // px threshold to trigger throw
+  const throwThreshold = 110;
 
   async function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
     startXRef.current = e.clientX;
@@ -92,26 +98,19 @@ export default function Part1() {
     setShowHint(false);
     try {
       e.currentTarget.setPointerCapture(e.pointerId);
-    } catch {
-      /* noop */
-    }
+    } catch { /* noop */ }
     await controls.set({ x: 0, opacity: 1, scale: 1, zIndex: 50 });
   }
 
   async function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
-    if (
-      !isPointerDownRef.current ||
-      hasThrownRef.current ||
-      startXRef.current == null
-    )
+    if (!isPointerDownRef.current || hasThrownRef.current || startXRef.current == null)
       return;
     const distance = Math.abs(e.clientX - startXRef.current);
-    const effective = distance < 2 ? 0 : distance; // deadzone to avoid jitter
-    const leftX = -effective; // always move left relative to distance
+    const effective = distance < 2 ? 0 : distance;
+    const leftX = -effective;
     const rotate = -Math.min(18, distance * 0.08);
     const yLift = -Math.min(40, distance * 0.12);
 
-    // move with the pointer (left only)
     if (Math.abs(leftX - lastRenderedXRef.current) > 0.5) {
       pendingTransformRef.current = { x: leftX, y: yLift, rotate };
       if (rafIdRef.current == null) {
@@ -126,7 +125,6 @@ export default function Part1() {
       }
     }
 
-    // reset inactivity timer: if user stops moving without releasing, snap back
     if (inactivityTimerRef.current) {
       clearTimeout(inactivityTimerRef.current);
       inactivityTimerRef.current = null;
@@ -134,10 +132,7 @@ export default function Part1() {
     inactivityTimerRef.current = window.setTimeout(async () => {
       if (isPointerDownRef.current && !hasThrownRef.current) {
         await controls.start({
-          x: 0,
-          y: 0,
-          rotate: 0,
-          opacity: 1,
+          x: 0, y: 0, rotate: 0, opacity: 1,
           transition: { type: "spring", stiffness: 300, damping: 26 },
         });
         isPointerDownRef.current = false;
@@ -145,34 +140,20 @@ export default function Part1() {
       }
     }, 180);
 
-    // if beyond threshold, finish throw immediately
     if (distance > throwThreshold) {
       hasThrownRef.current = true;
       setIsDragging(false);
-      if (inactivityTimerRef.current) {
-        clearTimeout(inactivityTimerRef.current);
-        inactivityTimerRef.current = null;
-      }
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
-      }
+      if (inactivityTimerRef.current) { clearTimeout(inactivityTimerRef.current); inactivityTimerRef.current = null; }
+      if (rafIdRef.current) { cancelAnimationFrame(rafIdRef.current); rafIdRef.current = null; }
       pendingTransformRef.current = null;
       controls.stop();
       await controls.start({
-        x: -900,
-        y: yLift - 40,
-        rotate: -25,
-        opacity: 0,
+        x: -900, y: yLift - 40, rotate: -25, opacity: 0,
         transition: { duration: 0.35, ease: "easeIn" },
       });
       isPointerDownRef.current = false;
       startXRef.current = null;
-      try {
-        e.currentTarget.releasePointerCapture(e.pointerId);
-      } catch {
-        /* noop */
-      }
+      try { e.currentTarget.releasePointerCapture(e.pointerId); } catch { /* noop */ }
 
       setIndex((s) => (s + 1) % texts.length);
       await controls.set({ x: 0, y: 0, rotate: 0, opacity: 0, scale: 1 });
@@ -184,23 +165,13 @@ export default function Part1() {
   }
 
   async function handlePointerUp(e?: React.PointerEvent<HTMLDivElement>) {
-    // if not thrown, spring back to center
     if (!hasThrownRef.current) {
-      if (inactivityTimerRef.current) {
-        clearTimeout(inactivityTimerRef.current);
-        inactivityTimerRef.current = null;
-      }
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
-      }
+      if (inactivityTimerRef.current) { clearTimeout(inactivityTimerRef.current); inactivityTimerRef.current = null; }
+      if (rafIdRef.current) { cancelAnimationFrame(rafIdRef.current); rafIdRef.current = null; }
       pendingTransformRef.current = null;
       controls.stop();
       await controls.start({
-        x: 0,
-        y: 0,
-        rotate: 0,
-        opacity: 1,
+        x: 0, y: 0, rotate: 0, opacity: 1,
         transition: { type: "spring", stiffness: 300, damping: 26 },
       });
     }
@@ -208,11 +179,7 @@ export default function Part1() {
     startXRef.current = null;
     setIsDragging(false);
     if (e) {
-      try {
-        e.currentTarget.releasePointerCapture(e.pointerId);
-      } catch {
-        /* noop */
-      }
+      try { e.currentTarget.releasePointerCapture(e.pointerId); } catch { /* noop */ }
     }
   }
 
@@ -221,7 +188,6 @@ export default function Part1() {
   }
 
   async function handlePointerLeave(e: React.PointerEvent<HTMLDivElement>) {
-    // treat leave as up to avoid stuck state
     if (isPointerDownRef.current) {
       await handlePointerUp(e);
     }
@@ -230,7 +196,7 @@ export default function Part1() {
   return (
     <div className="w-full min-h-[80vh] bg-gradient-to-b from-[#FDF6E3] to-white p-6 md:p-12 flex flex-col items-center justify-center relative">
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        
+
         {/* Left Column: Title & Swipable Cards */}
         <div className="lg:col-span-7 flex flex-col items-center lg:items-start">
           <h3 className="uppercase text-red-700 font-heading text-4xl md:text-5xl mb-10 text-center lg:text-left drop-shadow-[0_0_8px_rgba(185,28,28,0.2)]">
@@ -239,15 +205,12 @@ export default function Part1() {
               duration={50}
               className="text-red-700 font-heading text-3xl md:text-4xl"
             >
-              Vai trò của đại đoàn kết
+              Bối cảnh lịch sử-xã hội
             </TypingAnimation>
           </h3>
 
-          <div
-            className="relative"
-            style={{ touchAction: "none" }}
-          >
-            {/* BACK LAYERS (visual gold-glowing stack effect) */}
+          <div className="relative" style={{ touchAction: "none" }}>
+            {/* BACK LAYERS */}
             <div className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-2xl border border-red-800/10 bg-white/40 backdrop-blur-sm -z-10 shadow-lg" />
             <div className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-2xl border border-red-800/15 bg-white/60 backdrop-blur-sm -z-10 shadow-md" />
 
@@ -258,7 +221,7 @@ export default function Part1() {
               </div>
             )}
 
-            {/* TOP (interactive) LAYER - Glowing Glass Plate */}
+            {/* Interactive Card */}
             <motion.div
               className="relative rounded-2xl border border-red-600/30 font-heading text-stone-700 select-none z-30 shadow-2xl p-8"
               animate={controls}
@@ -292,20 +255,31 @@ export default function Part1() {
           </div>
         </div>
 
-        {/* Right Column: Historical Photo with Lens Zoom */}
-        <div className="lg:col-span-5 flex justify-center items-center mt-8 lg:mt-0">
+        {/* Right Column: Historical Image with Lens Zoom */}
+        <div className="lg:col-span-5 flex flex-col gap-6 justify-center items-center mt-8 lg:mt-0">
           <div className="relative rounded-2xl border border-red-800/15 p-2 bg-white/80 shadow-2xl w-full max-w-sm">
             <Lens hovering={hovering} setHovering={setHovering}>
               <img
-                src="/imgs/bacho.webp"
-                alt="Chủ tịch Hồ Chí Minh"
-                className="rounded-xl w-full object-cover transform scale-x-[-1] cursor-none shadow-md brightness-90 hover:brightness-100 transition-all duration-300"
+                src={cardImages[index] ?? cardImages[0]}
+                alt="Minh họa bối cảnh lịch sử"
+                className="rounded-xl w-full h-64 object-cover cursor-none shadow-md brightness-90 hover:brightness-100 transition-all duration-500"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/imgs/industrial-revolution.jpg";
+                }}
               />
             </Lens>
-            <div className="text-center mt-3 text-xs text-stone-400 font-semibold italic">
-              Bác Hồ kính yêu với khối đại đoàn kết toàn dân tộc
+            <div className="text-center mt-3 text-xs text-stone-400 font-semibold italic px-2">
+              {index === 0 && "Cách mạng Công nghiệp — Nền tảng kinh tế-xã hội"}
+              {index === 1 && "Phong trào công nhân đầu thế kỷ XIX"}
+              {index === 2 && "Tiền đề khoa học tự nhiên — Darwin, Mayer, Schleiden"}
+              {index === 3 && "Ba phát minh đánh đổ quan điểm siêu hình"}
             </div>
           </div>
+          <HallGallery
+            items={galleryItems}
+            title="Triển lãm Hall 1"
+            className="w-full max-w-sm"
+          />
         </div>
 
       </div>

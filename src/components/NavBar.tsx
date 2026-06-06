@@ -58,7 +58,7 @@ export default function NavBar() {
           onMouseEnter={() => handleMouseEnter("/")}
         >
           <h1 className="text-xl font-semibold text-black/10 group-hover:text-black hover:text-red-700 transition-colors duration-100">
-            Đại Đoàn Kết
+            Triết Học Mác-Lênin
           </h1>
         </Link>
       </div>
@@ -112,7 +112,7 @@ export default function NavBar() {
         </Link>
 
         <Link
-          to="https://github.com/PTPhongKMF/hcm202-daidoanket-sucmanhdantocvietnam-web"
+          to="https://github.com/Dunghthe04/MLN111_DUNGHOANG"
           target="_blank"
         >
           <GithubIcon className="size-7 text-black/10 group-hover:text-black hover:text-red-700 transition-colors duration-100" />

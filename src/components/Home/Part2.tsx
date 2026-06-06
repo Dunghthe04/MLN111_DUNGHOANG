@@ -1,55 +1,85 @@
+// Part2.tsx — Tiền đề lý luận: 3 nguồn gốc của triết học Mác-Lênin
 import {
   DraggableCardBody,
   DraggableCardContainer,
 } from "../aceternityui/draggable-card";
 import ReactMarkdown from "react-markdown";
 import { TypingAnimation } from "../magicui/Text Animations/TypingAnimation";
+import HallGallery from "./HallGallery";
+
+const galleryItems = [
+  { src: "/imgs/real/hall-2-1.jpg", alt: "Hall 2", caption: "Ba nguồn gốc lý luận" },
+  { src: "/imgs/hegel-feuerbach.jpg", alt: "Hegel & Feuerbach", caption: "Triết học cổ điển Đức" },
+  { src: "/imgs/halls/hall-2-1.svg", alt: "Kinh tế chính trị", caption: "Smith & Ricardo — giá trị lao động" },
+  { src: "/imgs/halls/hall-2-2.svg", alt: "CNXH không tưởng", caption: "Saint-Simon, Fourier, Owen" },
+  { src: "/imgs/halls/hall-2-3.svg", alt: "Kế thừa sáng tạo", caption: "Marx biến đổi cách mạng di sản tư tưởng" },
+];
 
 const items = [
   {
+    image: "/imgs/hegel-feuerbach.jpg",
+    imageAlt: "Hegel và Feuerbach",
     text: `
-### Ví dụ lịch sử
-- **Kháng chiến chống Pháp**: Việt Minh quy tụ công nhân, nông dân, trí thức, tư sản dân tộc.  
-- **Kháng chiến chống Mỹ**: Nhân dân cả nước đồng lòng, đồng thời nhận được sự ủng hộ to lớn từ phong trào phản chiến và bạn bè quốc tế.  
+### 🇩🇪 Triết học cổ điển Đức
+**Hegel (1770-1831)** và **Feuerbach (1804-1872)** là hai đại diện tiêu biểu nhất.
+
+- **Hegel**: Phép biện chứng duy tâm — phát triển có quy luật, phủ định của phủ định
+- **Feuerbach**: Chủ nghĩa duy vật — bác bỏ tôn giáo, đề cao con người
+
+→ Marx kế thừa **phép biện chứng** của Hegel, cải tạo thành **duy vật biện chứng**.
     `,
-    className: "absolute top-40 left-[58%] rotate-[6deg] prose prose-stone max-w-xs gold-glow-panel p-6 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none",
+    className: "absolute top-40 left-[55%] rotate-[6deg] prose prose-stone max-w-xs gold-glow-panel p-4 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none overflow-hidden",
   },
   {
+    image: "/imgs/halls/hall-2-1.svg",
+    imageAlt: "Kinh tế chính trị cổ điển",
     text: `
-### Đoàn kết trong nước & quốc tế
-Hồ Chí Minh nhấn mạnh: **đại đoàn kết trong nước phải gắn với đoàn kết quốc tế**, bao gồm:  
-- Phong trào cộng sản & công nhân  
-- Các lực lượng tiến bộ trên thế giới  
-- Nhân dân yêu chuộng hòa bình  
+### 🇬🇧 Kinh tế chính trị cổ điển Anh
+**Adam Smith (1723-1790)** và **David Ricardo (1772-1823)** xây dựng lý luận kinh tế tư sản.
+
+- Lý thuyết **giá trị-lao động**: Lao động là nguồn gốc của giá trị
+- Phân tích mâu thuẫn giữa tư bản và lao động làm thuê
+
+→ Marx phát triển thành **học thuyết giá trị thặng dư** — vũ khí lý luận của giai cấp công nhân.
 `,
-    className: "absolute top-10 left-[48%] rotate-[4deg] prose prose-stone max-w-xs gold-glow-panel p-6 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none",
+    className: "absolute top-10 left-[45%] rotate-[3deg] prose prose-stone max-w-xs gold-glow-panel p-4 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none overflow-hidden",
   },
   {
+    image: "/imgs/halls/hall-2-2.svg",
+    imageAlt: "CNXH không tưởng Pháp",
     text: `
-### Lãnh đạo của Đảng
-- Đảng Cộng sản Việt Nam phải là **lực lượng lãnh đạo khối đại đoàn kết**.  
-- Đảng phải:  
-  - **Đứng vững trên lập trường giai cấp công nhân**  
-  - **Giải quyết hài hòa mối quan hệ giữa lợi ích giai cấp và lợi ích dân tộc**  
+### 🇫🇷 Chủ nghĩa xã hội không tưởng Pháp
+**Saint-Simon, Fourier, Owen** — mơ ước về xã hội tốt đẹp nhưng không thấy con đường thực hiện.
+
+- Phê phán chế độ tư bản với tinh thần nhân đạo sâu sắc
+- Đề xuất mô hình xã hội mới nhưng không dựa trên quy luật khách quan
+- **Hạn chế**: Không thấy vai trò của giai cấp công nhân
+
+→ Marx tiếp thu tư tưởng nhân đạo, bổ sung cơ sở **khoa học-cách mạng**.
     `,
-    className: "absolute top-48 left-[20%] rotate-[-4deg] prose prose-stone max-w-xs gold-glow-panel p-6 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none",
+    className: "absolute top-48 left-[18%] rotate-[-4deg] prose prose-stone max-w-xs gold-glow-panel p-4 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none overflow-hidden",
   },
   {
+    image: "/imgs/halls/hall-2-3.svg",
+    imageAlt: "Ba nguồn gốc lý luận",
     text: `
-## Chủ thể đoàn kết
-Theo Hồ Chí Minh, **chủ thể của đoàn kết là toàn dân Việt Nam** – không phân biệt dân tộc, tôn giáo, giai cấp, giàu nghèo, tuổi tác.
-Trong đó, lực lượng nòng cốt vững chắc là **liên minh công – nông – trí thức**, dưới sự lãnh đạo của Đảng.
+## Ba Nguồn Gốc Lý Luận
+Triết học Mác ra đời không phải từ hư không mà là sự **kế thừa có phê phán** và **phát triển sáng tạo** tinh hoa tư tưởng nhân loại:
+
+1. **Triết học cổ điển Đức** → Phép biện chứng
+2. **Kinh tế chính trị Anh** → Học thuyết giá trị lao động
+3. **CNXH không tưởng Pháp** → Tư tưởng nhân đạo về xã hội mới
     `,
-    className: "absolute top-12 left-[15%] rotate-[-3deg] prose prose-stone max-w-xs gold-glow-panel p-6 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none",
+    className: "absolute top-12 left-[12%] rotate-[-3deg] prose prose-stone max-w-xs gold-glow-panel p-4 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none overflow-hidden",
   },
 ];
 
 const finalText = `
-### Ý nghĩa thực tiễn
-Điều này cho thấy:  
-- Đại đoàn kết **không chỉ là sức mạnh dân tộc** mà còn là **cầu nối để Việt Nam hội nhập quốc tế** trong bối cảnh toàn cầu hóa.  
-- Nền tảng càng vững chắc → Khối đại đoàn kết càng mở rộng.  
-- **Không một thế lực nào có thể làm suy yếu được sức mạnh ấy.**
+### Ý nghĩa
+Marx và Engels không "phát minh" triết học từ đầu — mà đã **biến đổi cách mạng** di sản tư tưởng nhân loại, tạo ra một học thuyết **hoàn toàn mới về chất**:
+
+- Kết hợp tính **khoa học** và tính **cách mạng**
+- Đặt triết học phục vụ cho **giải phóng giai cấp vô sản**
 `;
 
 export default function Part2() {
@@ -64,26 +94,37 @@ export default function Part2() {
             duration={50}
             className="text-red-700 font-heading text-3xl md:text-4xl text-center"
           >
-            Lực lượng của khối đại đoàn kết
+            Ba nguồn gốc lý luận
           </TypingAnimation>
         </h3>
 
         <div className="relative text-xs text-stone-400 text-center mb-6">
-          * Di chuột và kéo thả các tấm thẻ để khám phá các khía cạnh khác nhau
+          * Di chuột và kéo thả các tấm thẻ để khám phá các tiền đề lý luận
         </div>
 
         <DraggableCardContainer className="relative flex min-h-[550px] w-full items-center justify-center overflow-visible">
-          {/* Final Text Card (glowing centerpiece) */}
+          {/* Central Card */}
           <div className="bg-white/95 text-stone-700 border border-red-600/30 absolute prose prose-stone top-1/2 mx-auto max-w-sm -translate-y-1/2 text-start p-6 rounded-2xl shadow-[0_0_30px_rgba(185,28,28,0.1)] backdrop-blur-md z-0 pointer-events-none">
             <ReactMarkdown>{finalText}</ReactMarkdown>
           </div>
-          
+
           {items.map((item, idx) => (
             <DraggableCardBody key={idx} className={item.className}>
+              {"image" in item && item.image && (
+                <img
+                  src={item.image}
+                  alt={item.imageAlt ?? ""}
+                  className="w-full h-24 object-cover rounded-lg mb-3 border border-red-800/10"
+                />
+              )}
               <ReactMarkdown>{item.text}</ReactMarkdown>
             </DraggableCardBody>
           ))}
         </DraggableCardContainer>
+
+        <div className="mt-8 max-w-2xl mx-auto">
+          <HallGallery items={galleryItems} title="Triển lãm Hall 2" />
+        </div>
       </div>
     </div>
   );

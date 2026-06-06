@@ -1,7 +1,7 @@
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import { useState, useEffect } from "react";
 import TopBar from "../TopBar";
-import data from "../../data/gr2.json";
+import data from "../../data/mln111.json";
 import { TextAnimate } from "../magicui/Text Animations/TextAnimate";
 import { CenterModeCarousel } from "./CenterModeCarousel";
 import { DetailModal } from "./DetailModal";
@@ -40,6 +40,26 @@ export default function Part3Detail() {
   const [activeAudioId, setActiveAudioId] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<CarouselItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const params = useParams();
+
+  // If route has an id param, open that item's modal on mount
+  useEffect(() => {
+    const id = params.id;
+    if (id) {
+      const carousel = (data as any).carousel as CarouselItem[];
+      const found = carousel.find((c) => c.id === id);
+      if (found) {
+        setSelectedItem(found);
+        setIsModalOpen(true);
+        // ensure page focus
+        setTimeout(() => {
+          const el = document.querySelector('main');
+          if (el) (el as HTMLElement).scrollIntoView({ behavior: 'smooth' });
+        }, 80);
+      }
+    }
+  }, [params.id]);
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -112,9 +132,9 @@ export default function Part3Detail() {
       {/* Enhanced Header with Parallax Effect */}
       <header
         className="relative z-10 min-h-[75vh] md:min-h-[82vh] py-20 md:py-24 bg-cover bg-center bg-fixed flex items-center justify-center overflow-hidden"
-        style={{ backgroundImage: 'url("/imgs/Part3/Bác Hồ.jpg")' }}
+        style={{ backgroundImage: 'url("/imgs/Part3/MarxEngels-Header.jpg")' }}
       >
-        {/* Enhanced Overlay with Patriotic Gradient */}
+        {/* Enhanced Overlay with Learning Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-red-900/80 via-black/60 to-yellow-900/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30" />
         
@@ -128,9 +148,8 @@ export default function Part3Detail() {
           {/* Animated Badge */}
           <div className="inline-flex items-center px-6 py-2 rounded-full bg-gradient-to-r from-red-600/20 to-yellow-600/20 backdrop-blur-sm border border-white/20 mb-8 animate-fade-in">
             <div className="w-2 h-2 bg-red-500 rounded-full mr-3 animate-pulse"></div>
-            <span className="text-white/90 text-sm font-medium tracking-wider uppercase">Tư tưởng Hồ Chí Minh</span>
+            <span className="text-white/90 text-sm font-medium tracking-wider uppercase">Triết học Mác-Lênin</span>
           </div>
- 
           {/* Main Title with Enhanced Effects */}
           <h1 className="flex justify-center items-center relative mb-8">
             <TextAnimate
@@ -216,7 +235,7 @@ export default function Part3Detail() {
             </div>
 
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Tìm hiểu sâu hơn về những điều kiện cần thiết để xây dựng khối đại đoàn kết toàn dân tộc theo tư tưởng Hồ Chí Minh
+              Tìm hiểu sâu hơn về nền tảng lý luận của triết học Mác-Lênin trong phân tích xã hội, lịch sử và kinh tế hiện đại.
             </p>
           </div>
         </div>
@@ -242,7 +261,7 @@ export default function Part3Detail() {
                 Tiếp tục khám phá
               </h3>
               <p className="text-red-100 text-lg mb-8 leading-relaxed">
-                Hãy quay lại trang chủ để khám phá thêm nhiều nội dung thú vị khác về tư tưởng Hồ Chí Minh
+                Hãy quay lại trang chủ để khám phá thêm nhiều nội dung thú vị khác về triết học Mác-Lênin
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

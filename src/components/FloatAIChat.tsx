@@ -166,8 +166,8 @@ export default function FloatAIChat() {
               <div className="flex justify-start items-start gap-2.5 pe-10">
                 <img src="/imgs/avatar/vietnamball.png" alt="Bot Image" className="size-9 rounded-full object-cover border border-red-800/15" />
                 <div className="text-xs rounded-xl rounded-tl-none p-3 bg-stone-100 border border-stone-200 text-stone-700 leading-relaxed shadow-sm">
-                  Xin chào! Tôi là Gr2Bot – trợ lý ảo giúp bạn tìm hiểu về chuyên đề Tư tưởng Hồ Chí Minh.<br />
-                  Bạn muốn nghiên cứu nội dung nào? (Ví dụ: “Vai trò của đại đoàn kết”, “Mặt trận dân tộc thống nhất”)
+                  Xin chào! Tôi là Gr2Bot – trợ lý ảo giúp bạn tìm hiểu về chuyên đề Sự hình thành Triết học Mác-Lênin.<br />
+                  Bạn muốn nghiên cứu nội dung nào? (Ví dụ: “Bối cảnh lịch sử”, “Lenin phát triển”)
                 </div>
               </div>
 

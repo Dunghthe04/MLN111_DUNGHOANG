@@ -307,7 +307,7 @@ export default function EasterEgg() {
             Nhóm 2
           </p>
           <p className="text-amber-100/80 text-sm mt-1 font-heading">
-            HCM202 — Tư tưởng Hồ Chí Minh
+            MLN111 — Triết học Mác-Lênin
           </p>
         </div>
 
