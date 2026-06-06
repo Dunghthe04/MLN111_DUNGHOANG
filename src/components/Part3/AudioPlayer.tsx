@@ -30,12 +30,6 @@ export type CarouselItem = {
     alt: string;
     caption?: string;
   };
-  // Optional gallery of images for detailed view
-  gallery?: Array<{
-    src: string;
-    alt?: string;
-    caption?: string;
-  }>;
   examples?: Array<{
     title: string;
     desc: string;

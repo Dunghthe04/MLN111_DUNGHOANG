@@ -524,156 +524,156 @@ export function FlashCardDeck({
   );
 }
 
-// Flash Card Data — MLN111: Sự hình thành Triết học Mác-Lênin
+// Flash Card Data
 export const flashCardData: FlashCardData[] = [
   {
     id: 1,
-    question: "Triết học Mác-Lênin ra đời vào khoảng thời gian nào?",
-    answer: "Giữa thế kỷ XIX (những năm 1840), được Lenin phát triển đầu thế kỷ XX"
+    question: "Theo Hồ Chí Minh, đại đoàn kết toàn dân tộc có vai trò như thế nào?",
+    answer: "Là chiến lược lâu dài, nhất quán"
   },
   {
     id: 2,
-    question: "Ba nguồn gốc lý luận trực tiếp của triết học Mác là gì?",
-    answer: "Triết học cổ điển Đức, Kinh tế chính trị cổ điển Anh, Chủ nghĩa xã hội không tưởng Pháp"
+    question: "Hồ Chí Minh khẳng định: \"Đoàn kết là ...\"",
+    answer: "Sức mạnh, then chốt của thành công"
   },
   {
     id: 3,
-    question: "Marx kế thừa yếu tố nào từ triết học Hegel?",
-    answer: "Phép biện chứng (tư tưởng về sự vận động, phát triển và mâu thuẫn)"
+    question: "Nguyên nhân chủ yếu khiến các phong trào Cần Vương, Đông Du, Đông Kinh Nghĩa Thục... cuối thế kỷ XIX thất bại là:",
+    answer: "Chưa tập hợp được sức mạnh toàn dân"
   },
   {
     id: 4,
-    question: "Marx kế thừa yếu tố nào từ triết học Feuerbach?",
-    answer: "Chủ nghĩa duy vật (thừa nhận thế giới vật chất tồn tại khách quan)"
+    question: "Trong khối đại đoàn kết toàn dân tộc, lực lượng nòng cốt là:",
+    answer: "Công - nông - trí thức"
   },
   {
     id: 5,
-    question: "Hạn chế lớn nhất của chủ nghĩa xã hội không tưởng (Saint-Simon, Fourier, Owen) là gì?",
-    answer: "Không thấy được vai trò và sứ mệnh lịch sử của giai cấp công nhân, không chỉ ra con đường hiện thực để xây dựng xã hội mới"
+    question: "Theo Hồ Chí Minh, Đảng Cộng sản Việt Nam muốn lãnh đạo khối đại đoàn kết toàn dân tộc thì cần:",
+    answer: "Kết hợp hài hòa lợi ích giai cấp và dân tộc"
   },
   {
     id: 6,
-    question: "Ba phát minh khoa học tự nhiên lớn thế kỷ XIX tạo tiền đề cho triết học Mác là gì?",
-    answer: "Định luật bảo toàn và chuyển hóa năng lượng, Thuyết tiến hóa của Darwin, Thuyết tế bào"
+    question: "Đại đoàn kết toàn dân tộc phải gắn liền với:",
+    answer: "Đoàn kết quốc tế"
   },
   {
     id: 7,
-    question: "Sự kiện kinh tế-xã hội nào tạo tiền đề trực tiếp cho sự ra đời của triết học Mác?",
-    answer: "Cuộc Cách mạng Công nghiệp ở Tây Âu, sự hình thành giai cấp vô sản và mâu thuẫn gay gắt giữa tư sản – vô sản"
+    question: "Nguyên tắc bất di bất dịch để xây dựng khối đại đoàn kết toàn dân tộc là:",
+    answer: "Lấy lợi ích chung làm điểm quy tụ"
   },
   {
     id: 8,
-    question: "Ba phong trào công nhân tiêu biểu đầu thế kỷ XIX là gì?",
-    answer: "Phong trào Hiến chương (Anh 1838-1850), khởi nghĩa thợ dệt Lyon (Pháp 1831-1834), khởi nghĩa thợ dệt Silesia (Đức 1844)"
+    question: "Truyền thống nào được Hồ Chí Minh coi là cội nguồn sức mạnh để đoàn kết dân tộc?",
+    answer: "Yêu nước - nhân nghĩa - đoàn kết"
   },
   {
     id: 9,
-    question: "Karl Marx sinh năm nào, ở đâu?",
-    answer: "Ngày 5/5/1818 tại Trier, Đức"
+    question: "Hồ Chí Minh ví dụ \"Năm ngón tay có ngón dài ngón ngắn... Có như thế mới thành đoàn kết, có đại đoàn kết thì tương lai chắc chắn sẽ vẻ vang\" để nhấn mạnh điều gì?",
+    answer: "Cần phải khoan dung, độ lượng để đoàn kết"
   },
   {
     id: 10,
-    question: "Luận án tiến sĩ của Marx (1841) nghiên cứu về đề tài gì?",
-    answer: "Sự khác biệt giữa triết học tự nhiên của Democritus và Epicurus"
+    question: "Nguyên tắc tối cao trong tư tưởng Hồ Chí Minh về xây dựng khối đại đoàn kết toàn dân tộc là:",
+    answer: "Yêu dân, tin dân, dựa vào dân, vì dân"
   },
   {
     id: 11,
-    question: "Tác phẩm nào của Marx lần đầu phác thảo học thuyết về sự tha hóa lao động?",
-    answer: "Bản thảo Kinh tế-Triết học 1844"
+    question: "Trong tư tưởng Hồ Chí Minh, chủ thể của khối đại đoàn kết toàn dân tộc là:",
+    answer: "Toàn dân Việt Nam không phân biệt dân tộc, tôn giáo, giai cấp"
   },
   {
     id: 12,
-    question: "Câu nổi tiếng nhất trong '11 Luận cương về Feuerbach' (1845) của Marx là gì?",
-    answer: "'Các nhà triết học chỉ giải thích thế giới bằng những cách khác nhau; vấn đề là phải cải tạo nó.'"
+    question: "Theo Hồ Chí Minh, để lãnh đạo khối đại đoàn kết, Đảng Cộng sản Việt Nam cần đứng vững trên lập trường nào?",
+    answer: "Giai cấp công nhân"
   },
   {
     id: 13,
-    question: "Tác phẩm nào lần đầu trình bày có hệ thống quan niệm duy vật về lịch sử?",
-    answer: "Hệ tư tưởng Đức (1845-1846), do Marx và Engels viết chung"
+    question: "Trong kháng chiến chống Mỹ, sức mạnh của đại đoàn kết dân tộc còn được củng cố nhờ:",
+    answer: "Sự hỗ trợ từ phong trào phản chiến và nhân dân tiến bộ thế giới"
   },
   {
     id: 14,
-    question: "Tuyên ngôn của Đảng Cộng sản được công bố năm nào? Do ai viết?",
-    answer: "Năm 1848, do Karl Marx và Friedrich Engels viết"
+    question: "Theo Hồ Chí Minh, muốn thực hiện đại đoàn kết phải:",
+    answer: "Đặt lợi ích dân tộc và nhân dân lao động làm mục tiêu phấn đấu"
   },
   {
     id: 15,
-    question: "Câu mở đầu nổi tiếng của Tuyên ngôn Đảng Cộng sản là gì?",
-    answer: "'Một bóng ma đang ám ảnh châu Âu — bóng ma chủ nghĩa cộng sản.'"
+    question: "Nguyên lý mácxít nào được Hồ Chí Minh quán triệt khi khẳng định \"Cách mạng là sự nghiệp của quần chúng\"?",
+    answer: "Nguyên lý quần chúng là động lực của lịch sử"
   },
   {
     id: 16,
-    question: "Bộ 'Tư bản' (Das Kapital) Tập 1 của Marx xuất bản năm nào?",
-    answer: "Năm 1867"
+    question: "Hình thức tổ chức cơ bản của khối đại đoàn kết dân tộc theo Hồ Chí Minh là gì?",
+    answer: "Mặt trận dân tộc thống nhất"
   },
   {
     id: 17,
-    question: "Học thuyết kinh tế trung tâm trong bộ 'Tư bản' của Marx là gì?",
-    answer: "Học thuyết giá trị thặng dư — phân tích bản chất bóc lột của chủ nghĩa tư bản"
+    question: "Nguyên tắc quan trọng nhất trong hoạt động của Mặt trận dân tộc thống nhất là:",
+    answer: "Hiệp thương dân chủ"
   },
   {
     id: 18,
-    question: "Friedrich Engels có vai trò gì sau khi Marx qua đời (1883)?",
-    answer: "Hoàn thiện Tập 2 (1885) và Tập 3 (1894) bộ Tư bản, tiếp tục bảo vệ và phổ biến chủ nghĩa Mác"
+    question: "Nội dung nào KHÔNG thuộc nguyên tắc hoạt động của Mặt trận dân tộc thống nhất?",
+    answer: "Chỉ tập hợp công - nông"
   },
   {
     id: 19,
-    question: "Lenin bảo vệ chủ nghĩa duy vật biện chứng qua tác phẩm nào?",
-    answer: "'Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán' (1908)"
+    question: "Theo Hồ Chí Minh, nền tảng để hình thành Mặt trận dân tộc thống nhất là gì?",
+    answer: "Lợi ích tối cao của dân tộc"
   },
   {
     id: 20,
-    question: "Tác phẩm nào của Lenin phát triển sâu sắc phép biện chứng duy vật?",
-    answer: "'Bút ký triết học' (1914-1916)"
+    question: "Một phương thức quan trọng để xây dựng khối đại đoàn kết dân tộc là:",
+    answer: "Thống nhất ý chí và hành động trên cơ sở lợi ích dân tộc"
   },
   {
     id: 21,
-    question: "Lenin phân tích bản chất của chủ nghĩa đế quốc trong tác phẩm nào?",
-    answer: "'Chủ nghĩa đế quốc, giai đoạn tột cùng của chủ nghĩa tư bản' (1916)"
+    question: "Để xây dựng đại đoàn kết dân tộc, Hồ Chí Minh đặc biệt coi trọng yếu tố nào?",
+    answer: "Lòng tin và tinh thần yêu nước"
   },
   {
     id: 22,
-    question: "Tác phẩm nào của Lenin phát triển học thuyết Mác về nhà nước vô sản?",
-    answer: "'Nhà nước và Cách mạng' (1917)"
+    question: "Tinh thần đoàn kết của Hồ Chí Minh được thể hiện qua khẩu hiệu nào?",
+    answer: "Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công"
   },
   {
     id: 23,
-    question: "Cách mạng Tháng Mười Nga diễn ra vào ngày nào?",
-    answer: "Ngày 7/11/1917 (theo lịch cũ là 25/10/1917)"
+    question: "Trong khối đại đoàn kết dân tộc, Hồ Chí Minh nhấn mạnh phải:",
+    answer: "Tôn trọng sự khác biệt và kết hợp hài hòa lợi ích"
   },
   {
     id: 24,
-    question: "Ý nghĩa triết học của Cách mạng Tháng Mười Nga là gì?",
-    answer: "Minh chứng vĩ đại nhất cho sức sống thực tiễn của triết học Mác-Lênin — không chỉ giải thích mà còn cải tạo thế giới"
+    question: "Một phương thức xây dựng khối đại đoàn kết dân tộc là:",
+    answer: "Củng cố mối quan hệ giữa Đảng, Nhà nước và Nhân dân"
   },
   {
     id: 25,
-    question: "Hai bộ phận cấu thành của triết học Mác-Lênin là gì?",
-    answer: "Chủ nghĩa duy vật biện chứng (thế giới quan) và Chủ nghĩa duy vật lịch sử (phương pháp luận)"
+    question: "Ý nghĩa lớn nhất của việc xây dựng khối đại đoàn kết dân tộc theo Hồ Chí Minh là:",
+    answer: "Tạo sức mạnh tổng hợp để giành và giữ độc lập dân tộc"
   },
   {
     id: 26,
-    question: "Ba quy luật cơ bản của phép biện chứng duy vật là gì?",
-    answer: "Thống nhất và đấu tranh của các mặt đối lập; Lượng đổi chất đổi; Phủ định của phủ định"
+    question: "Trong các giai đoạn cách mạng, Mặt trận dân tộc thống nhất có thể thay đổi tên gọi, nhưng bản chất là gì?",
+    answer: "Tổ chức tập hợp mọi lực lượng yêu nước dưới sự lãnh đạo của Đảng"
   },
   {
     id: 27,
-    question: "Đặc trưng nổi bật nhất của triết học Mác-Lênin so với các hệ thống triết học trước đó là gì?",
-    answer: "Thống nhất giữa tính khoa học và tính cách mạng — không chỉ giải thích mà còn cải tạo thế giới"
+    question: "Theo Hồ Chí Minh, đoàn kết trong Mặt trận dân tộc thống nhất phải dựa trên phương châm nào?",
+    answer: "Cầu đồng tồn dị"
   },
   {
     id: 28,
-    question: "Vai trò của triết học Mác-Lênin đối với Việt Nam là gì?",
-    answer: "Là nền tảng tư tưởng, kim chỉ nam cho hành động của Đảng và nhân dân trong sự nghiệp xây dựng và bảo vệ Tổ quốc"
+    question: "Hồ Chí Minh yêu cầu việc phê bình trong khối đoàn kết phải được thực hiện như thế nào?",
+    answer: "Trên lập trường thân ái, vì nước, vì dân"
   },
   {
     id: 29,
-    question: "Chủ nghĩa duy vật lịch sử giải thích động lực phát triển xã hội là gì?",
-    answer: "Mâu thuẫn giữa lực lượng sản xuất và quan hệ sản xuất; đấu tranh giai cấp là động lực trực tiếp trong xã hội có giai cấp"
+    question: "Phương thức cơ bản nhất để xây dựng khối đại đoàn kết dân tộc, theo Hồ Chí Minh, là gì?",
+    answer: "Dân vận khéo"
   },
   {
     id: 30,
-    question: "Tại sao triết học Mác-Lênin được coi là 'vũ khí lý luận' của giai cấp vô sản?",
-    answer: "Vì nó trang bị thế giới quan khoa học, phương pháp luận đúng đắn, chỉ ra quy luật vận động của xã hội và con đường giải phóng giai cấp vô sản"
+    question: "Mục đích cuối cùng của việc thành lập các đoàn thể quần chúng là gì?",
+    answer: "Gắn kết quần chúng vào khối đại đoàn kết chung trong Mặt trận"
   }
 ];

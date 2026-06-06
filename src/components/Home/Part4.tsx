@@ -1,4 +1,3 @@
-// Part4.tsx — Lenin phát triển triết học Mác (1870-1924)
 import {
   useEffect,
   useRef,
@@ -7,15 +6,6 @@ import {
   type ReactNode,
 } from "react";
 import { TypingAnimation } from "../magicui/Text Animations/TypingAnimation";
-import HallGallery from "./HallGallery";
-
-const galleryItems = [
-  { src: "/imgs/real/hall-4-1.jpg", alt: "Hall 4", caption: "Lenin phát triển triết học Mác" },
-  { src: "/imgs/lenin-portrait.jpg", alt: "Lenin", caption: "V.I. Lenin (1870–1924)" },
-  { src: "/imgs/halls/hall-4-1.svg", alt: "Minh họa 1", caption: "Bảo vệ chủ nghĩa duy vật biện chứng" },
-  { src: "/imgs/halls/hall-4-2.svg", alt: "Minh họa 2", caption: "Bút ký triết học về phép biện chứng" },
-  { src: "/imgs/halls/hall-4-3.svg", alt: "Minh họa 3", caption: "Cách mạng Tháng Mười 1917" },
-];
 
 function Reveal({
   children,
@@ -45,7 +35,10 @@ function Reveal({
           if (entry.isIntersecting) {
             if (delayMs > 0) {
               const id = setTimeout(() => setVisible(true), delayMs);
-              if (!once) return () => clearTimeout(id);
+              if (!once) {
+                // cleanup timer when leaving view
+                return () => clearTimeout(id);
+              }
             } else {
               setVisible(true);
             }
@@ -77,221 +70,336 @@ function Reveal({
   );
 }
 
-const leninWorks = [
-  {
-    year: "1894",
-    title: "Ai là những người bạn dân?",
-    desc: "Phê phán phái dân túy, bảo vệ và phát triển chủ nghĩa Mác trong điều kiện nước Nga.",
-    color: "border-red-500/40",
-    badge: "bg-red-600",
-  },
-  {
-    year: "1902",
-    title: "Làm gì?",
-    desc: "Lý luận về Đảng kiểu mới của giai cấp vô sản — đội tiền phong tổ chức, kỷ luật, lý luận.",
-    color: "border-amber-500/40",
-    badge: "bg-amber-600",
-  },
-  {
-    year: "1908",
-    title: "Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán",
-    desc: "Bảo vệ chủ nghĩa duy vật biện chứng trước sự tấn công của chủ nghĩa duy tâm và thực chứng.",
-    color: "border-red-600/40",
-    badge: "bg-red-700",
-  },
-  {
-    year: "1914-1916",
-    title: "Bút ký triết học (Về phép biện chứng)",
-    desc: "Phát triển sâu sắc phép biện chứng duy vật; câu nổi tiếng: 'Không thể hoàn toàn hiểu được Tư bản... nếu không nghiên cứu toàn bộ Lô-gíc học của Hegel'.",
-    color: "border-stone-500/40",
-    badge: "bg-stone-600",
-  },
-  {
-    year: "1916",
-    title: "Chủ nghĩa đế quốc, giai đoạn tột cùng của CNTB",
-    desc: "Phân tích bản chất của chủ nghĩa đế quốc — 'giai đoạn tột cùng và đang hấp hối' của chủ nghĩa tư bản.",
-    color: "border-amber-700/40",
-    badge: "bg-amber-700",
-  },
-  {
-    year: "1917",
-    title: "Nhà nước và Cách mạng",
-    desc: "Học thuyết về nhà nước vô sản và sự tiêu vong của nhà nước trong CNCS. Nền tảng lý luận cho Cách mạng Tháng Mười.",
-    color: "border-red-700/40",
-    badge: "bg-red-800",
-  },
-];
-
 export default function Part4() {
   const [showDetails, setShowDetails] = useState(false);
-
   return (
     <div className="min-h-screen relative bg-gradient-to-b from-[#FDF6E3] to-white">
-      {/* Background Image */}
+      {/* Background Image with Gradient Overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-8 mix-blend-overlay pointer-events-none"
-        style={{ backgroundImage: 'url("/imgs/lenin-portrait.jpg")' }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-white/80 pointer-events-none" />
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10 mix-blend-overlay pointer-events-none"
+        style={{
+          backgroundImage: 'url("/imgs/Bác%20Hồ%20với%20nhân%20dân.jpg")',
+        }}
+      ></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-white/80 pointer-events-none"></div>
 
       <div className="container mx-auto px-6 py-12 relative z-10">
-        {/* Header */}
+        {/* Header Section */}
         <Reveal className="text-center mb-10">
           <h1 className="flex justify-center items-center relative uppercase text-red-700 font-heading text-3xl md:text-4xl mb-4 min-h-[100px] z-10 drop-shadow-[0_0_8px_rgba(185,28,28,0.2)]">
-            <TypingAnimation startOnView={true} duration={50} className="text-red-700 font-heading text-2xl md:text-3xl">
-              Lenin phát triển triết học Mác
+            <TypingAnimation
+              startOnView={true}
+              duration={50}
+              className="text-red-700 font-heading text-2xl md:text-3xl"
+            >
+              Hình thức & Nguyên tắc tổ chức
             </TypingAnimation>
           </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-red-600 to-yellow-500 mx-auto mb-6 scale-in" />
+          {/* Animated divider under main title */}
+          <div
+            className={`w-32 h-1 bg-gradient-to-r from-red-600 to-yellow-500 mx-auto mb-6 scale-in`}
+            style={{ animationDelay: "1s" }}
+          ></div>
           <div className="mt-2 inline-block px-6 py-2.5 bg-red-600/5 backdrop-blur-lg rounded-2xl border border-red-600/30 shadow-2xl">
             <p className="text-lg text-red-600 font-medium font-heading">
-              Vladimir Ilyich Lenin (1870–1924)
+              Mặt trận dân tộc thống nhất
             </p>
           </div>
         </Reveal>
 
         <div className="max-w-5xl mx-auto">
-          <Reveal className="mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-              <div className="rounded-2xl overflow-hidden border border-red-800/15 shadow-2xl">
-                <img
-                  src="/imgs/real/hall-4-1.jpg"
-                  alt="Lenin và triết học Mác"
-                  className="w-full h-64 object-cover"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/imgs/lenin-portrait.jpg";
-                  }}
-                />
+          {/* Section A: Hình thức tổ chức */}
+          <div className="mb-12">
+            <Reveal className="flex items-center mb-8">
+              <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-700 rounded-full flex items-center justify-center mr-4">
+                <span className="text-lg font-bold text-white">A</span>
               </div>
-              <div className="rounded-2xl overflow-hidden border border-red-800/15 shadow-xl">
-                <img
-                  src="/imgs/lenin-portrait.jpg"
-                  alt="Chân dung Lenin"
-                  className="w-full h-64 object-cover object-top"
-                />
+              <div>
+                <h2 className="text-2xl font-bold text-stone-800 mb-1 font-heading">Hình thức tổ chức</h2>
+                <div className="w-16 h-0.5 bg-gradient-to-r from-red-600 to-red-700 rounded-full scale-in" style={{ animationDelay: '0.2s' }}></div>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
 
-          {/* Context section */}
-          <Reveal className="gold-glow-panel rounded-2xl p-6 mb-8 border border-red-800/15 bg-white/80 shadow-2xl backdrop-blur-md">
-            <h2 className="text-xl font-bold text-red-700 mb-4 font-heading flex items-center gap-2">
-              <span className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
-              Bối cảnh Lenin phát triển triết học Mác
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-stone-600">
-              <div className="bg-red-50 border border-red-200/60 rounded-xl p-4">
-                <div className="font-bold text-red-700 mb-2">🏭 Thời đại đế quốc</div>
-                <p>CNTB chuyển sang giai đoạn đế quốc chủ nghĩa — độc quyền, bành trướng thuộc địa, chiến tranh thế giới.</p>
-              </div>
-              <div className="bg-amber-50 border border-amber-200/60 rounded-xl p-4">
-                <div className="font-bold text-amber-700 mb-2">⚡ Khủng hoảng trong triết học</div>
-                <p>Nhiều trào lưu triết học tấn công chủ nghĩa duy vật: thực chứng luận, chủ nghĩa Kant mới, chủ nghĩa Mach...</p>
-              </div>
-              <div className="bg-stone-50 border border-stone-200/60 rounded-xl p-4">
-                <div className="font-bold text-stone-700 mb-2">🔥 Phong trào CM phát triển</div>
-                <p>Giai cấp vô sản Nga trưởng thành, tình thế cách mạng chín muồi, đòi hỏi lý luận cách mạng tiên tiến.</p>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Đóng góp chính */}
-          <Reveal className="mb-8">
-            <h2 className="text-xl font-bold text-stone-800 mb-6 font-heading flex items-center gap-2">
-              <span className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
-              Những đóng góp chính của Lenin
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {[
-                {
-                  icon: "🛡️",
-                  title: "Bảo vệ chủ nghĩa duy vật biện chứng",
-                  content: "Đấu tranh kiên quyết chống lại mọi biểu hiện của chủ nghĩa duy tâm, thực chứng luận, chủ nghĩa duy tâm phê phán trong triết học. Tác phẩm 'Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán' (1908) là vũ khí sắc bén.",
-                },
-                {
-                  icon: "📖",
-                  title: "Phát triển phép biện chứng duy vật",
-                  content: "Qua 'Bút ký triết học' (1914-1916), Lenin nghiên cứu sâu phép biện chứng của Hegel, phát triển lý luận về mâu thuẫn, phủ định biện chứng, nhảy vọt về chất.",
-                },
-                {
-                  icon: "🌍",
-                  title: "Lý luận về thời đại đế quốc",
-                  content: "Phát triển học thuyết Mác về CNTB thành lý luận về chủ nghĩa đế quốc. Rút ra kết luận: Cách mạng XHCN có thể thắng lợi ở một nước (nước mắt xích yếu nhất trong hệ thống đế quốc).",
-                },
-                {
-                  icon: "🏛️",
-                  title: "Lý luận về nhà nước & cách mạng",
-                  content: "'Nhà nước và Cách mạng' (1917) phát triển học thuyết Mác về nhà nước, vai trò của chuyên chính vô sản, giai đoạn quá độ lên CNCS.",
-                },
-              ].map((item, i) => (
-                <Reveal key={i} delayMs={i * 80} className="gold-glow-panel rounded-2xl p-5 border border-red-800/15 bg-white/80 shadow-md">
-                  <div className="flex gap-3">
-                    <span className="text-2xl">{item.icon}</span>
-                    <div>
-                      <h3 className="font-bold text-stone-800 mb-2 font-heading">{item.title}</h3>
-                      <p className="text-sm text-stone-600 leading-relaxed">{item.content}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </Reveal>
-
-          {/* Toggle works */}
-          <div className="text-center mb-8">
-            <button
-              onClick={() => setShowDetails((v) => !v)}
-              className="inline-block px-6 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
-            >
-              {showDetails ? "Thu gọn tác phẩm" : "📚 Xem các tác phẩm chính của Lenin"}
-            </button>
-          </div>
-
-          {/* Lenin works timeline */}
-          {showDetails && (
-            <Reveal className="gold-glow-panel rounded-2xl p-6 md:p-8 border border-red-800/15 bg-white/85 shadow-2xl backdrop-blur-md mb-8">
-              <h3 className="text-xl font-bold text-red-700 mb-8 text-center font-heading">
-                Các tác phẩm triết học tiêu biểu của Lenin
-              </h3>
-
-              <div className="relative">
-                <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 to-red-500 rounded-full opacity-35" />
-                <div className="space-y-6">
-                  {leninWorks.map((work, index) => (
-                    <Reveal key={index} className="relative flex items-start" delayMs={index * 60}>
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center z-10 text-white text-xs font-bold shadow-lg ${work.badge} shrink-0`}>
-                        {work.year.slice(0, 4)}
-                      </div>
-                      <div className={`ml-4 md:ml-6 bg-white/80 backdrop-blur-sm rounded-xl p-4 flex-1 border ${work.color} hover:border-red-600/30 transition-all duration-300`}>
-                        <h4 className="text-base font-bold text-stone-800 font-heading mb-1">{work.title} <span className="text-xs font-normal text-stone-400">({work.year})</span></h4>
-                        <p className="text-sm text-stone-500 leading-relaxed">{work.desc}</p>
-                      </div>
-                    </Reveal>
-                  ))}
+            {/* Definition Card */}
+            <Reveal className="gold-glow-panel rounded-2xl p-6 mb-6 border border-red-800/15 bg-white/80 shadow-2xl backdrop-blur-md">
+              <div className="flex items-start space-x-5">
+                <div className="w-10 h-10 bg-red-600/10 rounded-xl flex items-center justify-center flex-shrink-0 text-red-700 border border-red-600/30">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-red-600 mb-2 font-heading">
+                    Mặt trận dân tộc thống nhất
+                  </h3>
+                  <p className="text-base text-stone-600 mb-3 leading-relaxed">
+                    Mặt trận dân tộc thống nhất là nơi quy tụ mọi tổ chức và cá
+                    nhân yêu nước, tập hợp mọi người dân nước Việt, cả trong
+                    nước lẫn kiều bào sinh sống ở nước ngoài.
+                  </p>
+                  <p className="text-base text-stone-600 leading-relaxed">
+                    Đây là nơi đoàn kết mọi tổ chức, cá nhân yêu nước, mọi tầng
+                    lớp nhân dân Việt Nam, tạo sức mạnh đại đoàn kết vô địch.
+                  </p>
                 </div>
               </div>
             </Reveal>
+
+            {/* Mission Card */}
+            <Reveal
+              className="crimson-glow-panel rounded-2xl p-6 mb-6 border border-red-900/30 bg-white/80 shadow-2xl backdrop-blur-md"
+              delayMs={50}
+            >
+              <div className="flex items-start space-x-5">
+                <div className="w-10 h-10 bg-red-500/10 rounded-xl flex items-center justify-center flex-shrink-0 text-red-500 border border-red-500/30">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-red-400 mb-2 font-heading">
+                    Nhiệm vụ hàng đầu
+                  </h3>
+                  <p className="text-base text-stone-600 leading-relaxed">
+                    Đưa quần chúng vào các tổ chức yêu nước phù hợp với từng
+                    giai đoạn cách mạng, từng ngành nghề, giới, lứa tuổi, tôn
+                    giáo để tập hợp tối đa sức mạnh quần chúng.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Toggle details button */}
+            <div className="text-center mb-8">
+              <button
+                onClick={() => setShowDetails((v) => !v)}
+                className="inline-block px-6 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              >
+                {showDetails ? "Thu gọn chi tiết" : "📖 Xem chi tiết đầy đủ"}
+              </button>
+            </div>
+
+            {/* Timeline Section */}
+            {showDetails && (
+              <Reveal className="gold-glow-panel rounded-2xl p-6 md:p-8 border border-red-800/15 bg-white/85 shadow-2xl backdrop-blur-md">
+                <h3 className="text-2xl font-bold text-red-700 mb-8 text-center font-heading">
+                  Các tên gọi của Mặt trận qua các thời kỳ lịch sử
+                </h3>
+
+                <div className="relative">
+                  {/* Timeline line */}
+                  <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 to-red-500 rounded-full opacity-35"></div>
+
+                  {/* Timeline items */}
+                  <div className="space-y-6">
+                    {[
+                      {
+                        year: "1936",
+                        name: "Mặt trận Dân chủ Đông Dương",
+                        color: "from-red-500/20 to-red-600/10",
+                        textBorder: "border-red-900/30",
+                        textColor: "text-red-400"
+                      },
+                      {
+                        year: "1939",
+                        name: "Mặt trận Nhân dân phản đế Đông Dương",
+                        color: "from-orange-500/20 to-orange-600/10",
+                        textBorder: "border-orange-900/30",
+                        textColor: "text-orange-400"
+                      },
+                      {
+                        year: "1941",
+                        name: "Mặt trận Việt Minh",
+                        color: "from-yellow-500/20 to-yellow-600/10",
+                        textBorder: "border-yellow-900/30",
+                        textColor: "text-yellow-400"
+                      },
+                      {
+                        year: "1951",
+                        name: "Mặt trận Liên Việt",
+                        color: "from-emerald-500/20 to-emerald-600/10",
+                        textBorder: "border-emerald-900/30",
+                        textColor: "text-emerald-400"
+                      },
+                      {
+                        year: "1960",
+                        name: "Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+                        color: "from-blue-500/20 to-blue-600/10",
+                        textBorder: "border-blue-900/30",
+                        textColor: "text-blue-400"
+                      },
+                      {
+                        year: "1968",
+                        name: "Liên minh các lực lượng Dân tộc, Dân chủ và Hòa bình Việt Nam",
+                        color: "from-indigo-500/20 to-indigo-600/10",
+                        textBorder: "border-indigo-900/30",
+                        textColor: "text-indigo-400"
+                      },
+                      {
+                        year: "1976",
+                        name: "Mặt trận Tổ quốc Việt Nam",
+                        color: "from-purple-500/20 to-purple-600/10",
+                        textBorder: "border-purple-900/30",
+                        textColor: "text-purple-400"
+                      },
+                    ].map((item, index) => (
+                      <Reveal
+                        key={index}
+                        className="relative flex items-center"
+                        delayMs={index * 50}
+                      >
+                        <div
+                          className="w-12 h-12 rounded-full flex items-center justify-center z-10 bg-white border-2 border-red-600/40 text-red-700 text-xs font-bold shadow-lg"
+                        >
+                          {item.year}
+                        </div>
+                        <div className={`ml-4 md:ml-6 bg-white/80 backdrop-blur-sm rounded-xl p-4 flex-1 border ${item.textBorder} hover:border-red-600/30 transition-all duration-300`}>
+                          <h4 className="text-lg font-bold text-stone-800 font-heading">
+                            {item.name}
+                          </h4>
+                          <p className="text-xs text-stone-500 mt-1">Giai đoạn năm {item.year}</p>
+                        </div>
+                      </Reveal>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            )}
+          </div>
+
+          {/* Section B: Nguyên tắc xây dựng và hoạt động */}
+          {showDetails && (
+            <div className="mb-12">
+              <Reveal className="flex items-center mb-8">
+                <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-lg font-bold text-white">B</span>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-stone-800 mb-1 font-heading">Nguyên tắc hoạt động</h2>
+                  <div className="w-16 h-0.5 bg-gradient-to-r from-red-500 to-red-600 rounded-full scale-in" style={{ animationDelay: '0.2s' }}></div>
+                </div>
+              </Reveal>
+
+              {/* Principles Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Principle 1 */}
+                <Reveal className="gold-glow-panel rounded-2xl p-6 border border-red-800/15 bg-white/80 shadow-2xl backdrop-blur-md">
+                  <div className="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center mb-4 text-red-700 border border-red-600/20">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-red-600 mb-3 font-heading">Nền tảng liên minh vững vàng</h3>
+                  <p className="text-sm text-stone-600 mb-4">
+                    Xây dựng trên nền tảng liên minh công – nông – trí thức, dưới sự lãnh đạo của Đảng.
+                  </p>
+                  <div className="space-y-2 text-xs">
+                    <div className="bg-[#F5E6C8]/60 rounded-lg p-3 border border-red-800/10">
+                      <p className="text-stone-500 leading-relaxed">
+                        <span className="font-semibold text-red-700">Công – nông</span> làm nòng cốt, là lực lượng đông đảo và cách mạng nhất.
+                      </p>
+                    </div>
+                    <div className="bg-[#F5E6C8]/60 rounded-lg p-3 border border-red-800/10">
+                      <p className="text-stone-500 leading-relaxed">
+                        Liên kết giai cấp chặt chẽ với trí thức tạo nền tảng vững chắc.
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+
+                {/* Principle 2 */}
+                <Reveal className="gold-glow-panel rounded-2xl p-6 border border-red-800/15 bg-white/80 shadow-2xl backdrop-blur-md" delayMs={50}>
+                  <div className="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center mb-4 text-red-500 border border-red-500/20">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-red-400 mb-3 font-heading">Hiệp thương dân chủ thực chất</h3>
+                  <p className="text-sm text-stone-600 mb-4">
+                    Hoạt động theo nguyên tắc hiệp thương, bàn bạc công khai, đi đến đồng thuận thực chất.
+                  </p>
+                  <div className="space-y-2 text-xs">
+                    <div className="bg-[#F5E6C8]/60 rounded-lg p-3 border border-red-900/10">
+                      <p className="text-stone-500 leading-relaxed">
+                        Bàn bạc dân chủ rộng rãi, tôn trọng ý kiến khác biệt hợp lý.
+                      </p>
+                    </div>
+                    <div className="bg-[#F5E6C8]/60 rounded-lg p-3 border border-red-900/10">
+                      <p className="text-stone-500 leading-relaxed">
+                        Lấy điểm chung tối thượng là độc lập tự do dân tộc làm quy chuẩn thống nhất.
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+
+                {/* Principle 3 */}
+                <Reveal className="gold-glow-panel rounded-2xl p-6 border border-red-800/15 bg-white/80 shadow-2xl backdrop-blur-md" delayMs={100}>
+                  <div className="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center mb-4 text-red-700 border border-red-600/20">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-red-600 mb-3 font-heading">Đoàn kết lâu dài, chân thành</h3>
+                  <p className="text-sm text-stone-600 mb-4">
+                    Đoàn kết không mang tính thời sự nhất thời mà là sự gắn bó lâu dài, thân ái vì sự nghiệp nước nhà.
+                  </p>
+                  <div className="space-y-2 text-xs">
+                    <div className="bg-[#F5E6C8]/60 rounded-lg p-3 border border-red-800/10">
+                      <p className="text-stone-500 leading-relaxed italic">
+                        "Cầu đồng tồn dị" - Tìm điểm chung, tôn trọng các khác biệt chính đáng, chân thành phê bình để cùng tiến bộ.
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
           )}
 
-          <Reveal className="mb-8">
-            <HallGallery items={galleryItems} title="Triển lãm Hall 4" />
-          </Reveal>
-
-          {/* Cách mạng Tháng Mười */}
+          {/* Conclusion Section */}
           {showDetails && (
             <Reveal className="crimson-glow-panel rounded-2xl p-8 md:p-10 border border-red-900/30 bg-white/85 shadow-2xl backdrop-blur-md">
               <div className="text-center">
-                <div className="text-4xl mb-4">🔴</div>
+                <div className="w-16 h-16 bg-red-500/10 text-red-500 border border-red-500/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg
+                    className="w-8 h-8 animate-pulse"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                    />
+                  </svg>
+                </div>
                 <h2 className="text-2xl font-bold text-stone-800 mb-4 font-heading">
-                  Cách mạng Tháng Mười Nga (1917)
+                  Ý NGHĨA THỜI ĐẠI
                 </h2>
-                <div className="max-w-3xl mx-auto space-y-4 text-base text-stone-600 leading-relaxed">
-                  <p>
-                    Dưới sự lãnh đạo của Lenin, giai cấp công nhân và nông dân Nga lật đổ chế độ Nga hoàng và chính phủ tư sản, thành lập Nhà nước Xô viết đầu tiên trên thế giới (7/11/1917).
-                  </p>
-                  <p>
-                    Cách mạng Tháng Mười là <strong>minh chứng vĩ đại nhất</strong> cho sức sống của triết học Mác-Lênin trong thực tiễn. Nó xác nhận rằng triết học Mác-Lênin không chỉ là lý luận giải thích thế giới mà là <strong>vũ khí cải tạo thế giới</strong>.
+                <div className="max-w-3xl mx-auto space-y-4 text-base">
+                  <p className="text-stone-600 leading-relaxed">
+                    Mặt trận dân tộc thống nhất là một phát kiến vĩ đại của Đảng và Hồ Chí Minh. Cho đến ngày nay, các nguyên tắc hiệp thương dân chủ và tự nguyện gắn bó vẫn giữ nguyên vẹn giá trị hạt nhân trong việc quy tụ sức mạnh người Việt trên toàn cầu để xây dựng quốc gia cường thịnh.
                   </p>
                 </div>
               </div>
@@ -299,7 +407,7 @@ export default function Part4() {
           )}
         </div>
       </div>
-
+      {/* Local animations for Part4 */}
       <style>{`
         @keyframes scaleIn {
           from { transform: scaleX(0); }

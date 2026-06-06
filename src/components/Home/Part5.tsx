@@ -1,333 +1,311 @@
-// Part5.tsx — Đặc trưng và Vai trò của Triết học Mác-Lênin
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ElementType,
-  type ReactNode,
-} from "react";
-import { TypingAnimation } from "../magicui/Text Animations/TypingAnimation";
-import { motion } from "motion/react";
-import HallGallery from "./HallGallery";
+import { useEffect, useRef, useState } from 'react'
 
-const galleryItems = [
-  { src: "/imgs/real/hall-5-1.jpg", alt: "Hall 5", caption: "Đặc trưng & vai trò TH Mác-Lênin" },
-  { src: "/imgs/triethoc-1.svg", alt: "Tính khoa học", caption: "Thế giới quan duy vật biện chứng" },
-  { src: "/imgs/triethoc-2.svg", alt: "Tính cách mạng", caption: "Cải tạo thế giới, không chỉ giải thích" },
-  { src: "/imgs/triethoc-3.svg", alt: "Tính sáng tạo", caption: "Phát triển theo thực tiễn lịch sử" },
-  { src: "/imgs/triethoc-4.svg", alt: "Tính đảng", caption: "Đứng về phía giai cấp vô sản" },
-  { src: "/imgs/halls/hall-5-1.svg", alt: "Minh họa 1", caption: "Hai bộ phận cấu thành" },
-  { src: "/imgs/halls/hall-5-2.svg", alt: "Minh họa 2", caption: "Vai trò kim chỉ nam" },
-  { src: "/imgs/halls/hall-5-3.svg", alt: "Minh họa 3", caption: "Di sản tư tưởng vĩ đại" },
-];
-
-function Reveal({
-  children,
-  className = "",
-  as: Tag = "div",
-  delayMs = 0,
-  once = true,
-  offset = 0.15,
-}: {
-  children: ReactNode;
-  className?: string;
-  as?: ElementType;
-  delayMs?: number;
-  once?: boolean;
-  offset?: number;
-}) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
+function useInView(options?: IntersectionObserverInit) {
+  const elementRef = useRef<HTMLDivElement | null>(null)
+  const [inView, setInView] = useState(false)
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (delayMs > 0) {
-              setTimeout(() => setVisible(true), delayMs);
-            } else {
-              setVisible(true);
-            }
-            if (once) io.unobserve(entry.target);
-          } else if (!once) {
-            setVisible(false);
-          }
-        });
-      },
-      { threshold: offset }
-    );
-    io.observe(element);
-    return () => io.disconnect();
-  }, [delayMs, offset, once]);
+    if (!elementRef.current) return
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+        }
+      })
+    }, options ?? { threshold: 0.15, rootMargin: '0px 0px -10% 0px' })
 
-  return (
-    <Tag
-      ref={ref}
-      className={`transition-all duration-700 ease-out will-change-transform ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-      } ${className}`.trim()}
-    >
-      {children}
-    </Tag>
-  );
+    observer.observe(elementRef.current)
+    return () => observer.disconnect()
+  }, [options])
+
+  return { ref: elementRef, inView }
 }
 
-const features = [
-  {
-    icon: "⚗️",
-    image: "/imgs/triethoc-1.svg",
-    title: "Tính khoa học",
-    color: "from-blue-50 to-blue-100",
-    borderColor: "border-blue-300/60",
-    textColor: "text-blue-700",
-    points: [
-      "Phản ánh đúng đắn hiện thực khách quan",
-      "Có cơ sở lý luận và thực tiễn vững chắc",
-      "Được kiểm nghiệm qua lịch sử",
-      "Mở ra phương pháp nhận thức khoa học",
-    ],
-  },
-  {
-    icon: "⚡",
-    image: "/imgs/triethoc-2.svg",
-    title: "Tính cách mạng",
-    color: "from-red-50 to-red-100",
-    borderColor: "border-red-300/60",
-    textColor: "text-red-700",
-    points: [
-      "Không chỉ giải thích mà cải tạo thế giới",
-      "Vũ khí lý luận của giai cấp vô sản",
-      "Chỉ đường cho sự nghiệp giải phóng",
-      "Phê phán toàn bộ chế độ tư bản",
-    ],
-  },
-  {
-    icon: "🌱",
-    image: "/imgs/triethoc-3.svg",
-    title: "Tính sáng tạo & mở",
-    color: "from-emerald-50 to-emerald-100",
-    borderColor: "border-emerald-300/60",
-    textColor: "text-emerald-700",
-    points: [
-      "Không giáo điều, không cứng nhắc",
-      "Phát triển theo thực tiễn lịch sử",
-      "Tích hợp tri thức nhân loại",
-      "Đặt ra vấn đề mới cho từng thời đại",
-    ],
-  },
-  {
-    icon: "🤝",
-    image: "/imgs/triethoc-4.svg",
-    title: "Tính đảng (Tính giai cấp)",
-    color: "from-amber-50 to-amber-100",
-    borderColor: "border-amber-300/60",
-    textColor: "text-amber-700",
-    points: [
-      "Đứng về phía giai cấp vô sản và nhân dân lao động",
-      "Phục vụ lợi ích của đa số",
-      "Chống lại mọi hình thức áp bức, bóc lột",
-      "Nhất quán về lập trường giai cấp",
-    ],
-  },
-];
-
-const roles = [
-  {
-    number: "01",
-    title: "Thế giới quan duy vật biện chứng",
-    desc: "Trang bị cho con người cái nhìn khoa học về thế giới: vật chất quyết định ý thức, thế giới luôn vận động và phát triển theo quy luật khách quan.",
-    icon: "🌍",
-    color: "bg-blue-600",
-  },
-  {
-    number: "02",
-    title: "Phương pháp luận khoa học & cách mạng",
-    desc: "Phép biện chứng duy vật là phương pháp nhận thức và cải tạo thế giới — xem xét sự vật trong mối liên hệ, vận động và mâu thuẫn nội tại.",
-    icon: "🔬",
-    color: "bg-red-600",
-  },
-  {
-    number: "03",
-    title: "Nền tảng lý luận cho CNXH khoa học",
-    desc: "Đặt nền móng lý luận cho sự nghiệp giải phóng giai cấp vô sản, xây dựng CNXH và mục tiêu cuối cùng là CNCS.",
-    icon: "🏗️",
-    color: "bg-amber-600",
-  },
-  {
-    number: "04",
-    title: "Kim chỉ nam cho phong trào CM thế giới",
-    desc: "Là vũ khí tư tưởng của các Đảng Cộng sản và phong trào cách mạng trên toàn thế giới trong thế kỷ XX.",
-    icon: "🧭",
-    color: "bg-emerald-600",
-  },
-];
-
 export default function Part5() {
+  const [open1, setOpen1] = useState(false)
+  const [open2, setOpen2] = useState(false)
+  const [open3, setOpen3] = useState(false)
+
+  const sec1 = useInView()
+  const sec2 = useInView()
+  const sec3 = useInView()
+  const sec4 = useInView()
+  const sec5 = useInView()
+
   return (
-    <div className="min-h-screen relative bg-gradient-to-b from-[#FDF6E3] to-white">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(185,28,28,0.05),transparent_60%)] pointer-events-none" />
+    <div className="min-h-screen relative bg-gradient-to-b from-[#FDF6E3] to-white pb-12 select-none">
+      {/* Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay pointer-events-none"
+        style={{ backgroundImage: 'url("/imgs/part1-1.jpg")' }}
+      ></div>
+      <div className="z-0 absolute size-full top-0 bg-gradient-to-b from-white/80 via-transparent to-white/80 pointer-events-none" />
 
       <div className="container mx-auto px-6 py-12 relative z-10">
-        {/* Header */}
-        <Reveal className="text-center mb-12">
-          <h1 className="flex justify-center items-center relative uppercase text-red-700 font-heading text-3xl md:text-4xl mb-4 min-h-[100px] z-10 drop-shadow-[0_0_8px_rgba(185,28,28,0.2)]">
-            <TypingAnimation startOnView={true} duration={50} className="text-red-700 font-heading text-2xl md:text-3xl">
-              Đặc trưng & Vai trò của Triết học Mác-Lênin
-            </TypingAnimation>
-          </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-red-600 to-yellow-500 mx-auto mb-4" />
-          <p className="text-stone-500 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-            Triết học Mác-Lênin là hệ thống triết học duy nhất kết hợp tính <strong>khoa học</strong> với tính <strong>cách mạng</strong>, phục vụ cho sự nghiệp giải phóng con người.
-          </p>
-        </Reveal>
-
-        <div className="max-w-6xl mx-auto space-y-16">
-          <Reveal className="mb-4">
-            <div className="rounded-2xl overflow-hidden border border-red-800/15 shadow-2xl max-w-3xl mx-auto">
-              <img
-                src="/imgs/real/hall-5-1.jpg"
-                alt="Triết học Mác-Lênin"
-                className="w-full h-56 md:h-72 object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = "/imgs/triethoc-1.svg";
-                }}
-              />
-            </div>
-          </Reveal>
-
-          {/* I. Đặc trưng */}
-          <div>
-            <Reveal>
-              <h2 className="text-2xl font-bold text-stone-800 mb-8 font-heading flex items-center gap-3">
-                <span className="w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 text-white rounded-xl flex items-center justify-center text-base font-bold shadow-md">I</span>
-                Những đặc trưng cơ bản
-              </h2>
-            </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {features.map((f, i) => (
-                <Reveal key={i} delayMs={i * 100}>
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    className={`bg-gradient-to-br ${f.color} border-2 ${f.borderColor} rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300`}
-                  >
-                    {"image" in f && f.image && (
-                      <img
-                        src={f.image}
-                        alt={f.title}
-                        className="w-full h-28 object-cover border-b border-white/50"
-                      />
-                    )}
-                    <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-3xl">{f.icon}</span>
-                      <h3 className={`text-xl font-bold font-heading ${f.textColor}`}>{f.title}</h3>
-                    </div>
-                    <ul className="space-y-2">
-                      {f.points.map((p, j) => (
-                        <li key={j} className="flex items-start gap-2 text-stone-700 text-sm">
-                          <span className={`${f.textColor} font-bold mt-0.5 shrink-0`}>▸</span>
-                          {p}
-                        </li>
-                      ))}
-                    </ul>
-                    </div>
-                  </motion.div>
-                </Reveal>
-              ))}
+        <div className="max-w-5xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <h1
+              ref={sec1.ref}
+              className={`text-3xl md:text-4xl font-bold mb-4 font-heading bg-gradient-to-r from-red-600 to-amber-700 bg-clip-text text-transparent inline-block transition-all duration-700 ease-out ${sec1.inView
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-4'
+                }`}
+            >
+              Phương thức xây dựng khối đại đoàn kết dân tộc
+            </h1>
+            <div className="mt-2 inline-block px-6 py-2.5 bg-red-600/5 backdrop-blur-lg rounded-2xl border border-red-600/30 shadow-2xl">
+              <p className="text-sm md:text-base text-red-600 font-medium font-heading">
+                Thực hành dân vận, tổ chức, quy tụ sức mạnh
+              </p>
             </div>
           </div>
 
-          <Reveal>
-            <HallGallery items={galleryItems} title="Triển lãm Hall 5" />
-          </Reveal>
-
-          {/* II. Hai bộ phận cấu thành */}
-          <div>
-            <Reveal>
-              <h2 className="text-2xl font-bold text-stone-800 mb-8 font-heading flex items-center gap-3">
-                <span className="w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 text-white rounded-xl flex items-center justify-center text-base font-bold shadow-md">II</span>
-                Hai bộ phận cấu thành
+          <div className="space-y-6">
+            {/* Phần 1 */}
+            <div
+              ref={sec2.ref}
+              className={`gold-glow-panel rounded-2xl p-6 border border-red-800/15 bg-white/85 shadow-2xl transition-all duration-700 ease-out transform ${sec2.inView
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-6'
+                } hover:shadow-3xl`}
+            >
+              <h2 className="text-xl md:text-2xl font-bold text-red-600 mb-3 font-heading">
+                Làm tốt công tác vận động quần chúng (dân vận)
               </h2>
-            </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Reveal>
-                <div className="gold-glow-panel rounded-2xl p-6 border border-red-800/15 bg-white/80 shadow-xl h-full">
-                  <div className="text-4xl mb-3">🌐</div>
-                  <h3 className="text-xl font-bold text-red-700 mb-3 font-heading">Chủ nghĩa Duy vật Biện chứng</h3>
-                  <p className="text-stone-600 text-sm leading-relaxed mb-4">
-                    <strong>Thế giới quan:</strong> Vật chất là cái có trước, ý thức là cái có sau. Thế giới vật chất tồn tại khách quan, không phụ thuộc vào ý thức con người.
+              <p className="text-base text-stone-600 mb-4 leading-relaxed">
+                Đây là phương thức cơ bản nhất. Hồ Chí Minh khẳng định:
+                <span className="font-bold text-amber-700 italic">
+                  {' '}
+                  "Dân vận khéo thì việc gì cũng thành công."
+                </span>
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-sm text-stone-600">
+                <li>Phải gần dân, hiểu dân, tin dân và làm cho dân tin Đảng.</li>
+                <li>
+                  Hồ Chí Minh dặn:
+                  <span className="italic text-red-700">
+                    "cần phải chịu khó tìm đủ cách giải thích cho họ hiểu rằng: những việc đó là vì ích lợi của họ mà phải làm"
+                  </span>
+                </li>
+                <li>
+                  Mọi phương pháp tiếp cận đều phải phù hợp với tâm tư, nguyện vọng của quần chúng.
+                </li>
+                <li>
+                  Phải xuất phát từ thực tế trình độ dân trí và văn hoá riêng biệt của từng địa phương, từng đối tượng.
+                </li>
+              </ul>
+              <div
+                className={`overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${open1
+                  ? 'max-h-[1000px] opacity-100 mt-4'
+                  : 'max-h-0 opacity-0'
+                  }`}
+              >
+                <div className="bg-white/30 rounded-xl p-4 border border-red-800/10">
+                  <p className="text-sm text-stone-500 leading-relaxed">
+                    Dân vận không chỉ là tuyên truyền mà còn là tổ chức, lắng
+                    nghe và phản hồi kịp thời lợi ích chính đáng của nhân dân.
+                    Cán bộ dân vận cần "gần dân, trọng dân, hiểu dân, học dân" để xây dựng niềm tin sắt đá.
                   </p>
-                  <div className="bg-red-50 rounded-xl p-3 text-xs text-stone-600 border border-red-200/60">
-                    <strong className="text-red-700">Nguyên lý cơ bản:</strong> Ba quy luật của phép biện chứng: Thống nhất và đấu tranh của các mặt đối lập · Lượng đổi chất đổi · Phủ định của phủ định
-                  </div>
+                  <ul className="mt-2 list-disc list-inside text-xs text-stone-400 space-y-1">
+                    <li>Xây dựng cơ chế đối thoại định kỳ giữa chính quyền và người dân.</li>
+                    <li>Phát huy vai trò giám sát, phản biện xã hội của Mặt trận Tổ quốc.</li>
+                  </ul>
                 </div>
-              </Reveal>
-              <Reveal delayMs={100}>
-                <div className="gold-glow-panel rounded-2xl p-6 border border-red-800/15 bg-white/80 shadow-xl h-full">
-                  <div className="text-4xl mb-3">📜</div>
-                  <h3 className="text-xl font-bold text-red-700 mb-3 font-heading">Chủ nghĩa Duy vật Lịch sử</h3>
-                  <p className="text-stone-600 text-sm leading-relaxed mb-4">
-                    <strong>Phương pháp luận:</strong> Lịch sử xã hội loài người phát triển theo quy luật khách quan, do mâu thuẫn giữa lực lượng sản xuất và quan hệ sản xuất quyết định.
-                  </p>
-                  <div className="bg-amber-50 rounded-xl p-3 text-xs text-stone-600 border border-amber-200/60">
-                    <strong className="text-amber-700">Học thuyết:</strong> Hình thái kinh tế-xã hội · Đấu tranh giai cấp · Nhà nước · Ý thức xã hội · Sứ mệnh lịch sử của giai cấp vô sản
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-
-          {/* III. Vai trò */}
-          <div>
-            <Reveal>
-              <h2 className="text-2xl font-bold text-stone-800 mb-8 font-heading flex items-center gap-3">
-                <span className="w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 text-white rounded-xl flex items-center justify-center text-base font-bold shadow-md">III</span>
-                Vai trò của Triết học Mác-Lênin
-              </h2>
-            </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {roles.map((role, i) => (
-                <Reveal key={i} delayMs={i * 80}>
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    className="gold-glow-panel rounded-2xl p-5 border border-red-800/15 bg-white/80 shadow-md flex gap-4"
-                  >
-                    <div className={`${role.color} text-white rounded-xl w-12 h-12 flex items-center justify-center font-bold text-sm shrink-0 shadow-md`}>
-                      {role.number}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xl">{role.icon}</span>
-                        <h3 className="font-bold text-stone-800 font-heading text-sm md:text-base">{role.title}</h3>
-                      </div>
-                      <p className="text-sm text-stone-600 leading-relaxed">{role.desc}</p>
-                    </div>
-                  </motion.div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-
-          {/* Conclusion */}
-          <Reveal>
-            <div className="relative overflow-hidden rounded-2xl border border-red-800/20 bg-gradient-to-br from-red-700 to-red-900 p-8 md:p-10 shadow-2xl text-center">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.08),transparent_60%)] pointer-events-none" />
-              <div className="relative z-10">
-                <div className="text-4xl mb-4">🌟</div>
-                <h3 className="text-2xl font-bold text-white mb-4 font-heading">Kết luận</h3>
-                <p className="text-white/90 max-w-3xl mx-auto text-base leading-relaxed">
-                  Triết học Mác-Lênin là <strong>đỉnh cao của tư duy triết học nhân loại</strong> trong thế kỷ XIX – XX.
-                  Đây không chỉ là hệ thống lý luận mà là <strong>vũ khí thực tiễn</strong> cho cuộc đấu tranh giải phóng giai cấp và giải phóng con người.
-                  Đối với Việt Nam, triết học Mác-Lênin là nền tảng tư tưởng, kim chỉ nam cho hành động của Đảng và nhân dân ta trong sự nghiệp xây dựng và bảo vệ Tổ quốc.
-                </p>
+              </div>
+              <div className="mt-4">
+                <button
+                  type="button"
+                  aria-expanded={open1}
+                  onClick={() => setOpen1((v) => !v)}
+                  className="px-4 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold shadow transition cursor-pointer"
+                >
+                  {open1 ? 'Thu gọn' : 'Xem chi tiết'}
+                </button>
               </div>
             </div>
-          </Reveal>
+
+            {/* Phần 2 */}
+            <div
+              ref={sec3.ref}
+              className={`gold-glow-panel rounded-2xl p-6 border border-red-800/15 bg-white/85 shadow-2xl transition-all duration-700 ease-out transform ${sec3.inView
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-6'
+                } hover:shadow-3xl`}
+            >
+              <h2 className="text-xl md:text-2xl font-bold text-red-600 mb-4 font-heading">
+                Mỗi tầng lớp đều có tổ chức đại diện
+              </h2>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  {
+                    name: 'Công nhân',
+                    org: 'Công đoàn',
+                    color: 'bg-red-500'
+                  },
+                  {
+                    name: 'Thanh niên',
+                    org: 'Đoàn Thanh niên',
+                    color: 'bg-yellow-500'
+                  },
+                  {
+                    name: 'Phụ nữ',
+                    org: 'Hội Liên hiệp Phụ nữ',
+                    color: 'bg-pink-500'
+                  },
+                  {
+                    name: 'Nông dân',
+                    org: 'Hội Nông dân',
+                    color: 'bg-amber-500'
+                  }
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="bg-white/40 p-3.5 rounded-xl border border-red-900/10 shadow-md transition-all hover:border-red-600/20"
+                  >
+                    <div className="flex items-center space-x-2.5 text-sm">
+                      <div className={`w-2 h-2 ${item.color} rounded-full`}></div>
+                      <span className="font-semibold text-stone-700">
+                        {item.name}
+                      </span>
+                      <span className="text-stone-400">→</span>
+                      <span className="text-red-600 font-medium">
+                        {item.org}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-sm text-stone-500 italic">
+                <strong>Mục đích:</strong> Tập hợp gắn kết mọi tầng lớp đa dạng vào khối đoàn kết chung thống nhất.
+              </p>
+              <div
+                className={`overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${open2
+                  ? 'max-h-[1000px] opacity-100 mt-4'
+                  : 'max-h-0 opacity-0'
+                  }`}
+              >
+                <div className="bg-white/30 rounded-xl p-4 border border-red-800/10">
+                  <p className="text-sm text-stone-500 leading-relaxed">
+                    Ngoài các tầng lớp cơ bản, cần mở rộng mặt trận đoàn kết tới
+                    các trí thức, doanh nhân, kiều bào ở nước ngoài, bảo đảm
+                    mọi người Việt yêu nước đều có một tiếng nói.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4">
+                <button
+                  type="button"
+                  aria-expanded={open2}
+                  onClick={() => setOpen2((v) => !v)}
+                  className="px-4 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold shadow transition cursor-pointer"
+                >
+                  {open2 ? 'Thu gọn' : 'Xem chi tiết'}
+                </button>
+              </div>
+            </div>
+
+            {/* Phần 3 */}
+            <div
+              ref={sec4.ref}
+              className={`gold-glow-panel rounded-2xl p-6 border border-red-800/15 bg-white/85 shadow-2xl transition-all duration-700 ease-out transform ${sec4.inView
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-6'
+                } hover:shadow-3xl`}
+            >
+              <h2 className="text-xl md:text-2xl font-bold text-red-600 mb-3 font-heading">
+                Quy tụ các đoàn thể vào Mặt trận dân tộc thống nhất
+              </h2>
+              <p className="text-base text-stone-600 mb-4 leading-relaxed">
+                Đây là bước phát triển cao nhất: các đoàn thể cùng quy tụ về một
+                <span className="font-bold text-amber-700">
+                  {' '}
+                  “ngôi nhà chung”
+                </span>{' '}
+                để hiệp thương thống nhất hành động.
+              </p>
+              <div className="bg-[#F5E6C8]/60 p-4 rounded-xl border border-red-800/10 mb-4">
+                <p className="text-sm text-stone-600">
+                  <strong>Kết quả:</strong> Loại bỏ chia rẽ, kết hợp năng lực hành động đơn lẻ thành sức mạnh tổng hợp vô địch của toàn dân tộc.
+                </p>
+              </div>
+              <div
+                className={`overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${open3
+                  ? 'max-h-[1000px] opacity-100 mt-4'
+                  : 'max-h-0 opacity-0'
+                  }`}
+              >
+                <div className="bg-white/30 rounded-xl p-4 border border-red-800/10">
+                  <p className="text-xs md:text-sm text-stone-500 leading-relaxed">
+                    Hồ Chí Minh chỉ rõ:
+                    <span className="italic text-red-700 block mt-1">
+                      "Mặt trận dân tộc thống nhất vẫn là một trong những lực lượng to lớn của cách mạng Việt Nam... Phải đoàn kết tốt các đảng phái, các đoàn thể, các nhân sĩ trong Mặt trận Tổ quốc Việt Nam, thực hiện hợp tác lâu dài, giúp đỡ lẫn nhau, cùng nhau tiến bộ..."
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4">
+                <button
+                  type="button"
+                  aria-expanded={open3}
+                  onClick={() => setOpen3((v) => !v)}
+                  className="px-4 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold shadow transition cursor-pointer"
+                >
+                  {open3 ? 'Thu gọn' : 'Xem chi tiết'}
+                </button>
+              </div>
+            </div>
+
+            {/* Phần 4 - Ý nghĩa */}
+            <div
+              ref={sec5.ref}
+              className={`crimson-glow-panel rounded-2xl p-6 border border-red-900/30 text-center shadow-2xl transition-all duration-700 ease-out transform ${sec5.inView
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-6'
+                } hover:shadow-3xl`}
+            >
+              <h3 className="text-lg md:text-xl font-bold text-red-400 mb-2 font-heading">
+                Ý nghĩa của đại đoàn kết dân tộc
+              </h3>
+              <p className="text-stone-600 text-base leading-relaxed">
+                Đại đoàn kết dân tộc là sức mạnh nội sinh khổng lồ, là động lực cơ bản quyết định thành bại để bảo vệ và phát triển đất nước bền vững trong thời đại mới.
+              </p>
+            </div>
+
+            {/* Kết luận */}
+            <div className="gold-glow-panel rounded-2xl p-8 border border-red-800/15 bg-white/85 shadow-2xl">
+              <h2 className="text-2xl font-bold text-center mb-6 text-red-700 font-heading">
+                KẾT LUẬN CHUYÊN ĐỀ
+              </h2>
+              <div className="space-y-4 text-sm leading-relaxed text-stone-600">
+                <p className="text-center">
+                  <span className="font-semibold text-red-600">
+                    Đại đoàn kết toàn dân tộc
+                  </span>{' '}
+                  là chiến lược cách mạng cơ bản, xuyên suốt và lâu dài trong tư tưởng
+                  <span className="font-bold text-red-400"> Hồ Chí Minh</span>.
+                </p>
+                <p className="text-center">
+                  Đây là{' '}
+                  <span className="font-bold text-red-600">
+                    cội nguồn sức mạnh vô địch
+                  </span>
+                  , quyết định mọi thắng lợi của cách mạng Việt Nam.
+                </p>
+                <p className="text-center">
+                  Hồ Chí Minh khẳng định: đoàn kết vừa là mục tiêu, vừa là động lực, là then chốt của thành công.
+                </p>
+
+                <div className="bg-[#F5E6C8]/60 rounded-xl p-4 border border-red-800/10 mt-4 text-center">
+                  <p className="text-xs text-red-600/90 font-medium">
+                    Đoàn kết, đoàn kết, đại đoàn kết – Thành công, thành công, đại thành công.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

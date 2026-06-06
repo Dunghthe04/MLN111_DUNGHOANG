@@ -126,7 +126,7 @@ export default function QandA() {
           Diễn Đàn Luận Đàm
         </h1>
         <p className="text-xs md:text-sm text-stone-500 font-medium tracking-wide uppercase">
-          Nơi trao đổi ý kiến, đề xuất câu hỏi và tháo gỡ vướng mắc về Triết học Mác-Lênin
+          Nơi trao đổi ý kiến, đề xuất câu hỏi và tháo gỡ vướng mắc về bài học Sức mạnh Đại Đoàn Kết
         </p>
         <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-red-600/40 to-transparent mx-auto mt-4" />
       </div>

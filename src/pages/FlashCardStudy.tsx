@@ -44,7 +44,7 @@ export default function FlashCardStudy() {
     <div
       className="min-h-screen relative p-6 pt-20"
       style={{
-        backgroundImage: 'url("/imgs/real/flashcard-bg.jpg")',
+        backgroundImage: 'url("/imgs/Quiz đại đoàn kết dân tộc.jpg")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -80,12 +80,12 @@ export default function FlashCardStudy() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            Triết Học Mác-Lênin — Ôn Tập
+            Tư tưởng Hồ Chí Minh về Đại đoàn kết toàn dân tộc
           </h1>
 
           <p className="text-xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
-            Ôn tập Chương 1: Sự hình thành triết học Mác-Lênin qua 30 thẻ ghi nhớ.
-            Sử dụng phím mũi tên hoặc nhấn để điều hướng.
+            Ôn tập kiến thức qua 30 thẻ ghi nhớ. Sử dụng phím mũi tên hoặc nhấn
+            để điều hướng
           </p>
 
           {/* Study Mode Toggle */}

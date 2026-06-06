@@ -3,237 +3,195 @@ import { useSearchParams } from "react-router";
 import { db } from "../../services/firebaseService";
 import { ref, push, set, get } from "firebase/database";
 import { useAuthStore } from "../../stores/authStore";
-import QuestionImage from "./QuestionImage";
+
 
 interface Question {
   id: number;
   question: string;
   options: string[];
   correctAnswer: number;
-  image?: string;
-  imageAlt?: string;
-  imageCaption?: string;
 }
 
 interface QuizDataMap {
   [key: string]: Question[];
 }
 
-interface LeaderboardEntry {
-  id: string;
-  name: string;
-  score: number;
-  total: number;
-  percentage: number;
-  chapter: string;
-  timestamp: number;
-  uid: string;
-  timeTaken?: number;
-}
-
 const defaultQuizData: Question[] = [
   {
     id: 1,
-    question: "Luận điểm cơ bản của phép biện chứng duy vật là gì?",
+    question:
+      "Theo Hồ Chí Minh, đại đoàn kết toàn dân tộc có vai trò như thế nào?",
     options: [
-      "Ý thức quyết định mọi vật chất",
-      "Thực tại vật chất quyết định ý thức",
-      "Chủ thể quyết định khách thể",
-      "Không có mối quan hệ giữa ý thức và vật chất",
+      "Là thủ đoạn chính trị tạm thời",
+      "Là sách lược đối phó ngắn hạn",
+      "Là chiến lược lâu dài, nhất quán",
+      "Là biện pháp tình thế khi cách mạng khó khăn",
     ],
-    correctAnswer: 1,
-    image: "/imgs/triethoc-1.svg",
-    imageAlt: "Thế giới quan duy vật biện chứng",
-    imageCaption: "Vật chất tồn tại khách quan, quyết định ý thức con người",
+    correctAnswer: 2,
   },
   {
     id: 2,
-    question:
-      "Trong triết học Mác-Lênin, mâu thuẫn biện chứng được hiểu là gì?",
+    question: 'Hồ Chí Minh khẳng định: "Đoàn kết là …"',
     options: [
-      "Sự đấu tranh giữa hai yếu tố đối lập trong cùng một sự vật",
-      "Sự tồn tại độc lập của hai thực thể khác biệt",
-      "Trạng thái cân bằng vĩnh cửu của sự vật",
-      "Một hiện tượng ngẫu nhiên không có quy luật",
+      "Niềm tin của dân tộc",
+      "Sức mạnh, then chốt của thành công",
+      "Truyền thống lâu đời",
+      "Con đường duy nhất để chống ngoại xâm",
     ],
-    correctAnswer: 0,
-    image: "/imgs/triethoc-2.svg",
-    imageAlt: "Mâu thuẫn biện chứng",
-    imageCaption: "Hai mặt đối lập thống nhất trong cùng một sự vật",
+    correctAnswer: 1,
   },
   {
     id: 3,
     question:
-      "Nguyên lý lượng và chất chuyển hóa lẫn nhau cho thấy điều gì?",
+      "Nguyên nhân chủ yếu khiến các phong trào Cần Vương, Đông Du, Đông Kinh Nghĩa Thục… cuối thế kỷ XIX thất bại là:",
     options: [
-      "Sự thay đổi định lượng tích lũy cuối cùng dẫn đến biến đổi chất",
-      "Chất luôn tồn tại độc lập và không thay đổi",
-      "Lượng chỉ là hình thức bên ngoài của chất",
-      "Sự thay đổi chất không liên quan đến lượng",
+      "Thiếu lãnh đạo kiên định",
+      "Thiếu sự chuẩn bị về vũ khí",
+      "Chưa tập hợp được sức mạnh toàn dân",
+      "Bị thực dân đàn áp khốc liệt",
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
   },
   {
     id: 4,
-    question:
-      "Theo Mác-Lênin, phương pháp biện chứng khác với phép siêu hình ở điểm nào?",
+    question: "Trong khối đại đoàn kết toàn dân tộc, lực lượng nòng cốt là:",
     options: [
-      "Biện chứng xem sự vật là tĩnh, còn siêu hình là động",
-      "Biện chứng nhìn sự vật trong mối quan hệ vận động, còn siêu hình coi sự vật cô lập",
-      "Biện chứng chỉ quan tâm đến ý thức, còn siêu hình chỉ quan tâm đến vật chất",
-      "Không có sự khác biệt rõ ràng",
+      "Công – nông – trí thức",
+      "Tư sản dân tộc – tiểu thương",
+      "Quân đội – thanh niên",
+      "Nông dân – binh lính",
     ],
-    correctAnswer: 1,
-    image: "/imgs/hegel-feuerbach.jpg",
-    imageAlt: "Hegel và Feuerbach",
-    imageCaption: "Marx kế thừa phép biện chứng Hegel, cải tạo thành duy vật biện chứng",
+    correctAnswer: 0,
   },
   {
     id: 5,
     question:
-      "Trong triết học Mác-Lênin, thực tiễn có vai trò gì đối với chân lý?",
+      "Theo Hồ Chí Minh, Đảng Cộng sản Việt Nam muốn lãnh đạo khối đại đoàn kết toàn dân tộc thì cần:",
     options: [
-      "Là tiêu chuẩn cuối cùng của chân lý",
-      "Là hình thức phản ánh phụ thuộc vào ý thức",
-      "Là khái niệm triết học trừu tượng",
-      "Không có vai trò quyết định",
+      "Chỉ chú trọng lợi ích giai cấp công nhân",
+      "Kết hợp hài hòa lợi ích giai cấp và dân tộc",
+      "Ưu tiên lợi ích quốc tế hơn trong nước",
+      "Đặt lợi ích trí thức lên hàng đầu",
     ],
-    correctAnswer: 0,
-    image: "/imgs/industrial-revolution.jpg",
-    imageAlt: "Cách mạng Công nghiệp",
-    imageCaption: "Thực tiễn xã hội là tiêu chuẩn kiểm nghiệm chân lý",
+    correctAnswer: 1,
   },
   {
     id: 6,
-    question:
-      "Nguyên lý nội dung và hình thức của sự vật theo triết học Mác-Lênin khẳng định điều gì?",
+    question: "Đại đoàn kết toàn dân tộc phải gắn liền với:",
     options: [
-      "Hình thức có trước nội dung",
-      "Nội dung quyết định hình thức và đồng thời điều kiện cho hình thức",
-      "Nội dung và hình thức không liên quan",
-      "Hình thức luôn thống trị nội dung",
+      "Đoàn kết trong Đảng",
+      "Đoàn kết quốc tế",
+      "Đoàn kết gia đình – làng xã",
+      "Đoàn kết với giai cấp công nhân",
     ],
     correctAnswer: 1,
   },
   {
     id: 7,
     question:
-      "Khái niệm nào sau đây không phải là khái niệm cơ bản của phép biện chứng duy vật?",
+      "Nguyên tắc bất di bất dịch để xây dựng khối đại đoàn kết toàn dân tộc là:",
     options: [
-      "Mâu thuẫn",
-      "Chuyển hóa dần dần",
-      "Phân rã tuyệt đối",
-      "Sự phát triển",
+      "Lấy lợi ích chung làm điểm quy tụ",
+      "Lấy chủ nghĩa xã hội làm mục tiêu",
+      "Lấy phát triển kinh tế làm trọng tâm",
+      "Lấy giáo dục làm nền tảng",
     ],
-    correctAnswer: 2,
+    correctAnswer: 0,
   },
   {
     id: 8,
     question:
-      "Theo triết học Mác-Lênin, khả năng nhận thức của con người tăng lên khi nào?",
+      "Truyền thống nào được Hồ Chí Minh coi là cội nguồn sức mạnh để đoàn kết dân tộc?",
     options: [
-      "Khi con người xa rời thực tiễn",
-      "Khi con người gắn lý luận với thực tiễn",
-      "Khi con người chỉ dựa vào trực giác",
-      "Khi con người chỉ dựa vào truyền thống",
+      "Hiếu học – chăm chỉ – sáng tạo",
+      "Yêu nước – nhân nghĩa – đoàn kết",
+      "Lạc quan – cần cù – dũng cảm",
+      "Nhân ái – kiên cường – sáng suốt",
     ],
     correctAnswer: 1,
   },
   {
     id: 9,
     question:
-      "Luận điểm nào sau đây thể hiện tính quy luật của sự vận động?",
+      'Hồ Chí Minh ví dụ " Năm ngón tay có ngón dài ngón ngắn, nhưng cả năm ngón đều thuộc về một bàn tay. Trong mấy triệu người cũng có người thế này thế khác, nhưng thế này hay thế khác đều dòng dõi tổ tiên ta. Vậy nên phải khoan hồng, đại độ... Có như thế mới thành đoàn kết, có đại đoàn kết thì tương lai chắc chắn sẽ vẻ vang " để nhấn mạnh điều gì?',
     options: [
-      "Sự vật vận động ngẫu nhiên không quy luật",
-      "Sự vận động của sự vật theo quy luật khách quan",
-      "Sự vật chỉ thay đổi theo ý muốn của con người",
-      "Sự vật luôn đứng yên",
+      "Cần phân biệt giai cấp rõ ràng",
+      "Cần phải khoan dung, độ lượng để đoàn kết",
+      "Cần tập hợp trí thức trước tiên",
+      "Cần chú ý đến thế hệ trẻ",
     ],
     correctAnswer: 1,
   },
   {
     id: 10,
     question:
-      "Quan điểm nào sau đây là đặc trưng của phép biện chứng duy vật?",
+      "Nguyên tắc tối cao trong tư tưởng Hồ Chí Minh về xây dựng khối đại đoàn kết toàn dân tộc là:",
     options: [
-      "Tồn tại mâu thuẫn trong mọi sự vật",
-      "Mâu thuẫn chỉ xảy ra trong xã hội",
-      "Mâu thuẫn là dấu hiệu của suy thoái",
-      "Không cần mâu thuẫn để phát triển",
+      "Tin vào sự lãnh đạo của quốc tế cộng sản",
+      "Tin vào sự lãnh đạo của trí thức",
+      "Yêu dân, tin dân, dựa vào dân, vì dân",
+      "Xây dựng lực lượng vũ trang mạnh mẽ",
     ],
-    correctAnswer: 0,
-    image: "/imgs/triethoc-3.svg",
-    imageAlt: "Phát triển theo quy luật",
-    imageCaption: "Mâu thuẫn là nguồn gốc và động lực phát triển",
+    correctAnswer: 2,
   },
   {
     id: 11,
     question:
-      "Trong triết học Mác-Lênin, 'phát triển' được hiểu là gì?",
+      "Trong tư tưởng Hồ Chí Minh, chủ thể của khối đại đoàn kết toàn dân tộc là:",
     options: [
-      "Sự tuần hoàn không đổi của sự vật",
-      "Sự biến đổi theo chiều hướng mới cao hơn",
-      "Sự ổn định tuyệt đối của sự vật",
-      "Sự phân chia không ngừng",
+      "Công nhân, nông dân",
+      "Toàn dân Việt Nam không phân biệt dân tộc, tôn giáo, giai cấp",
+      "Trí thức và thanh niên",
+      "Quân đội nhân dân",
     ],
     correctAnswer: 1,
-    image: "/imgs/halls/hall-1-2.svg",
-    imageAlt: "Sự phát triển",
-    imageCaption: "Phát triển là biến đổi theo chiều hướng cao hơn",
   },
   {
     id: 12,
     question:
-      "Luận điểm nào thể hiện tính khách quan của quy luật?",
+      "Theo Hồ Chí Minh, để lãnh đạo khối đại đoàn kết, Đảng Cộng sản Việt Nam cần đứng vững trên lập trường nào?",
     options: [
-      "Quy luật tồn tại nhờ ý chí chủ quan",
-      "Quy luật tồn tại độc lập với nhận thức con người",
-      "Quy luật chỉ áp dụng cho con người",
-      "Quy luật thay đổi theo tâm trạng",
+      "Giai cấp tư sản dân tộc",
+      "Giai cấp công nhân",
+      "Giai cấp nông dân",
+      "Trí thức ưu tú",
     ],
     correctAnswer: 1,
-    image: "/imgs/triethoc-4.svg",
-    imageAlt: "Quy luật khách quan",
-    imageCaption: "Quy luật tồn tại độc lập với nhận thức con người",
   },
   {
     id: 13,
     question:
-      "Theo triết học Mác-Lênin, thực tiễn khoa học có vai trò gì?",
+      "Trong kháng chiến chống Mỹ, sức mạnh của đại đoàn kết dân tộc còn được củng cố nhờ:",
     options: [
-      "Xác nhận chân lý và sáng tạo tri thức mới",
-      "Là hoạt động vô nghĩa",
-      "Chỉ là công cụ truyền thống",
-      "Hoàn toàn phụ thuộc vào ý thức",
+      "Sự hỗ trợ từ phong trào phản chiến và nhân dân tiến bộ thế giới",
+      "Sự viện trợ vũ khí từ châu Âu",
+      "Sự đồng thuận tuyệt đối trong nội bộ Đảng",
+      "Chính sách cải cách ruộng đất",
     ],
     correctAnswer: 0,
   },
   {
     id: 14,
-    question:
-      "Mối quan hệ giữa nhân tố chung và nhân tố riêng trong phép biện chứng biểu hiện ở:",
+    question: "Theo Hồ Chí Minh, muốn thực hiện đại đoàn kết phải:",
     options: [
-      "Nhân tố chung luôn chiếm ưu thế",
-      "Nhân tố riêng và chung tác động lẫn nhau",
-      "Nhân tố riêng không ảnh hưởng gì đến nhân tố chung",
-      "Nhân tố riêng và nhân tố chung không liên quan",
+      "Đặt lợi ích giai cấp lên hàng đầu",
+      "Đặt lợi ích dân tộc và nhân dân lao động làm mục tiêu phấn đấu",
+      "Chỉ tập trung vào phát triển kinh tế",
+      "Dựa vào viện trợ quốc tế",
     ],
     correctAnswer: 1,
   },
   {
     id: 15,
     question:
-      "Khái niệm 'mâu thuẫn cơ bản' trong phép biện chứng chỉ về điều gì?",
+      'Nguyên lý mácxít nào được Hồ Chí Minh quán triệt khi khẳng định "Cách mạng là sự nghiệp của quần chúng"?',
     options: [
-      "Sự tồn tại của hai yếu tố tương đồng",
-      "Sự đối lập cơ bản quyết định hướng phát triển của sự vật",
-      "Sự thống nhất không thể tách rời",
-      "Sự biến đổi ngẫu nhiên của sự vật",
+      "Chủ nghĩa tập thể tuyệt đối",
+      "Chủ nghĩa duy vật biện chứng",
+      "Chủ nghĩa duy vật lịch sử",
+      "Nguyên lý quần chúng là động lực của lịch sử",
     ],
-    correctAnswer: 1,
-    image: "/imgs/halls/hall-1-3.svg",
-    imageAlt: "Mâu thuẫn cơ bản",
-    imageCaption: "Mâu thuẫn cơ bản quyết định hướng phát triển của sự vật",
+    correctAnswer: 3,
   },
 ];
 
@@ -241,414 +199,348 @@ const matTranDanTocQuizData: Question[] = [
   {
     id: 1,
     question:
-      "Cơ sở hạ tầng trong thuyết duy vật lịch sử là gì?",
+      "Hình thức tổ chức cơ bản của khối đại đoàn kết dân tộc theo Hồ Chí Minh là gì?",
     options: [
-      "Tư tưởng, luật pháp, tổ chức xã hội",
-      "Quan hệ sản xuất và lực lượng sản xuất",
-      "Nền văn hóa và tôn giáo",
-      "Chính trị và nghệ thuật",
+      "Công đoàn Việt Nam",
+      "Mặt trận dân tộc thống nhất",
+      "Hội Nông dân Việt Nam",
+      "Chính quyền cách mạng",
     ],
     correctAnswer: 1,
-    image: "/imgs/halls/hall-2-1.svg",
-    imageAlt: "Cơ sở hạ tầng và siêu cấu trúc",
-    imageCaption: "Cơ sở hạ tầng = quan hệ sản xuất + lực lượng sản xuất",
   },
   {
     id: 2,
     question:
-      "Siêu cấu trúc bao gồm những yếu tố nào?",
+      "Nguyên tắc quan trọng nhất trong hoạt động của Mặt trận dân tộc thống nhất là:",
     options: [
-      "Công cụ sản xuất và kỹ thuật",
-      "Tôn giáo, nghệ thuật, luật pháp, chính trị",
-      "Tư liệu lao động và tài nguyên",
-      "Quy mô dân số và địa lý",
+      "Hiệp thương dân chủ",
+      "Tập trung quan liêu",
+      "Đa số tuyệt đối",
+      "Độc đoán lãnh đạo",
     ],
-    correctAnswer: 1,
+    correctAnswer: 0,
   },
   {
     id: 3,
     question:
-      "Theo duy vật lịch sử, sự thay đổi của xã hội chủ yếu bắt nguồn từ đâu?",
+      "Nội dung nào KHÔNG thuộc nguyên tắc hoạt động của Mặt trận dân tộc thống nhất?",
     options: [
-      "Sự phát triển tư tưởng",
-      "Sự biến đổi của quan hệ sản xuất",
-      "Thiên tai và biến đổi khí hậu",
-      "Sự giao lưu văn hóa giữa các dân tộc",
+      "Đoàn kết lâu dài, chân thành",
+      "Lợi ích dân tộc là điểm quy tụ",
+      "Chỉ tập hợp công – nông",
+      "Giúp nhau tiến bộ",
     ],
-    correctAnswer: 1,
-    image: "/imgs/industrial-revolution.jpg",
-    imageAlt: "Biến đổi quan hệ sản xuất",
-    imageCaption: "Cách mạng Công nghiệp thay đổi quan hệ sản xuất xã hội",
+    correctAnswer: 2,
   },
   {
     id: 4,
     question:
-      "Trong mô hình xã hội Mác-Lênin, giai cấp nào là chủ thể cách mạng?",
+      "Theo Hồ Chí Minh, nền tảng để hình thành Mặt trận dân tộc thống nhất là gì?",
     options: [
-      "Tư sản dân tộc",
-      "Giai cấp công nhân",
-      "Trí thức",
-      "Nông dân giàu có",
+      "Lợi ích giai cấp công nhân",
+      "Lợi ích tối cao của dân tộc",
+      "Quyền lợi địa chủ",
+      "Tín ngưỡng tôn giáo",
     ],
     correctAnswer: 1,
   },
   {
     id: 5,
     question:
-      "Khái niệm 'chế độ sản xuất' trong duy vật lịch sử chỉ gì?",
+      "Một phương thức quan trọng để xây dựng khối đại đoàn kết dân tộc là:",
     options: [
-      "Bộ máy nhà nước",
-      "Tổng thể quan hệ sản xuất và lực lượng sản xuất",
-      "Mô hình quản lý kinh tế",
-      "Hệ thống văn hóa và giáo dục",
+      "Đặt lợi ích cá nhân lên trên hết",
+      "Thống nhất ý chí và hành động trên cơ sở lợi ích dân tộc",
+      "Loại trừ các tôn giáo",
+      "Chỉ dựa vào tầng lớp công nhân",
     ],
     correctAnswer: 1,
-    image: "/imgs/halls/hall-2-2.svg",
-    imageAlt: "Chế độ sản xuất",
-    imageCaption: "Chế độ sản xuất = lực lượng sản xuất + quan hệ sản xuất",
   },
   {
     id: 6,
     question:
-      "Luận điểm nào phản ánh quan điểm của Mác về sự phát triển xã hội?",
+      "Để xây dựng đại đoàn kết dân tộc, Hồ Chí Minh đặc biệt coi trọng yếu tố nào?",
     options: [
-      "Sự phát triển chỉ nhờ vào ý chí con người",
-      "Sự phát triển do mâu thuẫn giữa lực lượng và quan hệ sản xuất",
-      "Sự phát triển không liên quan đến sản xuất",
-      "Sự phát triển chỉ do yếu tố tự nhiên quyết định",
+      "Sự cạnh tranh kinh tế",
+      "Lòng tin và tinh thần yêu nước",
+      "Chủ nghĩa cá nhân",
+      "Xung đột giai cấp",
     ],
     correctAnswer: 1,
   },
   {
     id: 7,
     question:
-      "Trong lịch sử, mâu thuẫn cơ bản nhất được xác định là gì?",
+      "Tinh thần đoàn kết của Hồ Chí Minh được thể hiện qua khẩu hiệu nào?",
     options: [
-      "Mâu thuẫn giữa cá nhân và xã hội",
-      "Mâu thuẫn giữa sản xuất vật chất và quan hệ sản xuất",
-      "Mâu thuẫn giữa văn hóa và chính trị",
-      "Mâu thuẫn giữa các quốc gia",
+      '"Vô sản tất cả các nước liên hiệp lại"',
+      '"Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công"',
+      '"Không có gì quý hơn độc lập tự do"',
+      '"Tất cả vì chủ nghĩa xã hội"',
     ],
     correctAnswer: 1,
   },
   {
     id: 8,
-    question:
-      "Theo Mác-Lênin, xã hội tư bản chủ nghĩa chủ yếu được xây dựng trên quan hệ sản xuất nào?",
+    question: "Trong khối đại đoàn kết dân tộc, Hồ Chí Minh nhấn mạnh phải:",
     options: [
-      "Tư hữu tư liệu sản xuất",
-      "Các hợp tác xã nông nghiệp",
-      "Chủ nghĩa cộng sản nguyên thủy",
-      "Quan hệ sản xuất phong kiến",
+      "Tôn trọng sự khác biệt và kết hợp hài hòa lợi ích",
+      "Ép buộc sự đồng nhất tuyệt đối",
+      "Loại bỏ trí thức",
+      "Không coi trọng dân tộc thiểu số",
     ],
     correctAnswer: 0,
   },
   {
     id: 9,
-    question:
-      "Thuật ngữ 'giá trị thặng dư' trong Mác-Lênin chỉ điều gì?",
+    question: "Một phương thức xây dựng khối đại đoàn kết dân tộc là:",
     options: [
-      "Phần giá trị do người lao động tạo ra mà bị tư bản chiếm đoạt",
-      "Tổng giá trị của máy móc và công cụ sản xuất",
-      "Phần lợi nhuận trả cho người lao động",
-      "Giá trị của nguyên liệu thô",
+      "Phân hóa dân tộc, tôn giáo",
+      "Củng cố mối quan hệ giữa Đảng, Nhà nước và Nhân dân",
+      "Giới hạn thành phần tham gia",
+      "Chỉ dựa vào sức mạnh quốc tế",
     ],
-    correctAnswer: 0,
-    image: "/imgs/marx-portrai.jpg",
-    imageAlt: "Karl Marx",
-    imageCaption: "Học thuyết giá trị thặng dư — cốt lõi phân tích bóc lột CNTB",
+    correctAnswer: 1,
   },
   {
     id: 10,
     question:
-      "Theo Mác-Lênin, chuyển hóa từ xã hội tư bản chủ nghĩa sang xã hội xã hội chủ nghĩa phải trải qua bước nào?",
+      "Ý nghĩa lớn nhất của việc xây dựng khối đại đoàn kết dân tộc theo Hồ Chí Minh là:",
     options: [
-      "Chuyển hóa trực tiếp không qua giai đoạn nào",
-      "Giai đoạn đấu tranh giai cấp và thiết lập chuyên chính vô sản",
-      "Giai đoạn phục hưng phong kiến",
-      "Giai đoạn cải cách nông nghiệp tư nhân",
-    ],
-    correctAnswer: 1,
-    image: "/imgs/communist-manifesto.jpg",
-    imageAlt: "Tuyên ngôn Đảng Cộng sản",
-    imageCaption: "Con đường cách mạng vô sản qua đấu tranh giai cấp",
-  },
-  {
-    id: 11,
-    question:
-      "Ai là người đề xuất khái niệm 'sức mạnh lịch sử của giai cấp công nhân'?",
-    options: [
-      "Ph.Ăng-ghen",
-      "C.Mác",
-      "V.I.Lenin",
-      "Tất cả các đáp án trên",
-    ],
-    correctAnswer: 3,
-    image: "/imgs/engels-portrait.webp",
-    imageAlt: "Marx và Engels",
-    imageCaption: "Mác, Engels và Lenin cùng phát triển học thuyết giai cấp công nhân",
-  },
-  {
-    id: 12,
-    question:
-      "Theo Mác-Lênin, quá trình đấu tranh giai cấp dẫn đến:",
-    options: [
-      "Sự bất ổn xã hội vĩnh viễn",
-      "Sự biến đổi của cơ sở hạ tầng và siêu cấu trúc",
-      "Sự ổn định về chính trị",
-      "Sự bảo tồn nguyên trạng xã hội",
-    ],
-    correctAnswer: 1,
-  },
-  {
-    id: 13,
-    question:
-      "Trong thuyết duy vật lịch sử, lực lượng sản xuất bao gồm những yếu tố nào?",
-    options: [
-      "Nhân lực, tư liệu lao động và kỹ thuật",
-      "Luật pháp, tôn giáo và ý thức hệ",
-      "Dân số, đất đai và khí hậu",
-      "Các tổ chức chính trị và quân sự",
+      "Tạo sức mạnh tổng hợp để giành và giữ độc lập dân tộc",
+      "Chỉ để phát triển kinh tế",
+      "Giải quyết mâu thuẫn giai cấp",
+      "Hạn chế vai trò của các tổ chức xã hội",
     ],
     correctAnswer: 0,
   },
   {
-    id: 14,
+    id: 11,
     question:
-      "Theo Mác-Lênin, sự phát triển của xã hội chủ nghĩa được bảo đảm bởi yếu tố nào?",
+      "Trong các giai đoạn cách mạng, Mặt trận dân tộc thống nhất có thể thay đổi tên gọi, nhưng bản chất là gì?",
     options: [
-      "Sự tư hữu cá nhân về tư liệu sản xuất",
-      "Sự phát triển lực lượng sản xuất và quan hệ sản xuất mới",
-      "Sự phân hóa giai cấp sâu sắc",
-      "Sự cô lập khỏi cộng đồng quốc tế",
+      "Tổ chức chính trị đối lập với Đảng",
+      "Tổ chức tập hợp mọi lực lượng yêu nước dưới sự lãnh đạo của Đảng",
+      "Tổ chức quân sự thuần túy",
+      "Cơ quan quản lý nhà nước",
     ],
     correctAnswer: 1,
   },
   {
-    id: 15,
+    id: 12,
     question:
-      "Luận điểm nào thể hiện tính chủ quan trong thuyết duy vật lịch sử?",
+      "Theo Hồ Chí Minh, đoàn kết trong Mặt trận dân tộc thống nhất phải dựa trên phương châm nào?",
     options: [
-      "Quá trình phát triển xã hội có tính khách quan độc lập với con người",
-      "Con người là động lực chủ yếu để thay đổi xã hội",
-      "Lực lượng sản xuất tự chuyển hóa mà không cần tác động của con người",
-      "Sự tiến hóa xã hội dựa trên quy luật tự nhiên",
+      '"Cầu đồng tồn dị"',
+      '"Chia để trị"',
+      '"Dĩ công vi thượng"',
+      '"Mạnh được yếu thua"',
+    ],
+    correctAnswer: 0,
+  },
+  {
+    id: 13,
+    question:
+      "Hồ Chí Minh yêu cầu việc phê bình trong khối đoàn kết phải được thực hiện như thế nào?",
+    options: [
+      "Thẳng thắn, kiên quyết, không cần giữ tình cảm",
+      "Trên lập trường thân ái, vì nước, vì dân",
+      "Công khai trước toàn dân",
+      "Bí mật, nội bộ Đảng",
     ],
     correctAnswer: 1,
-    image: "/imgs/halls/hall-2-3.svg",
-    imageAlt: "Tính chủ quan trong lịch sử",
-    imageCaption: "Con người là động lực chủ yếu thay đổi xã hội",
+  },
+  {
+    id: 14,
+    question:
+      "Phương thức cơ bản nhất để xây dựng khối đại đoàn kết dân tộc, theo Hồ Chí Minh, là gì?",
+    options: [
+      "Dân vận khéo",
+      "Phát triển kinh tế thị trường",
+      "Đào tạo cán bộ quản lý",
+      "Hợp tác quốc tế",
+    ],
+    correctAnswer: 0,
+  },
+  {
+    id: 15,
+    question:
+      "Mục đích cuối cùng của việc thành lập các đoàn thể quần chúng (Công đoàn, Hội Nông dân, Đoàn Thanh niên, Hội Phụ nữ…) là gì?",
+    options: [
+      "Tạo cơ hội cho mỗi tầng lớp có tổ chức riêng biệt",
+      "Gắn kết quần chúng vào khối đại đoàn kết chung trong Mặt trận",
+      "Đảm bảo lợi ích riêng của từng tầng lớp",
+      "Tách biệt quần chúng với hoạt động của Đảng",
+    ],
+    correctAnswer: 1,
   },
 ];
 
-const tuTuongMacLeninQuizData: Question[] = [
+const doanKetQuocTeQuizData: Question[] = [
   {
     id: 1,
     question:
-      "Khái niệm 'vật chất' trong triết học Mác-Lênin được hiểu là gì?",
+      "Trong tư tưởng Hồ Chí Minh, đoàn kết quốc tế trước hết xuất phát từ lợi ích nào?",
     options: [
-      "Thực tại khách quan tồn tại độc lập với ý thức",
-      "Sản phẩm của ý thức con người",
-      "Một khái niệm thuần túy tinh thần",
-      "Hiện tượng hình thức của tư duy",
+      "Lợi ích dân tộc riêng lẻ",
+      "Lợi ích của giai cấp công nhân quốc tế",
+      "Lợi ích dân tộc gắn liền với lợi ích nhân loại tiến bộ",
+      "Lợi ích kinh tế trước mắt",
     ],
-    correctAnswer: 0,
-    image: "/imgs/marx-portrai.jpg",
-    imageAlt: "Karl Marx",
-    imageCaption: "Vật chất là thực tại khách quan, tồn tại độc lập với ý thức",
+    correctAnswer: 2,
   },
   {
     id: 2,
     question:
-      "Theo Mác-Lênin, mối quan hệ giữa thực tiễn và ý thức là gì?",
+      'Hồ Chí Minh từng khẳng định: "Cách mạng Việt Nam là một bộ phận khăng khít của…?"',
     options: [
-      "Ý thức quyết định thực tiễn",
-      "Thực tiễn quyết định ý thức",
-      "Hai yếu tố độc lập không liên quan",
-      "Thực tiễn chỉ là phần mở rộng của ý thức",
+      "Cách mạng dân chủ tư sản",
+      "Cách mạng giải phóng dân tộc ở châu Á",
+      "Phong trào cộng sản và công nhân quốc tế",
+      "Cách mạng văn hóa thế giới",
     ],
-    correctAnswer: 1,
+    correctAnswer: 2,
   },
   {
     id: 3,
     question:
-      "Nguyên lý lượng và chất chuyển hóa lẫn nhau cho thấy điều gì?",
-    options: [
-      "Sự biến đổi định lượng tích lũy dẫn đến biến đổi chất",
-      "Chất không chịu ảnh hưởng bởi lượng",
-      "Lượng luôn chi phối chất mà không đổi khác",
-      "Sự thay đổi xảy ra hoàn toàn ngẫu nhiên",
-    ],
+      "Hồ Chí Minh cho rằng đoàn kết quốc tế là điều kiện sống còn để cách mạng Việt Nam đi đến thắng lợi.",
+    options: ["Đúng", "Sai"],
     correctAnswer: 0,
   },
   {
     id: 4,
     question:
-      "Theo phép biện chứng duy vật, mâu thuẫn trong sự vật có vai trò nào?",
+      "Những lực lượng nào Hồ Chí Minh chủ trương tranh thủ đoàn kết quốc tế?",
     options: [
-      "Là nguồn gốc và động lực phát triển của sự vật",
-      "Là biểu hiện sự suy thoái của sự vật",
-      "Là điều kiện để duy trì trạng thái cân bằng",
-      "Không tồn tại trong các sự vật tự nhiên",
+      "Phong trào cộng sản và công nhân quốc tế",
+      "Phong trào giải phóng dân tộc",
+      "Các lực lượng tiến bộ, yêu chuộng hòa bình, dân chủ và công lý",
+      "Tất cả các đáp án trên",
     ],
-    correctAnswer: 0,
-    image: "/imgs/triethoc-2.svg",
-    imageAlt: "Mâu thuẫn biện chứng",
-    imageCaption: "Mâu thuẫn — nguồn gốc và động lực phát triển",
+    correctAnswer: 3,
   },
   {
     id: 5,
     question:
-      "Theo Mác-Lênin, lực lượng sản xuất gồm những yếu tố nào?",
+      "Năm 1920, Hồ Chí Minh đã tham gia tổ chức quốc tế nào, mở ra cơ sở cho tư tưởng đoàn kết quốc tế?",
     options: [
-      "Tư liệu sản xuất và lao động",
-      "Luật pháp và nhà nước",
-      "Văn hóa và tư tưởng",
-      "Dân số và địa lý",
+      "Quốc tế Cộng sản (Quốc tế III)",
+      "Hội Liên hiệp thuộc địa",
+      "Quốc tế Xã hội",
+      "Quốc tế Thanh niên",
     ],
     correctAnswer: 0,
-    image: "/imgs/industrial-revolution.jpg",
-    imageAlt: "Lực lượng sản xuất",
-    imageCaption: "Tư liệu sản xuất và lao động — hai yếu tố của lực lượng sản xuất",
   },
   {
     id: 6,
     question:
-      "Khái niệm 'giá trị thặng dư' trong kinh tế chính trị Mác-Lênin chỉ điều gì?",
-    options: [
-      "Phần giá trị lao động không được người lao động nhận lại",
-      "Lợi nhuận sau thuế của doanh nghiệp",
-      "Tổng giá trị hàng hóa xuất khẩu",
-      "Giá trị của nguyên liệu thô",
-    ],
+      'Hồ Chí Minh luôn coi đoàn kết quốc tế là "một trong những nhân tố quyết định thắng lợi của cách mạng Việt Nam".',
+    options: ["Đúng", "Sai"],
     correctAnswer: 0,
   },
   {
     id: 7,
     question:
-      "Siêu cấu trúc trong duy vật lịch sử gồm những thành phần nào?",
+      "Trong kháng chiến chống Pháp và chống Mỹ, sự ủng hộ của bạn bè thế giới dành cho Việt Nam thể hiện ở:",
     options: [
-      "Chính trị, pháp luật, tư tưởng và văn hóa",
-      "Lực lượng sản xuất và quan hệ sản xuất",
-      "Tư liệu sản xuất và lao động",
-      "Địa lý và điều kiện tự nhiên",
+      "Biểu tình phản đối chiến tranh xâm lược",
+      "Viện trợ vật chất, vũ khí, y tế",
+      "Sự lên tiếng của các tổ chức quốc tế ủng hộ Việt Nam",
+      "Tất cả các đáp án trên",
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
   },
   {
     id: 8,
     question:
-      "Theo Mác-Lênin, giai cấp nào được xác định là lực lượng tiên phong dẫn dắt cách mạng vô sản?",
-    options: [
-      "Giai cấp công nhân",
-      "Tư sản dân tộc",
-      "Nông dân",
-      "Giới trí thức",
-    ],
-    correctAnswer: 0,
-    image: "/imgs/lenin-portrait.jpg",
-    imageAlt: "Vladimir Lenin",
-    imageCaption: "Lenin phát triển lý luận về giai cấp công nhân tiên phong",
+      "Hồ Chí Minh khẳng định, cách mạng Việt Nam chỉ có thể dựa vào nội lực, không cần tranh thủ sự giúp đỡ quốc tế.",
+    options: ["Đúng", "Sai"],
+    correctAnswer: 1,
   },
   {
     id: 9,
-    question:
-      "Chuyển hóa từ lượng sang chất biểu hiện điều gì trong phép biện chứng?",
+    question: "Trong tư tưởng Hồ Chí Minh, đoàn kết quốc tế dựa trên nguyên tắc:",
     options: [
-      "Khi số lượng thay đổi đủ lớn sẽ tạo ra sự biến đổi bản chất",
-      "Định lượng và chất luôn tách biệt",
-      "Chất xác định lượng nhưng không đổi",
-      "Lượng không ảnh hưởng đến chất",
+      "Bình đẳng, tôn trọng lẫn nhau",
+      "Hợp tác cùng có lợi",
+      "Vì mục tiêu hòa bình, độc lập dân tộc, dân chủ và tiến bộ xã hội",
+      "Cả A, B, C",
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
   },
   {
     id: 10,
     question:
-      "Theo triết học Mác-Lênin, ý thức là gì?",
+      "Phong trào giải phóng dân tộc có đặc điểm gì trong việc hỗ trợ cách mạng Việt Nam?",
     options: [
-      "Sự phản ánh chủ quan của thế giới vật chất",
-      "Một thực thể tồn tại độc lập với vật chất",
-      "Một sản phẩm của thần thánh",
-      "Một trạng thái tĩnh của tâm lý",
+      "Đấu tranh vì hòa bình, dân chủ, công bằng xã hội",
+      "Chung mục tiêu lật đổ chủ nghĩa thực dân, giành độc lập",
+      "Hỗ trợ về lý luận, tổ chức và tinh thần cho cách mạng Việt Nam",
+      "Không có sự hỗ trợ nào đáng kể",
     ],
-    correctAnswer: 0,
-    image: "/imgs/triethoc-1.svg",
-    imageAlt: "Ý thức",
-    imageCaption: "Ý thức là sự phản ánh chủ quan của thế giới vật chất",
+    correctAnswer: 1,
   },
   {
     id: 11,
     question:
-      "Khái niệm 'chế độ sản xuất' trong duy vật lịch sử chỉ gì?",
+      "Hồ Chí Minh từng gửi thư, điện cảm ơn sự ủng hộ của nhân dân các nước nào trong kháng chiến chống Mỹ?",
     options: [
-      "Toàn bộ quan hệ sản xuất gắn với lực lượng sản xuất",
-      "Hình thức quản lý chính trị",
-      "Thể chế văn hóa",
-      "Cơ sở hạ tầng vật chất độc lập với xã hội",
+      "Liên Xô, Trung Quốc, Cuba, Lào, Campuchia",
+      "Mỹ, Nhật Bản, Hàn Quốc",
+      "Thái Lan, Singapore, Malaysia",
+      "Ấn Độ, Myanmar, Bhutan",
     ],
     correctAnswer: 0,
   },
   {
     id: 12,
     question:
-      "Giai đoạn chuyển tiếp từ chủ nghĩa tư bản lên chủ nghĩa cộng sản được mô tả bởi Mác-Lênin là gì?",
-    options: [
-      "Chuyên chính vô sản",
-      "Chủ nghĩa tư tưởng dân tộc",
-      "Chủ nghĩa phong kiến mới",
-      "Nền kinh tế thị trường tự do",
-    ],
+      "Hồ Chí Minh đánh giá cao tinh thần quốc tế vô sản và coi đó là cơ sở lý luận để đoàn kết cách mạng Việt Nam với phong trào cộng sản thế giới.",
+    options: ["Đúng", "Sai"],
     correctAnswer: 0,
   },
   {
     id: 13,
     question:
-      "Theo Mác-Lênin, quan hệ sản xuất mới trong chủ nghĩa xã hội được xây dựng dựa trên nguyên tắc nào?",
+      "Theo Hồ Chí Minh, mục tiêu cuối cùng của đoàn kết quốc tế là:",
     options: [
-      "Sở hữu xã hội về tư liệu sản xuất",
-      "Sở hữu tư nhân tuyệt đối",
-      "Tư hữu cá nhân về đất đai",
-      "Bình đẳng trong việc tích lũy tư bản cá nhân",
+      "Giành thắng lợi cho cách mạng Việt Nam",
+      "Đem lại độc lập, tự do, hạnh phúc cho các dân tộc bị áp bức và nhân loại",
+      "Khẳng định vị thế Việt Nam trên trường quốc tế",
+      "Tăng cường quan hệ ngoại giao",
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
   },
   {
     id: 14,
     question:
-      "Trong triết học Mác-Lênin, mâu thuẫn chủ yếu của xã hội tư bản chủ nghĩa là gì?",
+      "Một trong những biểu tượng tiêu biểu của tình đoàn kết quốc tế với Việt Nam trong thế kỷ XX là:",
     options: [
-      "Mâu thuẫn giữa lao động và tư bản",
-      "Mâu thuẫn giữa các quốc gia",
-      "Mâu thuẫn giữa nghệ thuật và khoa học",
-      "Mâu thuẫn giữa con người và tự nhiên",
+      "Tượng đài Fidel Castro bên cạnh nhân dân Việt Nam",
+      "Lời kêu gọi phản chiến của nhân dân Mỹ",
+      "Sự hỗ trợ y tế từ nhân dân Cuba trong thời kỳ khó khăn",
+      "Tất cả các đáp án trên",
     ],
-    correctAnswer: 0,
-    image: "/imgs/halls/hall-3-2.svg",
-    imageAlt: "Đấu tranh giai cấp",
-    imageCaption: "Mâu thuẫn cơ bản: lao động và tư bản",
+    correctAnswer: 3,
   },
   {
     id: 15,
     question:
-      "Theo Mác-Lênin, thực tiễn có vị trí đặc biệt nào với nhận thức?",
+      "Thông điệp quan trọng nhất mà tư tưởng Hồ Chí Minh về đoàn kết quốc tế gửi tới hôm nay là gì?",
     options: [
-      "Là tiêu chuẩn cuối cùng của chân lý",
-      "Là phần không quan trọng của nhận thức",
-      "Là điều kiện phụ thuộc vào ý muốn cá nhân",
-      "Là biểu hiện của sự may rủi",
+      "Đặt lợi ích quốc gia lên trên hết, không cần quan hệ quốc tế",
+      "Hội nhập quốc tế trên tinh thần độc lập, tự chủ, hòa bình, hợp tác cùng phát triển",
+      "Chỉ đoàn kết trong phạm vi khu vực châu Á",
+      "Ưu tiên phát triển kinh tế, gác lại quan hệ chính trị",
     ],
-    correctAnswer: 0,
-    image: "/imgs/halls/hall-5-1.svg",
-    imageAlt: "Thực tiễn và nhận thức",
-    imageCaption: "Thực tiễn là tiêu chuẩn cuối cùng của chân lý",
+    correctAnswer: 1,
   },
 ];
 
 const quizDataMap: QuizDataMap = {
-  "duy-vat-bien-chung": defaultQuizData,
-  "duy-vat-lich-su": matTranDanTocQuizData,
-  "tu-tuong-mac-lenin": tuTuongMacLeninQuizData,
+  "mat-tran-dan-toc": matTranDanTocQuizData,
+  "doan-ket-quoc-te": doanKetQuocTeQuizData,
   default: defaultQuizData,
 };
 
@@ -667,14 +559,6 @@ export default function Quiz() {
   const chapter = searchParams.get("chapter") || "default";
   const currentQuizData = quizDataMap[chapter] || defaultQuizData;
 
-  const bgImages = [
-    "/imgs/real/quiz-bg-1.jpg",
-    "/imgs/real/quiz-bg-2.jpg",
-    "/imgs/real/quiz-bg-3.jpg",
-    "/imgs/real/quiz-bg-4.jpg",
-  ];
-  const bg = bgImages[Math.floor(Math.random() * bgImages.length)];
-
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>(() =>
     shuffleArray(currentQuizData)
   );
@@ -687,7 +571,7 @@ export default function Quiz() {
   const [participantName, setParticipantName] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const uid = useAuthStore((s) => s.uid);
   
   const [startTime, setStartTime] = useState<number>(Date.now());
@@ -726,8 +610,8 @@ export default function Quiz() {
             const data = snapshot.val();
             const list = Object.keys(data).map((key) => ({
               id: key,
-              ...(data[key] as Omit<LeaderboardEntry, "id">),
-            })) as LeaderboardEntry[];
+              ...data[key],
+            }));
             
             // Sort by: score desc, timeTaken asc (if exists), then timestamp asc
             const filtered = list
@@ -839,7 +723,7 @@ export default function Quiz() {
       <div
         className="min-h-screen relative p-6 pt-20"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,58,138,0.85)), url("${bg}")`,
+          backgroundImage: 'url("/imgs/Quiz đại đoàn kết dân tộc.jpg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -897,7 +781,8 @@ export default function Quiz() {
                   <div className="text-green-400">
                     <p className="text-lg font-semibold">Xuất sắc! 🎉</p>
                     <p>
-                      Bạn đã nắm vững kiến thức về triết học Mác-Lênin.
+                      Bạn đã nắm vững kiến thức về đại đoàn kết dân tộc trong tư
+                      tưởng Hồ Chí Minh.
                     </p>
                   </div>
                 ) : percentage >= 60 ? (
@@ -913,7 +798,7 @@ export default function Quiz() {
                     <p className="text-lg font-semibold">
                       Cần cố gắng thêm! 💪
                     </p>
-                    <p>Hãy ôn tập lại các nội dung về triết học Mác-Lênin.</p>
+                    <p>Hãy ôn tập lại các nội dung về đại đoàn kết dân tộc.</p>
                   </div>
                 )}
               </div>
@@ -1025,14 +910,6 @@ export default function Quiz() {
                   className="bg-white/90 border border-stone-200 rounded-2xl border-2 border-stone-300 p-6"
                 >
                   {/* Question */}
-                  {question.image && (
-                    <QuestionImage
-                      src={question.image}
-                      alt={question.imageAlt}
-                      caption={question.imageCaption}
-                      size="sm"
-                    />
-                  )}
                   <h3 className="text-stone-800 font-semibold mb-4 leading-relaxed">
                     {question.question}
                   </h3>
@@ -1129,11 +1006,11 @@ export default function Quiz() {
     );
   }
 
-    return (
+  return (
     <div
       className="min-h-screen relative flex items-center justify-center p-6 pt-20"
       style={{
-        backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,58,138,0.85)), url("${bg}")`,
+        backgroundImage: 'url("/imgs/Quiz đại đoàn kết dân tộc.jpg")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -1154,7 +1031,7 @@ export default function Quiz() {
           {/* Header with Progress */}
           <div className="bg-gradient-to-r from-red-600 to-yellow-600 p-6">
             <div className="flex items-center justify-between text-white mb-4">
-              <h1 className="text-2xl font-bold">Quiz: Triết học Mác-Lênin</h1>
+              <h1 className="text-2xl font-bold">Quiz: Đại Đoàn Kết Dân Tộc</h1>
               <div className="flex items-center gap-3">
                 <span className="text-sm font-semibold bg-black/20 px-3 py-1 rounded-full border border-stone-200">
                   ⏱️ {Math.floor(elapsedTime / 60)}:{(elapsedTime % 60).toString().padStart(2, '0')}
@@ -1177,13 +1054,6 @@ export default function Quiz() {
           {/* Question Content */}
           <div className="p-8">
             <div className="mb-8">
-              {shuffledQuestions[currentQuestion].image && (
-                <QuestionImage
-                  src={shuffledQuestions[currentQuestion].image!}
-                  alt={shuffledQuestions[currentQuestion].imageAlt}
-                  caption={shuffledQuestions[currentQuestion].imageCaption}
-                />
-              )}
               <h2 className="text-xl font-semibold text-gray-800 leading-relaxed">
                 {shuffledQuestions[currentQuestion].question}
               </h2>

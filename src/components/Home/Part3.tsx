@@ -1,232 +1,845 @@
-// Part3.tsx — Giai đoạn Marx-Engels (1818-1895): Quá trình hình thành triết học Mác
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { TypingAnimation } from "../magicui/Text Animations/TypingAnimation";
-import { ChevronLeft, ChevronRight, BookOpen, Lightbulb, Users, Globe } from "lucide-react";
-import HallGallery from "./HallGallery";
+import { Link } from "react-router";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, stagger, useAnimate, useInView, AnimatePresence } from "motion/react";
+import { cn } from "../../utils/cn";
+import { CometCard } from "../aceternityui/Card Components/cometCard";
 
-const galleryItems = [
-  { src: "/imgs/real/hall-3-1.jpg", alt: "Hall 3", caption: "Giai đoạn Marx & Engels" },
-  { src: "/imgs/marx-portrai.jpg", alt: "Karl Marx", caption: "Karl Marx (1818–1883)" },
-  { src: "/imgs/engels-portrait.webp", alt: "Friedrich Engels", caption: "Friedrich Engels (1820–1895)" },
-  { src: "/imgs/communist-manifesto.jpg", alt: "Tuyên ngôn", caption: "Tuyên ngôn Đảng Cộng sản (1848)" },
-  { src: "/imgs/halls/hall-3-1.svg", alt: "Minh họa 1", caption: "Hành trình hình thành tư tưởng" },
-  { src: "/imgs/halls/hall-3-2.svg", alt: "Minh họa 2", caption: "Bản thảo Kinh tế-Triết học 1844" },
-  { src: "/imgs/halls/hall-3-3.svg", alt: "Minh họa 3", caption: "Tư bản — kiệt tác kinh tế-triết học" },
-];
+// Custom TextGenerateEffect with startOnView support
+const TextGenerateEffectOnView = ({
+  words,
+  className,
+  filter = true,
+  duration = 0.5,
+  startOnView = true,
+}: {
+  words: string;
+  className?: string;
+  filter?: boolean;
+  duration?: number;
+  startOnView?: boolean;
+}) => {
+  const [scope, animate] = useAnimate();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const wordsArray = words.split(" ");
 
-const timeline = [
-  {
-    year: "1818",
-    image: "/imgs/marx-portrai.jpg",
-    imageAlt: "Karl Marx tuổi trẻ",
-    period: "Sinh ra & Tuổi thơ",
-    icon: <Users className="w-5 h-5" />,
-    color: "bg-amber-600",
-    title: "Karl Marx chào đời",
-    content: "Karl Marx sinh ngày 5/5/1818 tại Trier, Đức. Cha là luật sư, gia đình có học thức. Từ nhỏ Marx đã bộc lộ tư chất thông minh, yêu thích triết học và lịch sử.",
-    detail: "Lớn lên trong bầu không khí ảnh hưởng của triết học Khai sáng, Marx được tiếp xúc với các tư tưởng nhân đạo và duy lý từ rất sớm.",
-  },
-  {
-    year: "1841",
-    image: "/imgs/halls/hall-3-1.svg",
-    imageAlt: "Luận án tiến sĩ",
-    period: "Thời kỳ hình thành tư tưởng",
-    icon: <BookOpen className="w-5 h-5" />,
-    color: "bg-red-600",
-    title: "Luận án tiến sĩ về Democritus & Epicurus",
-    content: "Marx bảo vệ luận án tiến sĩ tại Đại học Jena về 'Sự khác biệt giữa triết học tự nhiên của Democritus và Epicurus'. Đây là bước đầu tiên hướng đến chủ nghĩa duy vật.",
-    detail: "Qua nghiên cứu hai nhà triết học cổ đại Hy Lạp, Marx bắt đầu phê phán chủ nghĩa duy tâm và tìm kiếm cơ sở vật chất cho thế giới quan.",
-  },
-  {
-    year: "1844",
-    image: "/imgs/engels-portrait.webp",
-    imageAlt: "Marx gặp Engels",
-    period: "Bước ngoặt tư tưởng",
-    icon: <Lightbulb className="w-5 h-5" />,
-    color: "bg-red-700",
-    title: "Bản thảo Kinh tế-Triết học 1844",
-    content: "Marx viết 'Bản thảo Kinh tế-Triết học' (mãi đến 1932 mới được xuất bản). Đây là nơi ông phác thảo lần đầu học thuyết về sự tha hóa lao động và con người toàn diện.",
-    detail: "Friedrich Engels gặp Marx ở Paris năm 1844 — bắt đầu tình bạn và hợp tác lý luận kéo dài suốt đời. Engels cung cấp tư liệu thực tiễn từ nước Anh công nghiệp.",
-  },
-  {
-    year: "1845",
-    period: "Cơ sở của chủ nghĩa duy vật lịch sử",
-    icon: <BookOpen className="w-5 h-5" />,
-    color: "bg-stone-700",
-    title: "Luận cương về Feuerbach",
-    content: "Marx viết '11 Luận cương về Feuerbach' — trong đó câu nổi tiếng: 'Các nhà triết học chỉ giải thích thế giới theo cách khác nhau; vấn đề là phải cải tạo nó.'",
-    detail: "Cùng với Engels, Marx viết 'Hệ tư tưởng Đức' (1845-1846) — lần đầu tiên trình bày có hệ thống quan niệm duy vật về lịch sử (chủ nghĩa duy vật lịch sử).",
-  },
-  {
-    year: "1848",
-    image: "/imgs/communist-manifesto.jpg",
-    imageAlt: "Tuyên ngôn Đảng Cộng sản",
-    period: "Tuyên ngôn lịch sử",
-    icon: <Globe className="w-5 h-5" />,
-    color: "bg-red-800",
-    title: "Tuyên ngôn Đảng Cộng sản",
-    content: "Marx và Engels công bố 'Tuyên ngôn của Đảng Cộng sản' — văn kiện cương lĩnh đầu tiên của phong trào cộng sản. Mở đầu bằng câu: 'Một bóng ma đang ám ảnh châu Âu — bóng ma chủ nghĩa cộng sản.'",
-    detail: "Tuyên ngôn lần đầu kết hợp một cách khoa học giữa chủ nghĩa duy vật lịch sử, học thuyết đấu tranh giai cấp và lý luận về sứ mệnh lịch sử của giai cấp công nhân.",
-  },
-  {
-    year: "1867",
-    image: "/imgs/halls/hall-3-3.svg",
-    imageAlt: "Tư bản",
-    period: "Đỉnh cao tư tưởng",
-    icon: <BookOpen className="w-5 h-5" />,
-    color: "bg-amber-700",
-    title: "Tư bản (Das Kapital) — Tập 1",
-    content: "Marx xuất bản Tập 1 bộ 'Tư bản' — kiệt tác kinh tế-triết học vĩ đại nhất của ông. Phân tích bản chất bóc lột của chủ nghĩa tư bản qua học thuyết giá trị thặng dư.",
-    detail: "Engels hoàn thiện Tập 2 (1885) và Tập 3 (1894) sau khi Marx mất. Bộ 'Tư bản' được coi là 'Kinh Thánh' của giai cấp vô sản thế giới.",
-  },
-  {
-    year: "1883",
-    period: "Di sản bất hủ",
-    icon: <Users className="w-5 h-5" />,
-    color: "bg-stone-600",
-    title: "Marx qua đời — Engels tiếp tục",
-    content: "Karl Marx qua đời ngày 14/3/1883 tại London. Engels đọc điếu văn: 'Marx là nhà tư tưởng vĩ đại nhất trong những nhà tư tưởng hiện đại.' Engels tiếp tục phổ biến và bảo vệ chủ nghĩa Mác cho đến khi ông mất năm 1895.",
-    detail: "Di sản của Marx và Engels bao gồm hơn 50 tập tác phẩm, đặt nền móng cho phong trào cộng sản quốc tế và ảnh hưởng sâu sắc đến lịch sử thế kỷ XX.",
-  },
-];
-
-export default function Part3() {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [direction, setDirection] = useState<"left" | "right">("right");
-
-  const handlePrev = () => {
-    if (activeIdx > 0) {
-      setDirection("left");
-      setActiveIdx((i) => i - 1);
+  useEffect(() => {
+    if ((startOnView && isInView) || !startOnView) {
+      animate(
+        "span",
+        {
+          opacity: 1,
+          filter: filter ? "blur(0px)" : "none",
+        },
+        {
+          duration: duration ? duration : 1,
+          delay: stagger(0.2),
+        }
+      );
     }
-  };
+  }, [isInView, startOnView, animate, duration, filter]);
 
-  const handleNext = () => {
-    if (activeIdx < timeline.length - 1) {
-      setDirection("right");
-      setActiveIdx((i) => i + 1);
-    }
+  const renderWords = () => {
+    return (
+      <motion.div ref={scope} className="flex flex-wrap justify-center items-center">
+        {wordsArray.map((word, idx) => {
+          return (
+            <motion.span
+              key={word + idx}
+              className="text-stone-800 opacity-0 inline-block mr-2 md:mr-3"
+              style={{
+                filter: filter ? "blur(10px)" : "none",
+              }}
+            >
+              {word}
+            </motion.span>
+          );
+        })}
+      </motion.div>
+    );
   };
-
-  const item = timeline[activeIdx];
 
   return (
-    <div className="w-full min-h-[90vh] bg-gradient-to-b from-[#FDF6E3] to-white p-6 md:p-12 flex flex-col items-center justify-start relative">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(185,28,28,0.05),transparent_60%)] pointer-events-none" />
+    <div ref={ref} className={cn("font-bold", className)}>
+      <div className="text-stone-800 font-heading text-4xl md:text-5xl leading-tight tracking-normal uppercase text-center drop-shadow-lg">
+        {renderWords()}
+      </div>
+    </div>
+  );
+};
 
-      <div className="w-full max-w-6xl mx-auto z-10">
-        <h3 className="uppercase text-red-700 font-heading text-3xl md:text-5xl mb-2 text-center drop-shadow-[0_0_8px_rgba(185,28,28,0.2)]">
-          <TypingAnimation startOnView={true} duration={50} className="text-red-700 font-heading text-3xl md:text-4xl text-center">
-            Giai đoạn Marx & Engels
-          </TypingAnimation>
-        </h3>
-        <p className="text-center text-stone-400 text-sm mb-10 tracking-wide">1818 – 1895 · Nhấn mũi tên để xem từng mốc lịch sử</p>
+// Types
+type CardData = {
+  id: string;
+  title: string;
+  subtitle: string;
+  color: string;
+  image: string;
+  content: string[];
+};
 
-        {/* Timeline dots */}
-        <div className="flex items-center justify-center gap-2 mb-10 flex-wrap">
-          {timeline.map((t, i) => (
+// Animated Tabs Component
+const AnimatedTabs = ({ cardData }: { cardData: CardData[] }) => {
+  const [activeTab, setActiveTab] = useState(cardData[0].id);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const tabsRef = useRef<HTMLDivElement>(null);
+
+  // Check for reduced motion preference
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      setPrefersReducedMotion(mediaQuery.matches);
+      
+      const handleChange = (e: MediaQueryListEvent) => {
+        setPrefersReducedMotion(e.matches);
+      };
+      
+      mediaQuery.addEventListener("change", handleChange);
+      return () => mediaQuery.removeEventListener("change", handleChange);
+    }
+  }, []);
+
+  // Keyboard navigation
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (!tabsRef.current?.contains(document.activeElement)) return;
+    
+    switch (e.key) {
+      case "ArrowLeft": {
+        e.preventDefault();
+        const currentIndex = cardData.findIndex((card: CardData) => card.id === activeTab);
+        const newLeftIndex = currentIndex > 0 ? currentIndex - 1 : cardData.length - 1;
+        setActiveTab(cardData[newLeftIndex].id);
+        break;
+      }
+      case "ArrowRight": {
+        e.preventDefault();
+        const currentRightIndex = cardData.findIndex((card: CardData) => card.id === activeTab);
+        const newRightIndex = currentRightIndex < cardData.length - 1 ? currentRightIndex + 1 : 0;
+        setActiveTab(cardData[newRightIndex].id);
+        break;
+      }
+      case "Enter":
+      case " ":
+        e.preventDefault();
+        break;
+    }
+  }, [cardData]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [handleKeyDown]);
+
+  const activeCard = cardData.find((card: CardData) => card.id === activeTab) || cardData[0];
+
+  const handleTabClick = (cardId: string) => {
+    setActiveTab(cardId);
+  };
+
+  return (
+    <div className="w-full max-w-6xl mx-auto">
+      {/* Tabs Bar */}
+      <div 
+        ref={tabsRef}
+        className="relative mb-8"
+        role="tablist"
+        aria-label="Điều kiện xây dựng khối đại đoàn kết"
+      >
+        <div className="flex justify-center gap-2 md:gap-4 bg-white/40 backdrop-blur-sm rounded-full p-2 border border-stone-200">
+          {cardData.map((card: CardData) => (
             <button
-              key={i}
-              onClick={() => { setDirection(i > activeIdx ? "right" : "left"); setActiveIdx(i); }}
-              className={`flex flex-col items-center gap-1 group cursor-pointer`}
+              key={card.id}
+              role="tab"
+              aria-selected={activeTab === card.id}
+              aria-controls={`tabpanel-${card.id}`}
+              tabIndex={activeTab === card.id ? 0 : -1}
+              className={cn(
+                "relative px-3 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium transition-all duration-300 z-10",
+                "focus:outline-none focus:ring-2 focus:ring-white/50",
+                activeTab === card.id 
+                  ? "text-white" 
+                  : "text-stone-500 hover:text-stone-700 hover:scale-105"
+              )}
+              onClick={() => handleTabClick(card.id)}
             >
-              <div className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${i === activeIdx ? "bg-red-600 border-red-600 scale-150" : "bg-white border-red-300 hover:border-red-500"}`} />
-              <span className={`text-[10px] font-bold transition-colors ${i === activeIdx ? "text-red-600" : "text-stone-400 group-hover:text-stone-600"}`}>
-                {t.year}
+              {/* Active pill background */}
+              {activeTab === card.id && (
+                <motion.div
+                  layoutId="activePill"
+                  className="absolute inset-0 rounded-full"
+                  style={{ backgroundColor: card.color }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", bounce: 0.3, duration: 0.6 }}
+                />
+              )}
+              <span className="relative z-10 block uppercase font-bold">
+                {card.id.toUpperCase()}
+              </span>
+              <span className="relative z-10 block text-xs opacity-80 hidden sm:block">
+                {card.title.slice(0, 20)}...
               </span>
             </button>
           ))}
         </div>
+      </div>
 
-        {/* Main Card */}
+      {/* Card Content */}
+      <motion.div
+        className="relative min-h-[600px] rounded-3xl overflow-hidden shadow-2xl"
+        style={{
+          background: `linear-gradient(135deg, ${activeCard.color}15 0%, ${activeCard.color}25 100%)`
+        }}
+        animate={prefersReducedMotion ? {} : {
+          background: `linear-gradient(135deg, ${activeCard.color}15 0%, ${activeCard.color}25 100%)`
+        }}
+        transition={{ duration: 0.5 }}
+      >
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeIdx}
-            initial={{ opacity: 0, x: direction === "right" ? 60 : -60 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: direction === "right" ? -60 : 60 }}
-            transition={{ type: "spring", stiffness: 280, damping: 28 }}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-8"
+            key={activeTab}
+            role="tabpanel"
+            id={`tabpanel-${activeTab}`}
+            aria-labelledby={`tab-${activeTab}`}
+            className="relative w-full h-full p-6 md:p-8"
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.98 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -20, scale: 1.02 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
           >
-            {/* Year badge + detail */}
-            <div className="lg:col-span-4 flex flex-col gap-4">
-              <div className={`${item.color} text-white rounded-2xl p-6 flex flex-col gap-2 shadow-xl`}>
-                <div className="flex items-center gap-2">
-                  {item.icon}
-                  <span className="text-sm font-semibold uppercase tracking-wider opacity-80">{item.period}</span>
-                </div>
-                <div className="text-5xl font-bold font-title">{item.year}</div>
-                <div className="text-white/90 font-semibold text-lg leading-snug">{item.title}</div>
-              </div>
-
-              <div className="bg-white/80 border border-red-800/15 rounded-2xl p-5 text-sm text-stone-600 leading-relaxed shadow-md">
-                <div className="text-xs font-bold text-red-700 uppercase tracking-wider mb-2">📝 Chi tiết thêm</div>
-                {item.detail}
-              </div>
+            {/* Background Image */}
+            <div className="absolute inset-0 overflow-hidden rounded-3xl">
+              <CometCard className="w-full h-full">
+                <motion.img
+                  src={activeCard.image}
+                  alt={activeCard.title}
+                  className="w-full h-full object-cover opacity-15 rounded-3xl"
+                  loading="lazy"
+                  initial={{ scale: 1.1, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 0.15 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                />
+              </CometCard>
+              <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/30 to-black/60 rounded-3xl" />
             </div>
 
-            {/* Content */}
-            <div className="lg:col-span-8 gold-glow-panel rounded-2xl p-8 flex flex-col justify-between shadow-xl">
-              <div>
-                <div className="text-xs font-bold text-red-700/60 uppercase tracking-widest mb-3">Mốc lịch sử</div>
-                {"image" in item && item.image && (
-                  <div className="mb-6 rounded-xl overflow-hidden border border-red-800/15 shadow-md">
+            {/* Card Content */}
+            <div className="relative z-10 grid md:grid-cols-2 gap-8 items-start h-full min-h-[500px] p-4">
+              {/* Left: Image Rectangle */}
+              <motion.div
+                className="flex justify-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <CometCard 
+                  className="relative w-72 h-80 md:w-96 md:h-[420px]"
+                  rotateDepth={15}
+                  translateDepth={12}
+                >
+                  <div 
+                    className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl"
+                    style={{ 
+                      border: `6px solid ${activeCard.color}`,
+                      boxShadow: `0 0 40px ${activeCard.color}30, 0 20px 60px rgba(0,0,0,0.3)`
+                    }}
+                  >
                     <img
-                      src={item.image}
-                      alt={item.imageAlt ?? item.title}
-                      className="w-full h-48 md:h-56 object-cover"
+                      src={activeCard.image}
+                      alt={activeCard.title}
+                      className="w-full h-full object-cover rounded-xl"
+                      loading="lazy"
                     />
-                  </div>
-                )}
-                <h4 className="text-2xl md:text-3xl font-bold text-stone-800 mb-6 leading-snug">{item.title}</h4>
-                <p className="text-stone-600 text-base leading-relaxed">{item.content}</p>
-              </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 rounded-xl" />
+                    
+                    {/* Badge */}
+                    <div 
+                      className="absolute top-4 right-4 w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 backdrop-blur-sm"
+                      style={{ 
+                        backgroundColor: `${activeCard.color}E6`,
+                        border: `2px solid ${activeCard.color}`
+                      }}
+                    >
+                      {activeCard.id.toUpperCase()}
+                    </div>
 
-              {/* Progress */}
-              <div className="mt-8">
-                <div className="flex justify-between text-xs text-stone-400 mb-2">
-                  <span>Mốc {activeIdx + 1} / {timeline.length}</span>
-                  <span>{Math.round(((activeIdx + 1) / timeline.length) * 100)}% hành trình</span>
-                </div>
-                <div className="w-full bg-red-100 rounded-full h-1.5">
-                  <div
-                    className="bg-gradient-to-r from-red-500 to-amber-500 h-1.5 rounded-full transition-all duration-500"
-                    style={{ width: `${((activeIdx + 1) / timeline.length) * 100}%` }}
-                  />
-                </div>
-              </div>
+                    {/* Image Title Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent rounded-b-xl">
+                      <h3 className="text-white font-bold text-lg md:text-xl mb-1 drop-shadow-lg">
+                        {activeCard.title.length > 30 ? `${activeCard.title.slice(0, 30)}...` : activeCard.title}
+                      </h3>
+                      <p className="text-gray-200 text-sm opacity-90">
+                        {activeCard.subtitle.length > 40 ? `${activeCard.subtitle.slice(0, 40)}...` : activeCard.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                </CometCard>
+              </motion.div>
+
+              {/* Right: Content */}
+              <motion.div
+                className="text-white space-y-6"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.4 }}
+                >
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+                    {activeCard.title}
+                  </h2>
+                  <p className="text-xl text-gray-200 mb-6 italic">
+                    {activeCard.subtitle}
+                  </p>
+                </motion.div>
+
+                {/* Content Scroll Area */}
+                <motion.div
+                  className="max-h-60 overflow-y-auto space-y-4 pr-4 custom-scrollbar"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4, delay: 0.5 }}
+                >
+                  {activeCard.content.map((text: string, index: number) => (
+                    <motion.p
+                      key={index}
+                      className="text-gray-100 leading-relaxed"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.6 + (index * 0.1) }}
+                    >
+                      {activeCard.id === "c" && index === 0 ? (
+                        <em>"{text.replace(/"/g, "")}"</em>
+                      ) : (
+                        text
+                      )}
+                    </motion.p>
+                  ))}
+                </motion.div>
+
+                {/* Modern Meaning */}
+                <motion.div
+                  className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-stone-200"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.7 }}
+                >
+                  <p className="text-gray-200 mt-2">
+                    {activeCard.id === "a" && "Lợi ích chung là mẫu số chung giúp hoà giải khác biệt và tạo nền tảng hợp tác. Khi đặt lợi ích tối cao của dân tộc và lợi ích căn bản của nhân dân lao động lên trên, mọi chính sách, quyết sách và hành động đều dễ được đồng thuận hơn; từ đó giảm xung đột lợi ích, gia tăng tính bền vững trong liên kết xã hội và thúc đẩy phát triển toàn diện."}
+                    {activeCard.id === "b" && "Truyền thống lịch sử là nguồn sức mạnh tinh thần, kết nối thế hệ này với thế hệ khác. Việc khơi dậy và gìn giữ giá trị yêu nước, tinh thần nhân nghĩa và truyền thống đoàn kết không chỉ nuôi dưỡng bản sắc dân tộc mà còn tạo động lực tinh thần để cộng đồng cùng vượt khó, chung tay đối mặt thử thách thời đại."}
+                    {activeCard.id === "c" && "Khoan dung là điều kiện then chốt để hoá giải mâu thuẫn xã hội và mở cửa cho quá trình hòa giải, tái hoà nhập. Thái độ bao dung giúp xây dựng môi trường chính trị – xã hội ổn định, thu hút sự trở về của những người lầm lạc hay bất đồng trước đây, đồng thời khuyến khích đối thoại, chia sẻ thay vì đối đầu."}
+                    {activeCard.id === "d" && "Tin tưởng vào năng lực và phẩm giá của nhân dân là cốt lõi để thúc đẩy sự tham gia rộng rãi và sáng tạo của xã hội. Khi Đảng và Nhà nước dựa vào nhân dân, lắng nghe và trao quyền cho cộng đồng, chính sách sẽ thực tế, hiệu quả hơn; niềm tin ấy cũng tạo nên sức mạnh nội tại để quốc gia tự cường và phát triển bền vững."}
+                  </p>
+                </motion.div>
+
+                {/* Action Button */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.8 }}
+                >
+                  <Link
+                    to={`/part3/${activeCard.id}`}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${activeCard.color} 0%, ${activeCard.color}dd 100%)` 
+                    }}
+                  >
+                    🔎 Khám phá chi tiết
+                  </Link>
+                </motion.div>
+              </motion.div>
             </div>
           </motion.div>
         </AnimatePresence>
+      </motion.div>
+    </div>
+  );
+};
 
-        <div className="mt-10">
-          <HallGallery items={galleryItems} title="Triển lãm Hall 3" />
-        </div>
+export default function Part3() {
+  const [isVisible, setIsVisible] = useState(false);
 
-        {/* Navigation */}
-        <div className="flex justify-between items-center mt-8">
-          <button
-            onClick={handlePrev}
-            disabled={activeIdx === 0}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold border border-red-800/20 text-red-700 bg-red-600/5 hover:bg-red-600/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  const cardData: CardData[] = [
+    {
+      id: "a",
+      title: "Phải lấy lợi ích chung làm điểm quy tụ",
+      subtitle: "đồng thời tôn trọng những lợi ích khác biệt chính đáng",
+      color: "#FA8072",
+      image: "/imgs/Part3/Phải lấy lợi ích chung làm điểm quy tụ.jpg",
+      content: [
+        "Phải xử lý tốt quan hệ lợi ích, tìm ra điểm tương đồng và lợi ích chung.",
+        "Lấy lợi ích tối cao của dân tộc và lợi ích căn bản của nhân dân lao động làm mục tiêu phấn đấu.",
+        "Đây là nguyên tắc bất di bất dịch, là ngọn cờ đoàn kết, là mẫu số chung để quy tụ các tầng lớp, giai cấp, dân tộc, tôn giáo trong Mặt trận.",
+      ],
+    },
+    {
+      id: "b",
+      title: "Kế thừa truyền thống yêu nước",
+      subtitle: "nhân nghĩa – đoàn kết",
+      color: "#E49B0F",
+      image: "/imgs/Part3/Kế thừa truyền thống yêu nước.jpg",
+      content: [
+        "Yêu nước – nhân nghĩa – đoàn kết là cội nguồn sức mạnh giúp dân tộc vượt qua thiên tai, địch họa và giành thắng lợi.",
+      ],
+    },
+    {
+      id: "c",
+      title: "Có lòng khoan dung, độ lượng",
+      subtitle: "Lời dạy của Chủ tịch Hồ Chí Minh",
+      color: "#059669",
+      image: "/imgs/Part3/Có lòng khoan dung, độ lượng.jpg",
+      content: [
+        '"Năm ngón tay có ngón dài ngón ngắn, nhưng cả năm ngón đều thuộc về một bàn tay. Trong mấy triệu người cũng có người thế này thế khác, nhưng thế này hay thế khác đều dòng dõi tổ tiên ta. Vậy nên phải khoan hồng, đại độ... Có như thế mới thành đoàn kết, có đại đoàn kết thì tương lai chắc chắn sẽ vẻ vang."',
+      ],
+    },
+    {
+      id: "d",
+      title: "Có niềm tin vào nhân dân",
+      subtitle: "Nhân dân là nền tảng của cách mạng",
+      color: "#6495ED",
+      image: "/imgs/Part3/Có niềm tin vào nhân dân.jpg",
+      content: [
+        "Nhân dân là nền tảng, gốc rễ, chủ thể của mặt trận.",
+        "Là chỗ dựa vững chắc của Đảng, là cội nguồn sức mạnh vô tận quyết định thắng lợi của cách mạng.",
+        "Muốn thực hiện đại đoàn kết cần yêu dân, tin dân, dựa vào dân, sống và đấu tranh vì hạnh phúc của nhân dân.",
+        "Trong kháng chiến, nhờ tin dân và khoan dung, Đảng đã quy tụ được cả những người từng đứng ở phía bên kia nhưng sau đó quay về với dân tộc.",
+      ],
+    },
+  ];
+
+
+  return (
+    <section
+      className="min-h-[100vh] pb-16 relative"
+    >
+      {/* Background Image with Enhanced Overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 mix-blend-overlay"
+        style={{
+          backgroundImage:
+            'url("/imgs/Part3/Điều kiện để xây dựng khối đại đoàn kết toàn dân tộc.jpg")',
+        }}
+      ></div>
+      <div className="z-0 absolute size-full top-0 bg-gradient-to-b from-[#FDF6E3]/95 via-white/95 to-[#FDF6E3]/95 pointer-events-none" />
+      {/* <div className="absolute inset-0 animated-bg-enhanced"></div> */}
+      {/* Additional patriotic gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-red-100/30 via-transparent to-blue-100/20"></div>
+      {/* Header */}
+      <div className="text-center py-12 relative z-10">
+        <h1 className="flex justify-center items-center relative mb-4 min-h-[120px] z-10">
+          <TextGenerateEffectOnView
+            words="Điều kiện để xây dựng khối đại đoàn kết toàn dân tộc"
+            className="w-full"
+            filter={true}
+            duration={2}
+            startOnView={true}
+          />
+        </h1>
+
+        {/* Animated divider */}
+        <div
+          className={`w-32 h-1 bg-gradient-to-r from-red-600 to-yellow-500 mx-auto mb-6 scale-in`}
+          style={{ animationDelay: "4s" }}
+        ></div>
+
+        {/* Animated button */}
+        <div
+          className={`transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: "4.5s" }}
+        >
+          <Link
+            to="/part3"
+            className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           >
-            <ChevronLeft className="w-4 h-4" /> Mốc trước
-          </button>
-
-          <div className="text-sm text-stone-400 font-medium">
-            {activeIdx + 1} / {timeline.length}
-          </div>
-
-          <button
-            onClick={handleNext}
-            disabled={activeIdx === timeline.length - 1}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-500 hover:to-red-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer shadow-[0_0_15px_rgba(185,28,28,0.2)]"
-          >
-            Mốc tiếp <ChevronRight className="w-4 h-4" />
-          </button>
+            📖 Xem chi tiết đầy đủ
+          </Link>
         </div>
       </div>
-    </div>
+
+      {/* Animated Tabs Section */}
+      <div className="container mx-auto px-6 pb-12 relative z-10">
+        <AnimatedTabs cardData={cardData} />
+      </div>
+
+      <style>{`
+        
+        /* CometCard perspective */
+        .perspective-distant {
+          perspective: 1200px;
+          transform-style: preserve-3d;
+        }
+        
+        .transform-3d {
+          transform-style: preserve-3d;
+        }
+        
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255,255,255,0.1);
+          border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255,255,255,0.3);
+          border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255,255,255,0.5);
+        }
+        
+        /* Fade in animation for header elements */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .fade-in-up {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        /* Scale animation for divider */
+        @keyframes scaleIn {
+          from {
+            transform: scaleX(0);
+          }
+          to {
+            transform: scaleX(1);
+          }
+        }
+        
+        .scale-in {
+          animation: scaleIn 1s ease-out forwards;
+        }
+        
+        /* Subtle background animation */
+        @keyframes backgroundPulse {
+          0%, 100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+        
+        .animated-bg-enhanced {
+          background: linear-gradient(-45deg, 
+            rgba(15, 23, 42, 0.85), 
+            rgba(30, 41, 59, 0.75), 
+            rgba(15, 23, 42, 0.85), 
+            rgba(30, 41, 59, 0.9));
+          background-size: 400% 400%;
+          animation: backgroundPulse 8s ease-in-out infinite;
+        }
+
+        /* Enhanced animations */
+        @keyframes slideInFromDirection {
+          0% {
+            opacity: 0;
+            transform: scale(0.8) translateY(30px);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        @keyframes bounceIn {
+          0% {
+            opacity: 0;
+            transform: scale(0.3) translateY(-50px);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.1) translateY(0);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        .animate-slide-in {
+          animation: slideInFromDirection 0.8s ease-out forwards;
+        }
+
+        .animate-bounce-in {
+          animation: bounceIn 1.2s ease-out forwards;
+          animation-delay: 0.5s;
+        }
+
+        .card {
+          position: relative;
+          width: 320px;
+          height: 380px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: 0.5s;
+          transition-delay: 0.5s;
+          cursor: pointer;
+        }
+
+        .card:hover {
+          width: 600px;
+          transition-delay: 0.5s;
+        }
+
+        .card .circle {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+        }
+
+        .card .circle::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: #191919;
+          border: 8px solid var(--clr);
+          border-radius: 24px;
+          transition: 0.5s, background 0.5s;
+          transition-delay: 0.75s, 1s;
+          filter: drop-shadow(0 0 15px var(--clr)) drop-shadow(0 0 80px var(--clr));
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card:hover .circle::before {
+          transition-delay: 0.5s;
+          background: var(--clr);
+        }
+
+        .card .circle .logo {
+          position: relative;
+          width: 200px;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 50%;
+          transition: 0.5s;
+          transition-delay: 0.5s;
+          z-index: 2;
+        }
+
+        .card:hover .circle .logo {
+          transform: scale(0);
+          transition-delay: 0s;
+        }
+
+        .card .product_img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) scale(0) rotate(315deg);
+          width: 180px;
+          height: 180px;
+          object-fit: cover;
+          border-radius: 50%;
+          transition: 0.5s ease-in-out;
+        }
+
+        .card:hover .product_img {
+          transition-delay: 0.75s;
+          top: 50%;
+          left: 80%;
+          width: 180px;
+          height: 180px;
+          transform: translate(-50%, -50%) scale(1) rotate(15deg);
+        }
+
+        .card .content {
+          position: absolute;
+          width: 55%;
+          left: 15%;
+          padding: 20px;
+          opacity: 0;
+          transition: 0.5s;
+          visibility: hidden;
+          max-height: 350px;
+          overflow-y: auto;
+        }
+
+        .card:hover .content {
+          transition-delay: 0.75s;
+          opacity: 1;
+          visibility: visible;
+          left: 20px;
+        }
+
+        .card .content .badge {
+          display: inline-block;
+          background: var(--clr);
+          color: white;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          text-align: center;
+          line-height: 30px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+        }
+
+        .card .content h2 {
+          color: #fff;
+          text-transform: uppercase;
+          font-size: 1.8em;
+          line-height: 1.2em;
+          margin-bottom: 8px;
+        }
+
+        .card .content .subtitle {
+          color: #ccc;
+          font-size: 0.9em;
+          margin-bottom: 15px;
+          font-style: italic;
+        }
+
+        .card .content .scroll-content {
+          max-height: 180px;
+          overflow-y: auto;
+          margin-bottom: 15px;
+          padding-right: 10px;
+        }
+
+        .card .content .content-text {
+          color: #fff;
+          font-size: 0.85em;
+          line-height: 1.4em;
+          margin-bottom: 10px;
+          text-align: justify;
+        }
+
+        .card .content .modern-meaning {
+          color: #ffd700;
+          font-size: 0.8em;
+          line-height: 1.3em;
+          background: rgba(255, 215, 0, 0.1);
+          padding: 8px;
+          border-radius: 8px;
+          border-left: 3px solid #ffd700;
+        }
+
+        .card .content::-webkit-scrollbar {
+          width: 4px;
+        }
+
+        .card .content::-webkit-scrollbar-track {
+          background: rgba(255,255,255,0.1);
+          border-radius: 4px;
+        }
+
+        .card .content::-webkit-scrollbar-thumb {
+          background: var(--clr);
+          border-radius: 4px;
+        }
+
+        .card .content .scroll-content::-webkit-scrollbar {
+          width: 4px;
+        }
+
+        .card .content .scroll-content::-webkit-scrollbar-track {
+          background: rgba(255,255,255,0.1);
+          border-radius: 4px;
+        }
+
+        .card .content .scroll-content::-webkit-scrollbar-thumb {
+          background: var(--clr);
+          border-radius: 4px;
+        }
+
+        /* Modern button styling */
+        .modern-btn {
+          display: inline-block;
+          padding: 12px 24px;
+          border-radius: 12px;
+          text-decoration: none;
+          color: white;
+          font-weight: 600;
+          font-size: 0.9rem;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(185, 28, 28, 0.2);
+        }
+
+        .modern-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(185, 28, 28, 0.3);
+        }
+
+        .modern-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: left 0.5s;
+        }
+
+        .modern-btn:hover::before {
+          left: 100%;
+        }
+
+        @media (max-width: 1024px) {
+          .card { width: 300px; height: 360px; }
+        }
+
+        @media (max-width: 768px) {
+          .card {
+            width: 280px;
+            height: 320px;
+          }
+          
+          .card:hover {
+            width: 320px;
+          }
+
+          .card .content {
+            width: 70%;
+            left: 10%;
+          }
+          
+          .card:hover .content {
+            left: 15px;
+          }
+          
+          .card .content h2 {
+            font-size: 1.4em;
+          }
+        }
+      `}</style>
+    </section>
   );
 }
