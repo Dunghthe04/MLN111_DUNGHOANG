@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router";
 import { Particles } from "../magicui/Special Effect/particles";
 import ExhibitImage from "../Home/ExhibitImage";

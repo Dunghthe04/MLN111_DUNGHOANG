@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
-import ExhibitImage from "./ExhibitImage";
 
 export interface GalleryItem {
   src: string;

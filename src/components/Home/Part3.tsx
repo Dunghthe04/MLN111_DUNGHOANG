@@ -96,7 +96,7 @@ const timeline = [
 
 export default function Part3() {
   const [activeIdx, setActiveIdx] = useState(0);
-  const [direction, setDirection] = useState<"left" | "right">("right");
+  const [_direction, setDirection] = useState<"left" | "right">("right");
 
   const goTo = (i: number) => {
     setDirection(i > activeIdx ? "right" : "left");
