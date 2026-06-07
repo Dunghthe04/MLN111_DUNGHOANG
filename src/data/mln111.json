@@ -105,9 +105,9 @@
         "caption": "Duy vật biện chứng là kim chỉ nam cho phân tích triết học"
       },
       "gallery": [
-        { "src": "/imgs/halls/hall-1-1.svg", "alt": "Cách mạng công nghiệp", "caption": "Toàn cảnh Cách mạng công nghiệp" },
-        { "src": "/imgs/halls/hall-1-2.svg", "alt": "Nhà máy hơi nước", "caption": "Nhà máy hơi nước, thế kỷ 19" },
-        { "src": "/imgs/halls/hall-1-3.svg", "alt": "Đô thị công nghiệp", "caption": "Cảnh đô thị công nghiệp và lao động" }
+        { "src": "/imgs/halls/hall-1-1.jpg", "alt": "Cách mạng công nghiệp", "caption": "Toàn cảnh Cách mạng công nghiệp" },
+        { "src": "/imgs/halls/hall-1-2.jpg", "alt": "Nhà máy hơi nước", "caption": "Nhà máy hơi nước, thế kỷ 19" },
+        { "src": "/imgs/halls/hall-1-3.jpg", "alt": "Đô thị công nghiệp", "caption": "Cảnh đô thị công nghiệp và lao động" }
       ],
       "examples": [
         {
@@ -151,9 +151,9 @@
         "caption": "Lịch sử được hiểu qua cơ sở vật chất của xã hội"
       },
       "gallery": [
-        { "src": "/imgs/halls/hall-2-1.svg", "alt": "Sách triết học", "caption": "Sách và bản thảo triết học" },
-        { "src": "/imgs/halls/hall-2-2.svg", "alt": "Chân dung các tác gia", "caption": "Chân dung Hegel, Feuerbach, Smith (collage)" },
-        { "src": "/imgs/halls/hall-2-3.svg", "alt": "Sơ đồ lý luận", "caption": "Sơ đồ ba nguồn gốc lý luận" }
+        { "src": "/imgs/halls/hall-2-1.jpg", "alt": "Sách triết học", "caption": "Sách và bản thảo triết học" },
+        { "src": "/imgs/halls/hall-2-2.jpg", "alt": "Chân dung các tác gia", "caption": "Chân dung Hegel, Feuerbach, Smith (collage)" },
+        { "src": "/imgs/halls/hall-2-3.jpg", "alt": "Sơ đồ lý luận", "caption": "Sơ đồ ba nguồn gốc lý luận" }
       ],
       "examples": [
         {
@@ -197,9 +197,9 @@
         "caption": "Giá trị thặng dư giải thích nền tảng kinh tế của tư bản"
       },
       "gallery": [
-        { "src": "/imgs/halls/hall-3-1.svg", "alt": "Marx & Engels", "caption": "Chân dung Marx và Engels" },
-        { "src": "/imgs/halls/hall-3-2.svg", "alt": "Tuyên ngôn", "caption": "Bìa 'The Communist Manifesto'" },
-        { "src": "/imgs/halls/hall-3-3.svg", "alt": "Công nhân thế kỷ 19", "caption": "Cảnh lao động và biểu tình" }
+        { "src": "/imgs/halls/hall-3-1.jpg", "alt": "Marx & Engels", "caption": "Chân dung Marx và Engels" },
+        { "src": "/imgs/halls/hall-3-2.jpg", "alt": "Tuyên ngôn", "caption": "Bìa 'The Communist Manifesto'" },
+        { "src": "/imgs/halls/hall-3-3.jpg", "alt": "Công nhân thế kỷ 19", "caption": "Cảnh lao động và biểu tình" }
       ],
       "examples": [
         {
@@ -243,9 +243,9 @@
         "caption": "Đấu tranh giai cấp là chân lý lịch sử của chủ nghĩa Mác"
       },
       "gallery": [
-        { "src": "/imgs/halls/hall-4-1.svg", "alt": "Lenin tranh", "caption": "Lenin và Tuyên truyền cách mạng" },
-        { "src": "/imgs/halls/hall-4-2.svg", "alt": "Bài giảng Lenin", "caption": "Lenin viết và giảng dạy" },
-        { "src": "/imgs/halls/hall-4-3.svg", "alt": "Cách mạng 1917", "caption": "Cảnh Cách mạng Tháng Mười" }
+        { "src": "/imgs/halls/hall-4-1.jpg", "alt": "Lenin tranh", "caption": "Lenin và Tuyên truyền cách mạng" },
+        { "src": "/imgs/halls/hall-4-2.jpg", "alt": "Bài giảng Lenin", "caption": "Lenin viết và giảng dạy" },
+        { "src": "/imgs/halls/hall-4-3.jpg", "alt": "Cách mạng 1917", "caption": "Cảnh Cách mạng Tháng Mười" }
       ],
       "examples": [
         {
@@ -289,9 +289,9 @@
         "caption": "Chủ nghĩa xã hội là đích đến của phong trào giải phóng"
       },
       "gallery": [
-        { "src": "/imgs/halls/hall-5-1.svg", "alt": "Công nhân hiện đại", "caption": "Nhà máy và công nhân hiện đại" },
-        { "src": "/imgs/halls/hall-5-2.svg", "alt": "Infographic", "caption": "Infographic các đặc trưng của MLN" },
-        { "src": "/imgs/halls/hall-5-3.svg", "alt": "Cộng đồng", "caption": "Hợp tác cộng đồng và phát triển" }
+        { "src": "/imgs/halls/hall-5-1.jpg", "alt": "Công nhân hiện đại", "caption": "Nhà máy và công nhân hiện đại" },
+        { "src": "/imgs/halls/hall-5-2.jpg", "alt": "Infographic", "caption": "Infographic các đặc trưng của MLN" },
+        { "src": "/imgs/halls/hall-5-3.jpg", "alt": "Cộng đồng", "caption": "Hợp tác cộng đồng và phát triển" }
       ],
       "examples": [
         {

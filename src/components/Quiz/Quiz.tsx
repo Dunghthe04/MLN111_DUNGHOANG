@@ -42,7 +42,7 @@ const defaultQuizData: Question[] = [
       "Không có mối quan hệ giữa ý thức và vật chất",
     ],
     correctAnswer: 1,
-    image: "/imgs/triethoc-1.svg",
+    image: "/imgs/triethoc-1.jpg",
     imageAlt: "Thế giới quan duy vật biện chứng",
     imageCaption: "Vật chất tồn tại khách quan, quyết định ý thức con người",
   },
@@ -57,7 +57,7 @@ const defaultQuizData: Question[] = [
       "Một hiện tượng ngẫu nhiên không có quy luật",
     ],
     correctAnswer: 0,
-    image: "/imgs/triethoc-2.svg",
+    image: "/imgs/triethoc-2.jpg",
     imageAlt: "Mâu thuẫn biện chứng",
     imageCaption: "Hai mặt đối lập thống nhất trong cùng một sự vật",
   },
@@ -162,7 +162,7 @@ const defaultQuizData: Question[] = [
       "Không cần mâu thuẫn để phát triển",
     ],
     correctAnswer: 0,
-    image: "/imgs/triethoc-3.svg",
+    image: "/imgs/triethoc-3.jpg",
     imageAlt: "Phát triển theo quy luật",
     imageCaption: "Mâu thuẫn là nguồn gốc và động lực phát triển",
   },
@@ -177,7 +177,7 @@ const defaultQuizData: Question[] = [
       "Sự phân chia không ngừng",
     ],
     correctAnswer: 1,
-    image: "/imgs/halls/hall-1-2.svg",
+    image: "/imgs/halls/hall-1-2.jpg",
     imageAlt: "Sự phát triển",
     imageCaption: "Phát triển là biến đổi theo chiều hướng cao hơn",
   },
@@ -192,7 +192,7 @@ const defaultQuizData: Question[] = [
       "Quy luật thay đổi theo tâm trạng",
     ],
     correctAnswer: 1,
-    image: "/imgs/triethoc-4.svg",
+    image: "/imgs/triethoc-4.jpg",
     imageAlt: "Quy luật khách quan",
     imageCaption: "Quy luật tồn tại độc lập với nhận thức con người",
   },
@@ -231,7 +231,7 @@ const defaultQuizData: Question[] = [
       "Sự biến đổi ngẫu nhiên của sự vật",
     ],
     correctAnswer: 1,
-    image: "/imgs/halls/hall-1-3.svg",
+    image: "/imgs/halls/hall-1-3.jpg",
     imageAlt: "Mâu thuẫn cơ bản",
     imageCaption: "Mâu thuẫn cơ bản quyết định hướng phát triển của sự vật",
   },
@@ -249,7 +249,7 @@ const matTranDanTocQuizData: Question[] = [
       "Chính trị và nghệ thuật",
     ],
     correctAnswer: 1,
-    image: "/imgs/halls/hall-2-1.svg",
+    image: "/imgs/halls/hall-2-1.jpg",
     imageAlt: "Cơ sở hạ tầng và siêu cấu trúc",
     imageCaption: "Cơ sở hạ tầng = quan hệ sản xuất + lực lượng sản xuất",
   },
@@ -303,7 +303,7 @@ const matTranDanTocQuizData: Question[] = [
       "Hệ thống văn hóa và giáo dục",
     ],
     correctAnswer: 1,
-    image: "/imgs/halls/hall-2-2.svg",
+    image: "/imgs/halls/hall-2-2.jpg",
     imageAlt: "Chế độ sản xuất",
     imageCaption: "Chế độ sản xuất = lực lượng sản xuất + quan hệ sản xuất",
   },
@@ -354,7 +354,7 @@ const matTranDanTocQuizData: Question[] = [
       "Giá trị của nguyên liệu thô",
     ],
     correctAnswer: 0,
-    image: "/imgs/marx-portrai.jpg",
+    image: "/imgs/marx-portrait.jpg",
     imageAlt: "Karl Marx",
     imageCaption: "Học thuyết giá trị thặng dư — cốt lõi phân tích bóc lột CNTB",
   },
@@ -384,7 +384,7 @@ const matTranDanTocQuizData: Question[] = [
       "Tất cả các đáp án trên",
     ],
     correctAnswer: 3,
-    image: "/imgs/engels-portrait.webp",
+    image: "/imgs/engels-portrait.jpg",
     imageAlt: "Marx và Engels",
     imageCaption: "Mác, Engels và Lenin cùng phát triển học thuyết giai cấp công nhân",
   },
@@ -435,7 +435,7 @@ const matTranDanTocQuizData: Question[] = [
       "Sự tiến hóa xã hội dựa trên quy luật tự nhiên",
     ],
     correctAnswer: 1,
-    image: "/imgs/halls/hall-2-3.svg",
+    image: "/imgs/halls/hall-2-3.jpg",
     imageAlt: "Tính chủ quan trong lịch sử",
     imageCaption: "Con người là động lực chủ yếu thay đổi xã hội",
   },
@@ -453,7 +453,7 @@ const tuTuongMacLeninQuizData: Question[] = [
       "Hiện tượng hình thức của tư duy",
     ],
     correctAnswer: 0,
-    image: "/imgs/marx-portrai.jpg",
+    image: "/imgs/marx-portrait.jpg",
     imageAlt: "Karl Marx",
     imageCaption: "Vật chất là thực tại khách quan, tồn tại độc lập với ý thức",
   },
@@ -492,7 +492,7 @@ const tuTuongMacLeninQuizData: Question[] = [
       "Không tồn tại trong các sự vật tự nhiên",
     ],
     correctAnswer: 0,
-    image: "/imgs/triethoc-2.svg",
+    image: "/imgs/triethoc-2.jpg",
     imageAlt: "Mâu thuẫn biện chứng",
     imageCaption: "Mâu thuẫn — nguồn gốc và động lực phát triển",
   },
@@ -573,7 +573,7 @@ const tuTuongMacLeninQuizData: Question[] = [
       "Một trạng thái tĩnh của tâm lý",
     ],
     correctAnswer: 0,
-    image: "/imgs/triethoc-1.svg",
+    image: "/imgs/triethoc-1.jpg",
     imageAlt: "Ý thức",
     imageCaption: "Ý thức là sự phản ánh chủ quan của thế giới vật chất",
   },
@@ -624,7 +624,7 @@ const tuTuongMacLeninQuizData: Question[] = [
       "Mâu thuẫn giữa con người và tự nhiên",
     ],
     correctAnswer: 0,
-    image: "/imgs/halls/hall-3-2.svg",
+    image: "/imgs/halls/hall-3-2.jpg",
     imageAlt: "Đấu tranh giai cấp",
     imageCaption: "Mâu thuẫn cơ bản: lao động và tư bản",
   },
@@ -639,7 +639,7 @@ const tuTuongMacLeninQuizData: Question[] = [
       "Là biểu hiện của sự may rủi",
     ],
     correctAnswer: 0,
-    image: "/imgs/halls/hall-5-1.svg",
+    image: "/imgs/halls/hall-5-1.jpg",
     imageAlt: "Thực tiễn và nhận thức",
     imageCaption: "Thực tiễn là tiêu chuẩn cuối cùng của chân lý",
   },
@@ -837,24 +837,13 @@ export default function Quiz() {
 
     return (
       <div
-        className="min-h-screen relative p-6 pt-20"
+        className="min-h-screen relative p-6 pt-20 bg-gradient-to-b from-[#FDF6E3] to-white"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,58,138,0.85)), url("${bg}")`,
+          backgroundImage: `linear-gradient(rgba(253,246,227,0.85), rgba(255,255,255,0.95)), url("${bg}")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          zIndex: 1,
         }}
       >
-        {/* Background overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.85) 50%, rgba(15, 23, 42, 0.9) 100%)",
-            zIndex: 2,
-          }}
-        ></div>
         <div className="max-w-4xl mx-auto relative z-40">
           {/* Header Results */}
           <div className="bg-white/90 border border-stone-200 rounded-3xl shadow-2xl p-8 mb-6">
@@ -894,14 +883,14 @@ export default function Quiz() {
 
               <div className="mb-6">
                 {percentage >= 80 ? (
-                  <div className="text-green-400">
+                  <div className="text-green-600">
                     <p className="text-lg font-semibold">Xuất sắc! 🎉</p>
                     <p>
                       Bạn đã nắm vững kiến thức về triết học Mác-Lênin.
                     </p>
                   </div>
                 ) : percentage >= 60 ? (
-                  <div className="text-blue-400">
+                  <div className="text-amber-700">
                     <p className="text-lg font-semibold">Khá tốt! 👍</p>
                     <p>
                       Bạn có hiểu biết cơ bản, hãy tiếp tục học tập để nâng cao
@@ -909,7 +898,7 @@ export default function Quiz() {
                     </p>
                   </div>
                 ) : (
-                  <div className="text-orange-400">
+                  <div className="text-red-600">
                     <p className="text-lg font-semibold">
                       Cần cố gắng thêm! 💪
                     </p>
@@ -922,7 +911,7 @@ export default function Quiz() {
               <div className="mt-8 border-t border-stone-300 pt-6 max-w-md mx-auto">
                 {!isSaved ? (
                   <div className="flex flex-col gap-3">
-                    <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block text-left">
+                    <label className="text-xs font-semibold text-stone-500 uppercase tracking-wider block text-left">
                       ✍️ Ghi danh vào Bảng Vàng danh dự
                     </label>
                     <div className="flex gap-2">
@@ -944,7 +933,7 @@ export default function Quiz() {
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-green-500/10 border border-green-500/30 p-4 rounded-xl text-green-400 text-sm font-semibold animate-pulse">
+                  <div className="bg-green-50 border border-green-200 p-4 rounded-xl text-green-700 text-sm font-semibold">
                     ✨ Điểm số của bạn đã được ghi nhận trên Bảng Vàng!
                   </div>
                 )}
@@ -962,7 +951,7 @@ export default function Quiz() {
             </div>
             
             {leaderboard.length === 0 ? (
-              <p className="text-gray-500 text-xs text-center py-4">Chưa có kết quả thi cử nào được lưu trữ. Hãy là người đầu tiên!</p>
+              <p className="text-stone-400 text-xs text-center py-4">Chưa có kết quả thi cử nào được lưu trữ. Hãy là người đầu tiên!</p>
             ) : (
               <div className="space-y-2">
                 {leaderboard.map((item, idx) => {
@@ -970,7 +959,7 @@ export default function Quiz() {
                   const isSilver = idx === 1;
                   const isBronze = idx === 2;
                   
-                  let rankIcon = <span className="text-gray-400 font-bold text-xs">#{idx + 1}</span>;
+                  let rankIcon = <span className="text-stone-400 font-bold text-xs">#{idx + 1}</span>;
                   if (isGold) rankIcon = <span className="text-lg">🥇</span>;
                   if (isSilver) rankIcon = <span className="text-lg">🥈</span>;
                   if (isBronze) rankIcon = <span className="text-lg">🥉</span>;
@@ -980,26 +969,26 @@ export default function Quiz() {
                       key={item.id} 
                       className={`flex items-center justify-between p-3 rounded-xl border transition-all duration-300 ${
                         item.uid === uid 
-                          ? "border-yellow-500 bg-yellow-500/10" 
-                          : "border-gray-800 bg-gray-900/30 text-gray-300"
+                          ? "border-amber-400 bg-amber-50" 
+                          : "border-stone-200 bg-stone-50/80"
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-8 flex justify-center">{rankIcon}</div>
                         <div>
-                          <span className={`font-semibold text-sm block ${item.uid === uid ? "text-yellow-400" : "text-gray-200"}`}>
+                          <span className={`font-semibold text-sm block ${item.uid === uid ? "text-amber-700" : "text-stone-700"}`}>
                             {item.name}
                           </span>
-                          <span className="text-[10px] text-gray-500 block">
+                          <span className="text-[10px] text-stone-400 block">
                             {new Date(item.timestamp).toLocaleString("vi-VN", { dateStyle: "short", timeStyle: "short" })}
                           </span>
                         </div>
                       </div>
                       <div className="text-right flex flex-col items-end">
-                        <span className="font-extrabold text-sm text-yellow-400 block">{item.score} / {item.total}</span>
-                        <div className="flex items-center gap-1.5 text-[10px] text-gray-400 font-medium">
+                        <span className="font-extrabold text-sm text-red-700 block">{item.score} / {item.total}</span>
+                        <div className="flex items-center gap-1.5 text-[10px] text-stone-400 font-medium">
                           {item.timeTaken !== undefined && (
-                            <span className="bg-gray-800 px-1 py-0.5 rounded text-gray-300 font-mono text-[9px]">
+                            <span className="bg-stone-100 px-1.5 py-0.5 rounded text-stone-500 font-mono text-[9px]">
                               ⏱️ {Math.floor(item.timeTaken / 60)}:{(item.timeTaken % 60).toString().padStart(2, '0')}
                             </span>
                           )}
@@ -1084,7 +1073,7 @@ export default function Quiz() {
                       <div className="flex-1">
                         <p
                           className={`font-medium ${
-                            isCorrect ? "text-green-400" : "text-red-400"
+                            isCorrect ? "text-green-700" : "text-red-700"
                           }`}
                         >
                           {isCorrect ? "Đáp án đúng: " : "Đáp án sai: "}
@@ -1113,7 +1102,7 @@ export default function Quiz() {
                         </svg>
                       </div>
                       <div className="flex-1">
-                        <p className="text-green-400 font-medium">
+                        <p className="text-green-700 font-medium">
                           Đáp án đúng:{" "}
                           {question.options[question.correctAnswer]}
                         </p>
@@ -1131,52 +1120,41 @@ export default function Quiz() {
 
     return (
     <div
-      className="min-h-screen relative flex items-center justify-center p-6 pt-20"
+      className="min-h-screen relative flex items-center justify-center p-6 pt-20 bg-gradient-to-b from-[#FDF6E3] to-white"
       style={{
-        backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,58,138,0.85)), url("${bg}")`,
+        backgroundImage: `linear-gradient(rgba(253,246,227,0.88), rgba(255,255,255,0.92)), url("${bg}")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        zIndex: 1,
       }}
     >
-      {/* Background overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.85) 50%, rgba(15, 23, 42, 0.9) 100%)",
-          zIndex: 2,
-        }}
-      ></div>
       <div className="max-w-4xl w-full relative z-40">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <div className="bg-white/95 border border-red-800/10 rounded-3xl shadow-2xl overflow-hidden">
           {/* Header with Progress */}
-          <div className="bg-gradient-to-r from-red-600 to-yellow-600 p-6">
+          <div className="bg-gradient-to-r from-red-700 to-amber-700 p-6">
             <div className="flex items-center justify-between text-white mb-4">
-              <h1 className="text-2xl font-bold">Quiz: Triết học Mác-Lênin</h1>
+              <h1 className="text-xl md:text-2xl font-bold font-heading">Quiz: Triết học Mác-Lênin</h1>
               <div className="flex items-center gap-3">
-                <span className="text-sm font-semibold bg-black/20 px-3 py-1 rounded-full border border-stone-200">
+                <span className="text-sm font-semibold bg-white/15 px-3 py-1 rounded-full">
                   ⏱️ {Math.floor(elapsedTime / 60)}:{(elapsedTime % 60).toString().padStart(2, '0')}
                 </span>
-                <span className="text-lg font-semibold bg-white/10 px-3 py-1 rounded-full border border-stone-200">
+                <span className="text-sm font-semibold bg-white/15 px-3 py-1 rounded-full">
                   {currentQuestion + 1}/{shuffledQuestions.length}
                 </span>
               </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full bg-white/20 rounded-full h-3">
+            <div className="w-full bg-white/25 rounded-full h-2">
               <div
-                className="bg-white h-3 rounded-full transition-all duration-500 ease-out"
+                className="bg-white h-2 rounded-full transition-all duration-500 ease-out"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
           </div>
 
           {/* Question Content */}
-          <div className="p-8">
-            <div className="mb-8">
+          <div className="p-6 md:p-8">
+            <div className="mb-6">
               {shuffledQuestions[currentQuestion].image && (
                 <QuestionImage
                   src={shuffledQuestions[currentQuestion].image!}
@@ -1184,35 +1162,35 @@ export default function Quiz() {
                   caption={shuffledQuestions[currentQuestion].imageCaption}
                 />
               )}
-              <h2 className="text-xl font-semibold text-gray-800 leading-relaxed">
+              <h2 className="text-lg md:text-xl font-semibold text-stone-800 leading-relaxed font-heading">
                 {shuffledQuestions[currentQuestion].question}
               </h2>
             </div>
 
             {/* Options */}
-            <div className="space-y-4 mb-8">
+            <div className="space-y-3 mb-6">
               {shuffledQuestions[currentQuestion].options.map(
                 (option, index) => (
                   <button
                     key={index}
                     onClick={() => handleAnswerSelect(index)}
-                    className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-300 transform hover:scale-[1.02] ${
+                    className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${
                       selectedOption === index
-                        ? "border-red-500 bg-red-50 text-red-700 shadow-lg"
-                        : "border-gray-200 hover:border-red-300 hover:bg-gray-50"
+                        ? "border-red-500 bg-red-50 text-red-800 shadow-md"
+                        : "border-stone-200 hover:border-red-300 hover:bg-red-50/30 bg-white"
                     }`}
                   >
                     <div className="flex items-center">
                       <span
-                        className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mr-4 text-sm font-semibold ${
+                        className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mr-4 text-sm font-semibold shrink-0 ${
                           selectedOption === index
-                            ? "border-red-500 bg-red-500 text-white"
-                            : "border-gray-300"
+                            ? "border-red-600 bg-red-600 text-white"
+                            : "border-stone-300 text-stone-500"
                         }`}
                       >
                         {String.fromCharCode(97 + index)}
                       </span>
-                      <span className="text-gray-700">{option}</span>
+                      <span className="text-stone-700 text-sm">{option}</span>
                     </div>
                   </button>
                 )
@@ -1220,14 +1198,14 @@ export default function Quiz() {
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-3">
               <button
                 onClick={handlePrevious}
                 disabled={currentQuestion === 0}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   currentQuestion === 0
-                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                    : "bg-gray-600 text-white hover:bg-gray-700 transform hover:scale-105"
+                    ? "bg-stone-100 text-stone-300 cursor-not-allowed"
+                    : "bg-stone-200 text-stone-700 hover:bg-stone-300"
                 }`}
               >
                 ← Câu trước
@@ -1236,10 +1214,10 @@ export default function Quiz() {
               <button
                 onClick={handleNext}
                 disabled={selectedOption === -1}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   selectedOption === -1
-                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                    : "bg-gradient-to-r from-red-600 to-yellow-600 text-white hover:from-red-700 hover:to-yellow-700 transform hover:scale-105 shadow-lg"
+                    ? "bg-stone-100 text-stone-300 cursor-not-allowed"
+                    : "bg-red-700 text-white hover:bg-red-600 shadow-md"
                 }`}
               >
                 {currentQuestion === shuffledQuestions.length - 1
