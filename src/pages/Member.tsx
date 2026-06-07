@@ -4,7 +4,7 @@ import { Particles } from "../components/magicui/Special Effect/particles";
 // TODO: Nhóm cần cập nhật thông tin thành viên thực tế ở đây
 const members = [
   {
-    name: "Phạm Nguyệt Anh",
+    name: "Phạm Nguyệt Ánh",
     role: "TRƯỞNG NHÓM",
     mssv: "HS186599",
     works: "Điều phối & tổng hợp dự án, nghiên cứu lý luận triết học Mác-Lênin, thuyết trình, phản biện nhóm.",
