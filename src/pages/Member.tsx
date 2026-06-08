@@ -4,7 +4,7 @@ import { Particles } from "../components/magicui/Special Effect/particles";
 // TODO: Nhóm cần cập nhật thông tin thành viên thực tế ở đây
 const members = [
   {
-    name: "Phạm Nguyệt Anh",
+    name: "Phạm Nguyệt Ánh",
     role: "TRƯỞNG NHÓM",
     mssv: "HS186599",
     works: "Điều phối & tổng hợp dự án, nghiên cứu lý luận triết học Mác-Lênin, thuyết trình, phản biện nhóm.",
@@ -191,9 +191,7 @@ export default function Member() {
         </div>
 
         {/* Note for group */}
-        <div className="mt-12 p-4 bg-amber-50/80 border border-amber-200/60 rounded-xl text-center text-sm text-amber-700">
-          <strong>📝 Lưu ý:</strong> Thông tin thành viên cần được cập nhật đúng với danh sách nhóm thực tế. Chỉnh sửa trong file <code className="bg-amber-100 px-1 rounded">Member.tsx</code>.
-        </div>
+       
       </div>
     </div>
   );

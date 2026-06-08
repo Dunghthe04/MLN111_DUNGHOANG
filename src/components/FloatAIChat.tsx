@@ -130,7 +130,7 @@ export default function FloatAIChat() {
             animate && "animate-bounce"
           )}
         >
-          <img src="/imgs/avatar/vietnamball.png" alt="Bot Ball" className="size-11 hover:scale-105 transition-transform" />
+          <img src="/imgs/avatar/vietnamball.jpg" alt="Bot Ball" className="size-11 hover:scale-105 transition-transform" />
         </button>
       </PopoverTrigger>
 
@@ -164,7 +164,7 @@ export default function FloatAIChat() {
 
               {/* Welcome Message */}
               <div className="flex justify-start items-start gap-2.5 pe-10">
-                <img src="/imgs/avatar/vietnamball.png" alt="Bot Image" className="size-9 rounded-full object-cover border border-red-800/15" />
+                <img src="/imgs/avatar/vietnamball.jpg" alt="Bot Image" className="size-9 rounded-full object-cover border border-red-800/15" />
                 <div className="text-xs rounded-xl rounded-tl-none p-3 bg-stone-100 border border-stone-200 text-stone-700 leading-relaxed shadow-sm">
                   Xin chào! Tôi là Gr2Bot – trợ lý ảo giúp bạn tìm hiểu về chuyên đề Sự hình thành Triết học Mác-Lênin.<br />
                   Bạn muốn nghiên cứu nội dung nào? (Ví dụ: “Bối cảnh lịch sử”, “Lenin phát triển”)
@@ -176,7 +176,7 @@ export default function FloatAIChat() {
                   if (msg.isBot) {
                     return (
                       <div key={index} className="flex justify-start items-start gap-2.5 pe-10">
-                        <img src="/imgs/avatar/vietnamball.png" alt="Bot Image" className="size-9 rounded-full object-cover border border-red-800/15" />
+                        <img src="/imgs/avatar/vietnamball.jpg" alt="Bot Image" className="size-9 rounded-full object-cover border border-red-800/15" />
 
                         <div className="flex flex-col gap-1 w-full">
                           <button onClick={() => speakText(index, msg.msg)} className="group flex justify-start items-center gap-1.5 ps-1 cursor-pointer w-fit text-stone-400" title="Đọc nội dung">
@@ -207,7 +207,7 @@ export default function FloatAIChat() {
                         <p className="text-xs rounded-xl rounded-tr-none p-3 bg-red-50 border border-red-600/15 text-stone-800 leading-relaxed shadow-sm break-words max-w-full">
                           {msg.msg}
                         </p>
-                        <img src="/imgs/avatar/user.png" alt="User Avatar" className="size-9 rounded-full object-cover border border-red-900/20" />
+                        <img src="/imgs/avatar/user.jpg" alt="User Avatar" className="size-9 rounded-full object-cover border border-red-900/20" />
                       </div>
                     );
                   }
@@ -216,7 +216,7 @@ export default function FloatAIChat() {
 
               {aiChat.isPending && (
                 <div className="flex justify-start items-start gap-2.5 pe-10">
-                  <img src="/imgs/avatar/vietnamball.png" alt="Bot Image" className="size-9 rounded-full object-cover border border-red-800/15" />
+                  <img src="/imgs/avatar/vietnamball.jpg" alt="Bot Image" className="size-9 rounded-full object-cover border border-red-800/15" />
                   <div className="text-xs rounded-xl rounded-tl-none p-3 bg-stone-100 border border-stone-200 text-stone-500 leading-relaxed shadow-sm flex items-center gap-3">
                     Đang chiêm nghiệm
                     <span className="flex justify-center items-center gap-1 h-3">

@@ -28,7 +28,7 @@ export default function Title() {
           </div>
 
           <div className={clsx("group z-50 w-80 absolute top-26 left-10")}>
-            <img className={clsx("rotate-16", !loaded ? "animate-fallDown" : "group-hover:animate-spin")} src="/imgs/avatar/vietnamball.png" />
+            <img className={clsx("rotate-16", !loaded ? "animate-fallDown" : "group-hover:animate-spin")} src="/imgs/avatar/vietnamball.jpg" />
           </div>
         </div>
       </div>

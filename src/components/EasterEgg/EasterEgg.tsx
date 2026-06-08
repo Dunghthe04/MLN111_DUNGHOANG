@@ -124,7 +124,7 @@ export default function EasterEgg() {
   }))
 
   const members = [
-    "Phạm Nguyệt Anh (Nhóm trưởng)",
+    "Phạm Nguyệt Ánh (Nhóm trưởng)",
     "Hoàng Tuấn Dũng",
     "Nguyễn Thị Út Thương",
     "Kim Đình Tuấn",

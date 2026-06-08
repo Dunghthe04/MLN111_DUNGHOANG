@@ -4,3 +4,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
+
+# SPA redirect — tất cả route đều trả về index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

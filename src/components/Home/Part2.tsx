@@ -5,20 +5,16 @@ import {
 } from "../aceternityui/draggable-card";
 import ReactMarkdown from "react-markdown";
 import { TypingAnimation } from "../magicui/Text Animations/TypingAnimation";
-import HallGallery from "./HallGallery";
-
-const galleryItems = [
-  { src: "/imgs/real/hall-2-1.jpg", alt: "Hall 2", caption: "Ba nguồn gốc lý luận" },
-  { src: "/imgs/hegel-feuerbach.jpg", alt: "Hegel & Feuerbach", caption: "Triết học cổ điển Đức" },
-  { src: "/imgs/halls/hall-2-1.svg", alt: "Kinh tế chính trị", caption: "Smith & Ricardo — giá trị lao động" },
-  { src: "/imgs/halls/hall-2-2.svg", alt: "CNXH không tưởng", caption: "Saint-Simon, Fourier, Owen" },
-  { src: "/imgs/halls/hall-2-3.svg", alt: "Kế thừa sáng tạo", caption: "Marx biến đổi cách mạng di sản tư tưởng" },
-];
+import ExhibitImage from "./ExhibitImage";
+import HallLayout from "./HallLayout";
+import RevealOnScroll from "./RevealOnScroll";
+import { hallCardClass } from "./RevealOnScroll";
 
 const items = [
   {
     image: "/imgs/hegel-feuerbach.jpg",
     imageAlt: "Hegel và Feuerbach",
+    placeholderLabel: "Chèn ảnh Hegel & Feuerbach",
     text: `
 ### 🇩🇪 Triết học cổ điển Đức
 **Hegel (1770-1831)** và **Feuerbach (1804-1872)** là hai đại diện tiêu biểu nhất.
@@ -28,11 +24,12 @@ const items = [
 
 → Marx kế thừa **phép biện chứng** của Hegel, cải tạo thành **duy vật biện chứng**.
     `,
-    className: "absolute top-40 left-[55%] rotate-[6deg] prose prose-stone max-w-xs gold-glow-panel p-4 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none overflow-hidden",
+    className: "absolute top-40 left-[55%] rotate-[6deg] prose prose-stone max-w-xs p-4 rounded-2xl text-stone-700 shadow-2xl select-none overflow-hidden " + hallCardClass,
   },
   {
-    image: "/imgs/halls/hall-2-1.svg",
+    image: "/imgs/halls/hall-2-1.jpg",
     imageAlt: "Kinh tế chính trị cổ điển",
+    placeholderLabel: "Chèn ảnh Smith & Ricardo",
     text: `
 ### 🇬🇧 Kinh tế chính trị cổ điển Anh
 **Adam Smith (1723-1790)** và **David Ricardo (1772-1823)** xây dựng lý luận kinh tế tư sản.
@@ -42,11 +39,12 @@ const items = [
 
 → Marx phát triển thành **học thuyết giá trị thặng dư** — vũ khí lý luận của giai cấp công nhân.
 `,
-    className: "absolute top-10 left-[45%] rotate-[3deg] prose prose-stone max-w-xs gold-glow-panel p-4 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none overflow-hidden",
+    className: "absolute top-10 left-[45%] rotate-[3deg] prose prose-stone max-w-xs p-4 rounded-2xl text-stone-700 shadow-2xl select-none overflow-hidden " + hallCardClass,
   },
   {
-    image: "/imgs/halls/hall-2-2.svg",
+    image: "/imgs/halls/hall-2-2.jpg",
     imageAlt: "CNXH không tưởng Pháp",
+    placeholderLabel: "Chèn ảnh CNXH không tưởng Pháp",
     text: `
 ### 🇫🇷 Chủ nghĩa xã hội không tưởng Pháp
 **Saint-Simon, Fourier, Owen** — mơ ước về xã hội tốt đẹp nhưng không thấy con đường thực hiện.
@@ -57,11 +55,12 @@ const items = [
 
 → Marx tiếp thu tư tưởng nhân đạo, bổ sung cơ sở **khoa học-cách mạng**.
     `,
-    className: "absolute top-48 left-[18%] rotate-[-4deg] prose prose-stone max-w-xs gold-glow-panel p-4 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none overflow-hidden",
+    className: "absolute top-48 left-[18%] rotate-[-4deg] prose prose-stone max-w-xs p-4 rounded-2xl text-stone-700 shadow-2xl select-none overflow-hidden " + hallCardClass,
   },
   {
-    image: "/imgs/halls/hall-2-3.svg",
+    image: "/imgs/halls/hall-2-3.jpg",
     imageAlt: "Ba nguồn gốc lý luận",
+    placeholderLabel: "Chèn ảnh ba nguồn gốc lý luận",
     text: `
 ## Ba Nguồn Gốc Lý Luận
 Triết học Mác ra đời không phải từ hư không mà là sự **kế thừa có phê phán** và **phát triển sáng tạo** tinh hoa tư tưởng nhân loại:
@@ -70,7 +69,7 @@ Triết học Mác ra đời không phải từ hư không mà là sự **kế t
 2. **Kinh tế chính trị Anh** → Học thuyết giá trị lao động
 3. **CNXH không tưởng Pháp** → Tư tưởng nhân đạo về xã hội mới
     `,
-    className: "absolute top-12 left-[12%] rotate-[-3deg] prose prose-stone max-w-xs gold-glow-panel p-4 rounded-2xl border border-red-800/15 text-stone-700 shadow-2xl select-none overflow-hidden",
+    className: "absolute top-12 left-[12%] rotate-[-3deg] prose prose-stone max-w-xs p-4 rounded-2xl text-stone-700 shadow-2xl select-none overflow-hidden " + hallCardClass,
   },
 ];
 
@@ -84,48 +83,49 @@ Marx và Engels không "phát minh" triết học từ đầu — mà đã **bi�
 
 export default function Part2() {
   return (
-    <div className="w-full min-h-[90vh] bg-gradient-to-b from-[#FDF6E3] to-white p-6 md:p-10 flex flex-col relative select-none">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(185,28,28,0.06),transparent_70%)] pointer-events-none" />
+    <HallLayout hallNumber={2}>
+      <div className="w-full max-w-6xl mx-auto select-none">
+        <RevealOnScroll>
+          <h3 className="flex justify-center items-center relative uppercase text-red-700 font-heading text-4xl md:text-5xl mb-6 z-10 drop-shadow-[0_0_8px_rgba(185,28,28,0.2)]">
+            <TypingAnimation
+              startOnView={true}
+              duration={50}
+              className="text-red-700 font-heading text-3xl md:text-4xl text-center"
+            >
+              Ba nguồn gốc lý luận
+            </TypingAnimation>
+          </h3>
 
-      <div className="w-full max-w-6xl mx-auto z-10">
-        <h3 className="flex justify-center items-center relative uppercase text-red-700 font-heading text-4xl md:text-5xl mt-4 mb-6 z-10 drop-shadow-[0_0_8px_rgba(185,28,28,0.2)]">
-          <TypingAnimation
-            startOnView={true}
-            duration={50}
-            className="text-red-700 font-heading text-3xl md:text-4xl text-center"
-          >
-            Ba nguồn gốc lý luận
-          </TypingAnimation>
-        </h3>
+          <div className="relative text-xs text-stone-400 text-center mb-6">
+            * Di chuột và kéo thả các tấm thẻ để khám phá các tiền đề lý luận
+          </div>
+        </RevealOnScroll>
 
-        <div className="relative text-xs text-stone-400 text-center mb-6">
-          * Di chuột và kéo thả các tấm thẻ để khám phá các tiền đề lý luận
-        </div>
-
+        <RevealOnScroll delayMs={100}>
         <DraggableCardContainer className="relative flex min-h-[550px] w-full items-center justify-center overflow-visible">
           {/* Central Card */}
-          <div className="bg-white/95 text-stone-700 border border-red-600/30 absolute prose prose-stone top-1/2 mx-auto max-w-sm -translate-y-1/2 text-start p-6 rounded-2xl shadow-[0_0_30px_rgba(185,28,28,0.1)] backdrop-blur-md z-0 pointer-events-none">
+          <div className="bg-white/95 text-stone-700 border border-red-600/30 absolute prose prose-stone top-1/2 mx-auto max-w-sm -translate-y-1/2 text-start p-6 rounded-2xl shadow-[0_0_30px_rgba(185,28,28,0.15)] backdrop-blur-md z-0 pointer-events-none">
             <ReactMarkdown>{finalText}</ReactMarkdown>
           </div>
 
           {items.map((item, idx) => (
             <DraggableCardBody key={idx} className={item.className}>
               {"image" in item && item.image && (
-                <img
+                <ExhibitImage
                   src={item.image}
                   alt={item.imageAlt ?? ""}
-                  className="w-full h-24 object-cover rounded-lg mb-3 border border-red-800/10"
+                  placeholderLabel={item.placeholderLabel}
+                  fit="contain"
+                  aspectRatio="auto"
+                  className="mb-3 [&_figure>div]:max-h-24 [&_figure>div]:min-h-[72px]"
                 />
               )}
               <ReactMarkdown>{item.text}</ReactMarkdown>
             </DraggableCardBody>
           ))}
         </DraggableCardContainer>
-
-        <div className="mt-8 max-w-2xl mx-auto">
-          <HallGallery items={galleryItems} title="Triển lãm Hall 2" />
-        </div>
+        </RevealOnScroll>
       </div>
-    </div>
+    </HallLayout>
   );
 }

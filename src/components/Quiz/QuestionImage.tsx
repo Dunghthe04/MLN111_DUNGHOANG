@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { ImageIcon } from "lucide-react";
+
 interface QuestionImageProps {
   src: string;
   alt?: string;
@@ -11,21 +14,38 @@ export default function QuestionImage({
   caption,
   size = "md",
 }: QuestionImageProps) {
-  const heightClass =
-    size === "sm" ? "max-h-36" : size === "lg" ? "max-h-72" : "max-h-52";
+  const [failed, setFailed] = useState(false);
+  const maxHeightPx = size === "sm" ? 140 : size === "lg" ? 260 : 200;
+
+  if (failed) {
+    return (
+      <figure className="mb-6 flex flex-col items-center">
+        <div
+          className="rounded-xl border-2 border-dashed border-red-200 bg-stone-50 flex items-center justify-center p-6 w-full max-w-md"
+          style={{ minHeight: 100 }}
+        >
+          <ImageIcon className="w-8 h-8 text-red-300" />
+        </div>
+      </figure>
+    );
+  }
 
   return (
-    <figure className="mb-6 rounded-2xl overflow-hidden border border-stone-200 shadow-md bg-stone-50">
-      <img
-        src={src}
-        alt={alt}
-        className={`w-full ${heightClass} object-cover`}
-        onError={(e) => {
-          (e.target as HTMLImageElement).parentElement!.style.display = "none";
-        }}
-      />
+    <figure className="mb-6 flex flex-col items-center w-full">
+      <div className="inline-flex max-w-full rounded-xl border border-stone-200 bg-stone-50 p-2 shadow-sm">
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+          className="block w-auto max-w-full object-contain rounded-lg"
+          style={{ maxHeight: maxHeightPx }}
+          onError={() => setFailed(true)}
+        />
+      </div>
       {caption && (
-        <figcaption className="px-4 py-2 text-xs text-stone-500 italic bg-white border-t border-stone-100">
+        <figcaption className="mt-2 text-xs text-stone-400 italic text-center max-w-md px-2">
           {caption}
         </figcaption>
       )}

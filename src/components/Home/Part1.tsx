@@ -5,21 +5,20 @@ import ReactMarkdown from "react-markdown";
 import { Hand } from "lucide-react";
 import { TypingAnimation } from "../magicui/Text Animations/TypingAnimation";
 import { Lens } from "../aceternityui/lens";
-import HallGallery from "./HallGallery";
+import { ImageIcon } from "lucide-react";
+import HallLayout from "./HallLayout";
+import RevealOnScroll from "./RevealOnScroll";
 
 const cardImages = [
-  "/imgs/industrial-revolution.jpg",
-  "/imgs/real/hall-1-1.jpg",
-  "/imgs/halls/hall-1-2.svg",
-  "/imgs/halls/hall-1-3.svg",
+  { src: "/imgs/industrial-revolution.jpg", alt: "Cách mạng Công nghiệp", placeholder: "Chèn ảnh Cách mạng Công nghiệp" },
+  { src: "/imgs/real/hall-1-1.jpg", alt: "Phong trào công nhân", placeholder: "Chèn ảnh phong trào công nhân" },
+  { src: "/imgs/halls/hall-1-3.jpg", alt: "Tiền đề khoa học", placeholder: "Chèn ảnh tiền đề khoa học tự nhiên" },
 ];
 
-const galleryItems = [
-  { src: "/imgs/real/hall-1-1.jpg", alt: "Triển lãm Hall 1", caption: "Bối cảnh lịch sử-xã hội thế kỷ XIX" },
-  { src: "/imgs/industrial-revolution.jpg", alt: "Cách mạng Công nghiệp", caption: "Máy hơi nước — biểu tượng Cách mạng Công nghiệp" },
-  { src: "/imgs/halls/hall-1-1.svg", alt: "Minh họa Hall 1", caption: "Giai cấp công nhân hình thành" },
-  { src: "/imgs/halls/hall-1-2.svg", alt: "Phong trào công nhân", caption: "Phong trào Hiến chương & khởi nghĩa Lyon" },
-  { src: "/imgs/halls/hall-1-3.svg", alt: "Tiền đề khoa học", caption: "Ba phát minh khoa học tự nhiên thế kỷ XIX" },
+const captions = [
+  "Cách mạng Công nghiệp — Nền tảng kinh tế-xã hội",
+  "Phong trào công nhân đầu thế kỷ XIX",
+  "Tiền đề khoa học tự nhiên — Darwin, Mayer, Schleiden",
 ];
 
 const texts = [
@@ -68,6 +67,57 @@ Ba phát minh lớn của thế kỷ XIX đặt nền tảng cho thế giới qu
 → Ba phát minh này **đánh đổ** quan điểm siêu hình, mở đường cho **chủ nghĩa duy vật biện chứng**.
 `,
 ];
+
+function HeroImage({
+  src,
+  alt,
+  placeholder,
+  caption,
+  hovering,
+  setHovering,
+}: {
+  src: string;
+  alt: string;
+  placeholder?: string;
+  caption?: string;
+  hovering: boolean;
+  setHovering: (v: boolean) => void;
+}) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return (
+      <>
+        <div className="aspect-[16/9] w-full rounded-xl border-2 border-dashed border-red-300/50 bg-gradient-to-br from-[#FDF6E3] to-red-50 flex flex-col items-center justify-center gap-2 p-4">
+          <ImageIcon className="w-10 h-10 text-red-400/60" />
+          <span className="text-xs text-stone-400 text-center">{placeholder ?? alt}</span>
+        </div>
+        {caption && (
+          <p className="text-center mt-2 text-xs text-stone-400 italic">{caption}</p>
+        )}
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Lens hovering={hovering} setHovering={setHovering} zoomFactor={1.15} lensSize={140}>
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+          className="rounded-xl w-full max-h-64 object-contain bg-stone-100/90 cursor-none shadow-md"
+          onError={() => setFailed(true)}
+        />
+      </Lens>
+      {caption && (
+        <p className="text-center mt-2 text-xs text-stone-400 italic">{caption}</p>
+      )}
+    </>
+  );
+}
 
 export default function Part1() {
   const [hovering, setHovering] = useState(false);
@@ -194,11 +244,11 @@ export default function Part1() {
   }
 
   return (
-    <div className="w-full min-h-[80vh] bg-gradient-to-b from-[#FDF6E3] to-white p-6 md:p-12 flex flex-col items-center justify-center relative">
-      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <HallLayout hallNumber={1} bgImage="/imgs/real/hall-1-1.jpg">
+      <div className="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 
         {/* Left Column: Title & Swipable Cards */}
-        <div className="lg:col-span-7 flex flex-col items-center lg:items-start">
+        <RevealOnScroll className="lg:col-span-7 flex flex-col items-center lg:items-start">
           <h3 className="uppercase text-red-700 font-heading text-4xl md:text-5xl mb-10 text-center lg:text-left drop-shadow-[0_0_8px_rgba(185,28,28,0.2)]">
             <TypingAnimation
               startOnView={true}
@@ -253,36 +303,40 @@ export default function Part1() {
               </div>
             </motion.div>
           </div>
-        </div>
+        </RevealOnScroll>
 
         {/* Right Column: Historical Image with Lens Zoom */}
-        <div className="lg:col-span-5 flex flex-col gap-6 justify-center items-center mt-8 lg:mt-0">
-          <div className="relative rounded-2xl border border-red-800/15 p-2 bg-white/80 shadow-2xl w-full max-w-sm">
-            <Lens hovering={hovering} setHovering={setHovering}>
-              <img
-                src={cardImages[index] ?? cardImages[0]}
-                alt="Minh họa bối cảnh lịch sử"
-                className="rounded-xl w-full h-64 object-cover cursor-none shadow-md brightness-90 hover:brightness-100 transition-all duration-500"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = "/imgs/industrial-revolution.jpg";
-                }}
-              />
-            </Lens>
-            <div className="text-center mt-3 text-xs text-stone-400 font-semibold italic px-2">
-              {index === 0 && "Cách mạng Công nghiệp — Nền tảng kinh tế-xã hội"}
-              {index === 1 && "Phong trào công nhân đầu thế kỷ XIX"}
-              {index === 2 && "Tiền đề khoa học tự nhiên — Darwin, Mayer, Schleiden"}
-              {index === 3 && "Ba phát minh đánh đổ quan điểm siêu hình"}
-            </div>
+        <RevealOnScroll delayMs={150} className="lg:col-span-5 flex flex-col gap-4 justify-center items-center mt-8 lg:mt-0">
+          <div className="relative rounded-2xl border border-red-800/15 p-3 bg-white/80 shadow-2xl w-full max-w-md">
+            <HeroImage
+              src={cardImages[index]?.src ?? cardImages[0].src}
+              alt={cardImages[index]?.alt ?? "Minh họa bối cảnh lịch sử"}
+              placeholder={cardImages[index]?.placeholder}
+              caption={captions[index]}
+              hovering={hovering}
+              setHovering={setHovering}
+            />
           </div>
-          <HallGallery
-            items={galleryItems}
-            title="Triển lãm Hall 1"
-            className="w-full max-w-sm"
-          />
-        </div>
+
+          {/* Slide indicators */}
+          <div className="flex items-center gap-2">
+            {texts.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setIndex(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === index
+                    ? "w-6 bg-red-600"
+                    : "w-2 bg-red-300/50 hover:bg-red-400/70"
+                }`}
+                aria-label={`Xem phần ${i + 1}`}
+              />
+            ))}
+          </div>
+        </RevealOnScroll>
 
       </div>
-    </div>
+    </HallLayout>
   );
 }

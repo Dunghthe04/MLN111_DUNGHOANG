@@ -26,35 +26,21 @@ export default function HallGallery({
 
   return (
     <>
-      <div className={`${className}`}>
-        <div className="flex items-center gap-2 mb-3">
+      <div className={className}>
+        <div className="flex items-center gap-2 mb-4">
           <ZoomIn className="w-4 h-4 text-red-600" />
-          <h4 className="text-sm font-bold text-stone-600 uppercase tracking-wider">
+          <h4 className="text-xs font-bold text-stone-500 uppercase tracking-widest">
             {title}
           </h4>
         </div>
-        <div className="grid grid-cols-3 gap-2 md:gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {items.map((item, idx) => (
-            <button
+            <GalleryThumb
               key={idx}
-              type="button"
+              item={item}
+              idx={idx}
               onClick={() => setLightboxIdx(idx)}
-              className="group relative overflow-hidden rounded-xl border border-red-800/15 bg-white/80 shadow-md hover:shadow-xl hover:border-red-500/40 transition-all duration-300 aspect-[4/3]"
-            >
-              <img
-                src={item.src}
-                alt={item.alt ?? `Ảnh ${idx + 1}`}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = "none";
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                <span className="text-white text-[10px] font-semibold line-clamp-2">
-                  {item.caption ?? item.alt}
-                </span>
-              </div>
-            </button>
+            />
           ))}
         </div>
       </div>
@@ -120,5 +106,49 @@ export default function HallGallery({
         </div>
       )}
     </>
+  );
+}
+
+function GalleryThumb({
+  item,
+  idx,
+  onClick,
+}: {
+  item: GalleryItem;
+  idx: number;
+  onClick: () => void;
+}) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return (
+      <div className="aspect-[4/3] rounded-xl border-2 border-dashed border-red-200/60 bg-gradient-to-br from-[#FDF6E3] to-red-50/50 flex flex-col items-center justify-center p-3">
+        <span className="text-[10px] text-stone-400 text-center leading-snug">
+          {item.alt ?? `Ảnh ${idx + 1}`}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group relative overflow-hidden rounded-xl border border-red-800/15 bg-stone-100/90 shadow-md hover:shadow-xl hover:border-red-500/40 transition-all duration-300 aspect-[4/3] flex items-center justify-center"
+    >
+      <img
+        src={item.src}
+        alt={item.alt ?? `Ảnh ${idx + 1}`}
+        loading="lazy"
+        decoding="async"
+        className="max-w-full max-h-full object-contain"
+        onError={() => setFailed(true)}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
+        <span className="text-white text-[10px] font-semibold line-clamp-2">
+          {item.caption ?? item.alt}
+        </span>
+      </div>
+    </button>
   );
 }
