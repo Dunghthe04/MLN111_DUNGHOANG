@@ -14,7 +14,7 @@ const members = [
   {
     name: "Hoàng Tuấn Dũng",
     role: "Thành viên",
-    mssv: "He182368",
+    mssv: "HE182368",
     works: "Lên ý tưởng, phát triển Web, thiết kế giao diện & cơ sở dữ liệu, tối ưu hóa hiệu năng và triển khai ứng dụng.",
     initials: "DH",
     tags: ["Dev", "Designer", "Research"],
@@ -40,7 +40,7 @@ const members = [
     role: "Thành viên",
     mssv: "HS180981",
     works: "Nghiên cứu giai đoạn Marx-Engels, các tác phẩm triết học tiêu biểu, biên soạn nội dung sảnh 3.",
-    initials: "TV5",
+    initials: "HM",
     tags: ["Research", "Content"],
   },
   {

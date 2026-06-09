@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { motion, useAnimation } from "motion/react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { Hand } from "lucide-react";
 import { TypingAnimation } from "../magicui/Text Animations/TypingAnimation";
 import { Lens } from "../aceternityui/lens";
@@ -299,7 +300,7 @@ export default function Part1() {
               </div>
 
               <div className="relative h-96 overflow-y-auto pr-2 dark-scrollbar prose prose-stone max-w-none text-stone-600">
-                <ReactMarkdown>{texts[index]}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{texts[index]}</ReactMarkdown>
               </div>
             </motion.div>
           </div>

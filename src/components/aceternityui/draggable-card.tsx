@@ -14,9 +14,11 @@ import { cn } from "../../utils/cn";
 export const DraggableCardBody = ({
   className,
   children,
+  containerRef,
 }: {
   className?: string;
   children?: React.ReactNode;
+  containerRef?: React.RefObject<HTMLDivElement | null>;
 }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -108,7 +110,8 @@ export const DraggableCardBody = ({
     <motion.div
       ref={cardRef}
       drag
-      dragConstraints={constraints}
+      dragConstraints={containerRef || constraints}
+      dragElastic={0.05}
       onDragStart={() => {
         document.body.style.cursor = "grabbing";
       }}
@@ -181,11 +184,13 @@ export const DraggableCardBody = ({
 export const DraggableCardContainer = ({
   className,
   children,
+  containerRef,
 }: {
   className?: string;
   children?: React.ReactNode;
+  containerRef?: React.RefObject<HTMLDivElement | null>;
 }) => {
   return (
-    <div className={cn("[perspective:3000px]", className)}>{children}</div>
+    <div ref={containerRef} className={cn("[perspective:3000px]", className)}>{children}</div>
   );
 };

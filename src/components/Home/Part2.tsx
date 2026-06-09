@@ -1,4 +1,5 @@
 // Part2.tsx — Tiền đề lý luận: 3 nguồn gốc của triết học Mác-Lênin
+import { useRef } from "react";
 import {
   DraggableCardBody,
   DraggableCardContainer,
@@ -10,13 +11,15 @@ import HallLayout from "./HallLayout";
 import RevealOnScroll from "./RevealOnScroll";
 import { hallCardClass } from "./RevealOnScroll";
 
+const cardStyle = "prose prose-stone max-w-xs p-4 text-stone-700 shadow-2xl select-none overflow-hidden gold-glow-panel bg-white/90 border border-red-800/15 rounded-2xl hover:shadow-[0_8px_30px_rgba(185,28,28,0.1)] hover:border-red-500/30 group";
+
 const items = [
   {
     image: "/imgs/hegel-feuerbach.jpg",
     imageAlt: "Hegel và Feuerbach",
     placeholderLabel: "Chèn ảnh Hegel & Feuerbach",
     text: `
-### 🇩🇪 Triết học cổ điển Đức
+### Triết học cổ điển Đức
 **Hegel (1770-1831)** và **Feuerbach (1804-1872)** là hai đại diện tiêu biểu nhất.
 
 - **Hegel**: Phép biện chứng duy tâm — phát triển có quy luật, phủ định của phủ định
@@ -24,14 +27,14 @@ const items = [
 
 → Marx kế thừa **phép biện chứng** của Hegel, cải tạo thành **duy vật biện chứng**.
     `,
-    className: "absolute top-40 left-[55%] rotate-[6deg] prose prose-stone max-w-xs p-4 rounded-2xl text-stone-700 shadow-2xl select-none overflow-hidden " + hallCardClass,
+    className: "absolute top-40 left-[55%] rotate-[6deg] " + cardStyle,
   },
   {
     image: "/imgs/halls/hall-2-1.jpg",
     imageAlt: "Kinh tế chính trị cổ điển",
     placeholderLabel: "Chèn ảnh Smith & Ricardo",
     text: `
-### 🇬🇧 Kinh tế chính trị cổ điển Anh
+### Kinh tế chính trị cổ điển Anh
 **Adam Smith (1723-1790)** và **David Ricardo (1772-1823)** xây dựng lý luận kinh tế tư sản.
 
 - Lý thuyết **giá trị-lao động**: Lao động là nguồn gốc của giá trị
@@ -39,14 +42,14 @@ const items = [
 
 → Marx phát triển thành **học thuyết giá trị thặng dư** — vũ khí lý luận của giai cấp công nhân.
 `,
-    className: "absolute top-10 left-[45%] rotate-[3deg] prose prose-stone max-w-xs p-4 rounded-2xl text-stone-700 shadow-2xl select-none overflow-hidden " + hallCardClass,
+    className: "absolute top-10 left-[45%] rotate-[3deg] " + cardStyle,
   },
   {
     image: "/imgs/halls/hall-2-2.jpg",
     imageAlt: "CNXH không tưởng Pháp",
     placeholderLabel: "Chèn ảnh CNXH không tưởng Pháp",
     text: `
-### 🇫🇷 Chủ nghĩa xã hội không tưởng Pháp
+### Chủ nghĩa xã hội không tưởng Pháp
 **Saint-Simon, Fourier, Owen** — mơ ước về xã hội tốt đẹp nhưng không thấy con đường thực hiện.
 
 - Phê phán chế độ tư bản với tinh thần nhân đạo sâu sắc
@@ -55,7 +58,7 @@ const items = [
 
 → Marx tiếp thu tư tưởng nhân đạo, bổ sung cơ sở **khoa học-cách mạng**.
     `,
-    className: "absolute top-48 left-[18%] rotate-[-4deg] prose prose-stone max-w-xs p-4 rounded-2xl text-stone-700 shadow-2xl select-none overflow-hidden " + hallCardClass,
+    className: "absolute top-48 left-[18%] rotate-[-4deg] " + cardStyle,
   },
   {
     image: "/imgs/halls/hall-2-3.jpg",
@@ -69,7 +72,7 @@ Triết học Mác ra đời không phải từ hư không mà là sự **kế t
 2. **Kinh tế chính trị Anh** → Học thuyết giá trị lao động
 3. **CNXH không tưởng Pháp** → Tư tưởng nhân đạo về xã hội mới
     `,
-    className: "absolute top-12 left-[12%] rotate-[-3deg] prose prose-stone max-w-xs p-4 rounded-2xl text-stone-700 shadow-2xl select-none overflow-hidden " + hallCardClass,
+    className: "absolute top-12 left-[12%] rotate-[-3deg] " + cardStyle,
   },
 ];
 
