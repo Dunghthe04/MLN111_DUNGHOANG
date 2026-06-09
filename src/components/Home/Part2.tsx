@@ -1,5 +1,4 @@
 // Part2.tsx — Tiền đề lý luận: 3 nguồn gốc của triết học Mác-Lênin
-import { useRef } from "react";
 import {
   DraggableCardBody,
   DraggableCardContainer,
@@ -9,7 +8,6 @@ import { TypingAnimation } from "../magicui/Text Animations/TypingAnimation";
 import ExhibitImage from "./ExhibitImage";
 import HallLayout from "./HallLayout";
 import RevealOnScroll from "./RevealOnScroll";
-import { hallCardClass } from "./RevealOnScroll";
 
 const cardStyle = "prose prose-stone max-w-xs p-4 text-stone-700 shadow-2xl select-none overflow-hidden gold-glow-panel bg-white/90 border border-red-800/15 rounded-2xl hover:shadow-[0_8px_30px_rgba(185,28,28,0.1)] hover:border-red-500/30 group";
 
